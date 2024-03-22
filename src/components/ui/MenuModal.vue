@@ -1,0 +1,68 @@
+<template>
+  <teleport to="body">
+    <div
+      class="fixed left-0 top-0 z-10 h-screen w-full bg-gray-900/30 backdrop-blur"
+      v-on:click="hide"
+    ></div>
+
+    <div class="fixed left-0 top-0 z-50 min-h-80 w-80 bg-white shadow-lg">
+      <header class="mx-6 flex h-[4.5rem] items-center justify-between border-b">
+        <div>
+          <img src="@/assets/logo.svg" alt="QuizWiz Logo" />
+        </div>
+
+        <div>
+          <button v-on:click="hide">
+            <icon-close />
+          </button>
+        </div>
+      </header>
+
+      <menu class="mx-6">
+        <li class="border-b py-5">
+          <router-link to="/quizzes" class="font-inter text-lg font-semibold">Quizzes</router-link>
+        </li>
+
+        <li class="flex items-center gap-3 border-b py-5 font-inter">
+          <div
+            style="background-image: url(/src/assets/images/UserPhoto.jpeg)"
+            class="h-16 w-16 rounded-full bg-cover bg-center bg-no-repeat shadow-sm"
+          ></div>
+
+          <div>
+            <p class="font-semibold text-gray-900">Oliver Rhye</p>
+            <p class="text-xs text-gray-600">oliverrhye@gmail.com</p>
+          </div>
+        </li>
+      </menu>
+
+      <div class="mx-6 space-y-5 py-5 font-raleway text-sm font-bold">
+        <button class="shadow-xs h-12 w-full rounded bg-black">
+          <router-link to="/signup" class="leading-12 inline-block w-full text-white">
+            Sign up
+          </router-link>
+        </button>
+
+        <button class="bg-gray-150 shadow-xs h-12 w-full rounded">
+          <router-link to="/login" class="leading-12 inline-block w-full text-purple">
+            Log in
+          </router-link>
+        </button>
+      </div>
+    </div>
+  </teleport>
+</template>
+
+<script>
+import IconClose from '@/components/icons/IconClose.vue'
+
+export default {
+  components: { IconClose },
+  emits: ['hide'],
+  methods: {
+    hide() {
+      this.$emit('hide')
+    }
+  }
+}
+</script>
