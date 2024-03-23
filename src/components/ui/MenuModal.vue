@@ -37,14 +37,14 @@
       </menu>
 
       <div class="mx-6 space-y-5 py-5 font-raleway text-sm font-bold">
-        <button class="shadow-xs h-12 w-full rounded bg-black">
-          <router-link to="/signup" class="leading-12 inline-block w-full text-white">
+        <button class="h-12 w-full rounded bg-black shadow-xs">
+          <router-link to="/signup" class="inline-block w-full leading-12 text-white">
             Sign up
           </router-link>
         </button>
 
-        <button class="bg-gray-150 shadow-xs h-12 w-full rounded">
-          <router-link to="/login" class="leading-12 inline-block w-full text-purple">
+        <button class="h-12 w-full rounded bg-gray-150 shadow-xs">
+          <router-link to="/login" class="inline-block w-full leading-12 text-purple">
             Log in
           </router-link>
         </button>

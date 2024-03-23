@@ -1,20 +1,16 @@
 <template>
-  <div class="relative h-screen overflow-hidden">
+  <div class="relative overflow-hidden lg:h-screen">
     <div class="p-12 lg:px-24 lg:pb-28 lg:pt-0">
       <div>
         <img src="@/assets/images/HeroLogo.svg" alt="QuizWiz Logo" class="lg:h-64" />
-        <h1 class="font-raleway text-xl font-semibold text-gray lg:text-3xl">
+        <h1 class="w-max font-raleway text-xl font-semibold text-gray lg:text-3xl">
           Play with us, Explore with us
         </h1>
       </div>
     </div>
 
-    <div class="hidden lg:block">
-      <img
-        src="../assets/images/HeroImageLarge.png"
-        alt="Hero Illustration"
-        class="absolute right-0 top-14"
-      />
+    <div class="absolute right-0 top-14 hidden lg:block">
+      <img src="../assets/images/HeroImageLarge.png" alt="Hero Illustration" />
     </div>
 
     <div
@@ -30,7 +26,7 @@
     </div>
 
     <div class="flex h-64 items-center bg-orange px-12 lg:px-24">
-      <p class="w-full font-raleway font-black text-white">
+      <p class="w-full font-raleway font-black text-white lg:w-max">
         <span class="text-8xl">200+</span> <br />
         <span class="flex items-baseline justify-between">
           <span class="text-5xl underline lg:no-underline">Quiz games</span>
@@ -39,8 +35,8 @@
       </p>
     </div>
 
-    <div class="flex h-64 items-center bg-purple px-12 lg:px-24">
-      <p class="w-full font-raleway font-black text-white">
+    <div class="flex h-60 items-center bg-purple px-12 lg:px-24">
+      <p class="w-full font-raleway font-black text-white lg:w-max">
         <span class="text-8xl">25+</span> <br />
         <span class="flex items-baseline justify-between">
           <span class="w-min text-5xl underline lg:w-max lg:no-underline">Different genres</span>
