@@ -3,21 +3,21 @@
     <div class="p-12 lg:px-24 lg:pb-28 lg:pt-0">
       <div>
         <img src="@/assets/images/HeroLogo.svg" alt="QuizWiz Logo" class="lg:h-64" />
-        <h1 class="w-max font-raleway text-xl font-semibold text-gray lg:text-3xl">
+        <h1 class="w-max font-raleway text-xl font-semibold text-zinc-500 lg:text-3xl">
           Play with us, Explore with us
         </h1>
       </div>
     </div>
 
     <div class="absolute right-0 top-14 hidden lg:block">
-      <img src="../assets/images/HeroImageLarge.png" alt="Hero Illustration" />
+      <img src="../assets/images/HeroImageLarge.svg" alt="Hero Illustration" />
     </div>
 
     <div
       class="bg-no-repeat lg:hidden"
-      style="background-image: url(/src/assets/images/HeroImage.svg)"
+      style="background-image: url('src/assets/images/HeroImage.svg')"
     >
-      <p class="px-16 pb-12 pt-56 font-raleway text-5xl font-bold text-slate">
+      <p class="px-16 pb-12 pt-56 font-raleway text-5xl font-bold text-cyan-50">
         Our mission <br />
         is to <br />
         entertain <br />

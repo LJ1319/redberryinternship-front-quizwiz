@@ -1,11 +1,11 @@
 <template>
   <div class="flex min-h-screen flex-col">
-    <page-header />
+    <router-view name="header" />
 
     <main class="flex-1">
       <router-view />
     </main>
 
-    <page-footer />
+    <router-view name="footer" />
   </div>
 </template>
