@@ -1,5 +1,5 @@
 <template>
-  <div class="font-inter" :class="classes">
+  <div class="space-y-1.5 font-inter">
     <slot />
   </div>
 </template>
