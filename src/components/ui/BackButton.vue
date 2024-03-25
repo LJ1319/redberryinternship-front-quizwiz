@@ -1,7 +1,7 @@
 <template>
   <button
     v-on:click="$router.go(-1)"
-    class="mx-16 my-10 hidden w-max items-center justify-center gap-2 lg:flex"
+    class="mx-0 my-10 flex w-max items-center justify-center gap-2 lg:mx-16"
   >
     <span>
       <icon-back />
@@ -12,6 +12,7 @@
 
 <script>
 import IconBack from '@/components/icons/IconBack.vue'
+
 export default {
   components: {
     IconBack
