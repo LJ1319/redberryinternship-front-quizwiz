@@ -1,12 +1,10 @@
 <template>
   <div class="relative overflow-hidden lg:h-screen">
     <div class="p-12 lg:px-24 lg:pb-28 lg:pt-0">
-      <div>
-        <img src="@/assets/images/HeroLogo.svg" alt="QuizWiz Logo" class="lg:h-64" />
-        <h1 class="w-max font-raleway text-xl font-semibold text-zinc-500 lg:text-3xl">
-          Play with us, Explore with us
-        </h1>
-      </div>
+      <img src="../assets/images/HeroTitle.svg" alt="QuizWiz Logo" class="lg:h-64" />
+      <h1 class="w-max font-raleway text-xl font-semibold text-zinc-500 lg:text-3xl">
+        Play with us, Explore with us
+      </h1>
     </div>
 
     <div class="absolute right-0 top-14 hidden lg:block">

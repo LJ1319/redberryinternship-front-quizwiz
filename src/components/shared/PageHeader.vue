@@ -1,7 +1,7 @@
 <template>
   <header class="flex h-[4.5rem] items-center justify-between border-b px-6 lg:px-24">
     <div class="items-center justify-center gap-16 lg:flex">
-      <router-link to="/" class="inline-block">
+      <router-link to="/">
         <img src="@/assets/logo.svg" alt="QuizWiz Logo" />
       </router-link>
 

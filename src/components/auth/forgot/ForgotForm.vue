@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="submit" class="mb-40 lg:mx-20 lg:my-16 lg:w-3/5">
+  <form v-on:submit.prevent="submit" class="lg:mx-20 lg:my-16 lg:w-3/5">
     <div class="mb-16 mt-8 space-y-6 text-center lg:text-start">
       <h1 class="font-raleway text-3xl font-extrabold">Forgot Password?</h1>
       <p class="font-inter text-sm text-gray-600">
