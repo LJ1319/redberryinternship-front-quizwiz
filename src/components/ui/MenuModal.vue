@@ -1,9 +1,6 @@
 <template>
   <teleport to="body">
-    <div
-      class="fixed left-0 top-0 z-10 h-screen w-full bg-gray-900/30 backdrop-blur"
-      v-on:click="hide"
-    ></div>
+    <page-backdrop v-on:click="hide" />
 
     <div class="fixed left-0 top-0 z-50 min-h-80 w-80 bg-white shadow-lg">
       <header class="mx-6 flex h-[4.5rem] items-center justify-between border-b">
@@ -25,8 +22,8 @@
 
         <li class="flex items-center gap-3 border-b py-5 font-inter">
           <div
-            style="background-image: url(/src/assets/images/UserPhoto.jpeg)"
-            class="h-16 w-16 rounded-full bg-cover bg-center bg-no-repeat shadow-sm"
+            style="background-image: url('/src/assets/images/UserAvatar.jpeg')"
+            class="h-16 w-16 rounded-full bg-cover bg-center bg-no-repeat shadow-csm"
           ></div>
 
           <div>
@@ -37,13 +34,13 @@
       </menu>
 
       <div class="mx-6 space-y-5 py-5 font-raleway text-sm font-bold">
-        <button class="h-12 w-full rounded bg-black shadow-xs">
+        <button class="h-12 w-full rounded bg-black shadow-cxs">
           <router-link to="/signup" class="inline-block w-full leading-12 text-white">
             Sign up
           </router-link>
         </button>
 
-        <button class="h-12 w-full rounded bg-gray-150 shadow-xs">
+        <button class="h-12 w-full rounded bg-gray-150 shadow-cxs">
           <router-link to="/login" class="inline-block w-full leading-12 text-purple">
             Log in
           </router-link>
@@ -54,10 +51,11 @@
 </template>
 
 <script>
+import PageBackdrop from '@/components/shared/PageBackdrop.vue'
 import IconClose from '@/components/icons/IconClose.vue'
 
 export default {
-  components: { IconClose },
+  components: { PageBackdrop, IconClose },
   emits: ['hide'],
   methods: {
     hide() {

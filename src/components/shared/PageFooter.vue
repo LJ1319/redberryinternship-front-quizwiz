@@ -2,7 +2,7 @@
   <footer>
     <div class="w-full px-10 py-6 font-inter lg:flex lg:gap-32 lg:px-24 lg:py-12">
       <div class="border-b pb-6 lg:border-0">
-        <img src="@/assets/logo.svg" alt="QuizWiz Logo" class="h-5" />
+        <img src="@/assets/logo.svg" alt="QuizWiz Logo" />
       </div>
 
       <div class="mt-6 space-y-4 lg:mt-0">
