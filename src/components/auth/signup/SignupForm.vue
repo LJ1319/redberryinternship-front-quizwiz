@@ -13,7 +13,7 @@
           type="text"
           name="username"
           placeholder="Your username"
-          :validate="validateUsername"
+          rules="required|min:3"
         />
       </form-group>
 
@@ -23,7 +23,7 @@
           type="email"
           name="email"
           placeholder="Example@gmail.com"
-          :validate="validateEmail"
+          rules="required|email"
         />
       </form-group>
 
@@ -33,7 +33,7 @@
           type="password"
           name="password"
           placeholder="must be at least 3 characters"
-          :validate="validatePassword"
+          rules="required|min:3"
         />
       </form-group>
 
@@ -42,17 +42,13 @@
         <form-input
           type="password"
           name="password_confirmation"
-          placeholder="must be identical to password"
-          :validate="validatePasswordConfirm"
+          placeholder="must match to password"
+          rules="required|confirmed:password"
         />
       </form-group>
 
       <form-group>
-        <form-checkbox
-          name="terms"
-          :validate="validateTerms"
-          text="I accept terms and privacy policy"
-        />
+        <form-checkbox name="terms" text="I accept terms and privacy policy" rules="required" />
       </form-group>
     </div>
 
@@ -89,58 +85,6 @@ export default {
   methods: {
     onSubmit(values) {
       console.log(values)
-    },
-    validateUsername(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      if (value.length < 3) {
-        return 'Must be at least 3 characters'
-      }
-
-      return true
-    },
-    validateEmail(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-      if (!regex.test(value)) {
-        return 'This field must be a valid email'
-      }
-
-      return true
-    },
-    validatePassword(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      if (value.length < 3) {
-        return 'Must be at least 3 characters'
-      }
-
-      return true
-    },
-    validatePasswordConfirm(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      if (value.length < 3) {
-        return 'Must be at least 3 characters'
-      }
-
-      return true
-    },
-    validateTerms(value) {
-      if (!value) {
-        return 'You must accept terms and privacy policy'
-      }
-
-      return true
     }
   }
 }

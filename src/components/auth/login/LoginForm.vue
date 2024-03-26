@@ -1,5 +1,5 @@
 <template>
-  <Form v-on:submit="submit" class="lg:mx-20 lg:my-16 lg:w-3/5">
+  <Form v-on:submit="onSubmit" class="lg:mx-20 lg:my-16 lg:w-3/5">
     <div class="mb-10 mt-8 space-y-6">
       <div class="flex items-center justify-center gap-2 lg:justify-start">
         <h1 class="font-raleway text-3xl font-extrabold">Hi, Welcome!</h1>
@@ -12,7 +12,7 @@
     <div class="space-y-6">
       <form-group classes="space-y-1.5">
         <form-label for="email" text="Email address" />
-        <form-input type="email" name="email" placeholder="Your email" :validate="validateEmail" />
+        <form-input type="email" name="email" placeholder="Your email" rules="required|email" />
       </form-group>
 
       <form-group classes="space-y-1.5">
@@ -20,8 +20,8 @@
         <form-input
           type="password"
           name="password"
-          placeholder="must be 8 characters"
-          :validate="validatePassword"
+          placeholder="must be at least 3 characters"
+          rules="required|min:3"
         />
       </form-group>
 
@@ -69,31 +69,8 @@ export default {
     FormButton
   },
   methods: {
-    submit() {
-      console.log('login')
-    },
-    validateEmail(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-      if (!regex.test(value)) {
-        return 'This field must be a valid email'
-      }
-
-      return true
-    },
-    validatePassword(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      if (value.length < 8) {
-        return 'Must be at least 8 characters'
-      }
-
-      return true
+    onSubmit(values) {
+      console.log(values)
     }
   }
 }

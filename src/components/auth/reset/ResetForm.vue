@@ -1,5 +1,5 @@
 <template>
-  <Form v-on:submit.prevent="submit" class="my-12 lg:mx-20 lg:my-32 lg:w-3/5">
+  <Form v-on:submit="onSubmit" class="my-12 lg:mx-20 lg:my-32 lg:w-3/5">
     <div class="mb-16 space-y-6 text-center lg:mt-8 lg:text-start">
       <h1 class="font-raleway text-3xl font-extrabold">Reset Password</h1>
       <p class="font-inter text-sm text-gray-700">Please type something you’ll remember</p>
@@ -9,22 +9,22 @@
 
     <div class="space-y-6">
       <form-group classes="space-y-1.5">
-        <form-label for="password" text="New password" />
+        <form-label for="new_password" text="New password" />
         <form-input
           type="password"
-          name="password"
+          name="new_password"
           placeholder="must be at least 3 characters"
-          :validate="validatePassword"
+          rules="required|min:3"
         />
       </form-group>
 
       <form-group classes="space-y-1.5">
-        <form-label for="password" text="Confirm password" />
+        <form-label for="password_confirmation" text="Confirm password" />
         <form-input
           type="password"
           name="password_confirmation"
-          placeholder="must be identical to password"
-          :validate="validatePasswordConfirm"
+          placeholder="must match to new  password"
+          rules="required|confirmed:new_password"
         />
       </form-group>
     </div>
@@ -58,30 +58,8 @@ export default {
     FormButton
   },
   methods: {
-    submit() {
-      console.log('reset')
-    },
-    validatePassword(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      if (value.length < 8) {
-        return 'Must be at least 8 characters'
-      }
-
-      return true
-    },
-    validatePasswordConfirm(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      if (value.length < 8) {
-        return 'Must be at least 8 characters'
-      }
-
-      return true
+    onSubmit(values) {
+      console.log(values)
     }
   }
 }

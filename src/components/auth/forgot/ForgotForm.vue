@@ -1,5 +1,5 @@
 <template>
-  <Form v-on:submit="submit" class="lg:mx-20 lg:my-16 lg:w-3/5">
+  <Form v-on:submit="onSubmit" class="lg:mx-20 lg:my-16 lg:w-3/5">
     <div class="mb-16 mt-8 space-y-6 text-center lg:text-start">
       <h1 class="font-raleway text-3xl font-extrabold">Forgot Password?</h1>
       <p class="font-inter text-sm text-gray-600">
@@ -10,7 +10,7 @@
     <div class="space-y-6">
       <form-group classes="space-y-1.5">
         <form-label for="email" text="Email address" />
-        <form-input type="email" name="email" placeholder="Your email" :validate="validateEmail" />
+        <form-input type="email" name="email" placeholder="Your email" rules="required|email" />
       </form-group>
     </div>
 
@@ -34,20 +34,8 @@ export default {
     FormButton
   },
   methods: {
-    submit() {
-      console.log('forgot')
-    },
-    validateEmail(value) {
-      if (!value) {
-        return 'This field is required'
-      }
-
-      const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-      if (!regex.test(value)) {
-        return 'This field must be a valid email'
-      }
-
-      return true
+    onSubmit(values) {
+      console.log(values)
     }
   }
 }

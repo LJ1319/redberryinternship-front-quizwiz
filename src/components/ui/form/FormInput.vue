@@ -4,7 +4,7 @@
     class="relative"
     v-slot="{ field, errors }"
     :name="name"
-    :rules="validate"
+    :rules="rules"
     :validate-on-input="true"
   >
     <input
@@ -14,7 +14,7 @@
       :id="name"
       :placeholder="placeholder"
       class="block h-14 w-full rounded-[0.625rem] border bg-white p-4 outline-none focus:ring-2 focus:ring-indigo-200"
-      :class="errors.length > 0 && 'border-[#FDA29B] focus:ring-0'"
+      :class="errors.length > 0 && 'border-[#FDA29B] focus:ring-0 focus:ring-opacity-0'"
     />
 
     <span class="absolute right-0 top-0 mx-4 my-5" v-if="errors.length > 0">
@@ -42,7 +42,7 @@ import IconHide from '@/components/icons/IconHide.vue'
 
 export default {
   components: { IconHide, IconShow, Field, IconError, ErrorMessage },
-  props: ['type', 'name', 'placeholder', 'validate'],
+  props: ['type', 'name', 'placeholder', 'rules'],
   data() {
     return {
       isPassword: this.type === 'password'

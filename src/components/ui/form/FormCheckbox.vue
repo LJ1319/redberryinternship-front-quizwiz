@@ -1,13 +1,13 @@
 <template>
   <Field
+    as="div"
+    class="flex items-center gap-3"
     v-slot="{ field }"
     :name="name"
     type="checkbox"
     :value="true"
     :unchecked-value="false"
-    :rules="validate"
-    as="div"
-    class="flex items-center gap-3"
+    :rules="rules"
   >
     <input
       v-bind="field"
@@ -37,6 +37,6 @@ export default {
     IconCheck,
     ErrorMessage
   },
-  props: ['name', 'validate', 'text']
+  props: ['name', 'text', 'rules']
 }
 </script>
