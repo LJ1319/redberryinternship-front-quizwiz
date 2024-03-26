@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="submit" class="lg:mx-20 lg:my-16 lg:w-3/5">
+  <Form v-on:submit="onSubmit" class="lg:mx-20 lg:my-16 lg:w-3/5">
     <div class="mb-10 mt-8 space-y-6">
       <div class="flex items-center justify-center gap-2 lg:justify-start">
         <h1 class="font-raleway text-3xl font-extrabold">Hi, Welcome!</h1>
@@ -12,31 +12,22 @@
     <div class="space-y-6">
       <form-group classes="space-y-1.5">
         <form-label for="email" text="Email address" />
-        <form-input type="email" name="email" placeholder="Your email" :is-required="true" />
+        <form-input type="email" name="email" placeholder="Your email" rules="required|email" />
       </form-group>
 
       <form-group classes="space-y-1.5">
         <form-label for="password" text="Password" />
-        <form-password-toggle
+        <form-input
+          type="password"
           name="password"
-          placeholder="must be 8 characters"
-          :is-required="true"
+          placeholder="must be at least 3 characters"
+          rules="required|min:3"
         />
       </form-group>
 
       <div class="flex justify-between">
-        <form-group class="flex items-center gap-3">
-          <form-input
-            type="checkbox"
-            name="Remember"
-            classes="peer relative h-5 w-5 appearance-none rounded-full border checked:border-0 checked:bg-black focus:outline-none"
-          />
-          <icon-check class="pointer-events-none absolute mx-1 hidden peer-checked:block" />
-          <form-label
-            for="remember"
-            text="Remember for 30 days"
-            class="font-inter text-sm text-gray-700"
-          />
+        <form-group>
+          <form-checkbox name="remember" text="Remember for 30 days?" />
         </form-group>
 
         <span class="font-inter text-sm text-gray-700">
@@ -53,33 +44,33 @@
       action="Sign up"
       class="hidden lg:block"
     />
-  </form>
+  </Form>
 </template>
 
 <script>
+import { Form } from 'vee-validate'
 import IconWavingHand from '@/components/icons/IconWavingHand.vue'
 import FormLink from '@/components/ui/form/FormLink.vue'
 import FormGroup from '@/components/ui/form/FormGroup.vue'
 import FormInput from '@/components/ui/form/FormInput.vue'
 import FormLabel from '@/components/ui/form/FormLabel.vue'
-import FormPasswordToggle from '@/components/ui/form/FormPasswordToggle.vue'
-import IconCheck from '@/components/icons/IconCheck.vue'
+import FormCheckbox from '@/components/ui/form/FormCheckbox.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 
 export default {
   components: {
+    Form,
     IconWavingHand,
     FormLink,
     FormGroup,
     FormLabel,
     FormInput,
-    FormPasswordToggle,
-    IconCheck,
+    FormCheckbox,
     FormButton
   },
   methods: {
-    submit() {
-      console.log('login')
+    onSubmit(values) {
+      console.log(values)
     }
   }
 }

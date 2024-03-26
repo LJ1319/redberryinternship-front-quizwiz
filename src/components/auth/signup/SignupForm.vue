@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="submit" class="lg:mx-20 lg:my-16 lg:w-3/5">
+  <Form v-on:submit="onSubmit" class="lg:mx-20 lg:my-16 lg:w-3/5">
     <div class="mb-10 mt-8 space-y-6 text-center lg:text-start">
       <h1 class="font-raleway text-3xl font-extrabold">Create Account</h1>
 
@@ -7,47 +7,48 @@
     </div>
 
     <div class="space-y-6">
-      <form-group classes="space-y-1.5">
+      <form-group>
         <form-label for="username" text="Username" />
         <form-input
-          type="username"
+          type="text"
           name="username"
           placeholder="Your username"
-          :is-required="true"
+          rules="required|min:3"
         />
       </form-group>
 
-      <form-group classes="space-y-1.5">
+      <form-group>
         <form-label for="email" text="Email" />
-        <form-input type="email" name="email" placeholder="Example@gmail.com" :is-required="true" />
-      </form-group>
-
-      <form-group classes="space-y-1.5">
-        <form-label for="password" text="Create a password" />
-        <form-password-toggle
-          name="password"
-          placeholder="must be 8 characters"
-          :is-required="true"
-        />
-      </form-group>
-
-      <form-group classes="space-y-1.5">
-        <form-label for="password" text="Confirm password" />
-        <form-password-toggle
-          name="password_confirmation"
-          placeholder="must be 8 characters"
-          :is-required="true"
-        />
-      </form-group>
-
-      <form-group classes="flex items-center gap-3">
         <form-input
-          type="checkbox"
-          name="terms"
-          classes="peer relative h-5 w-5 appearance-none rounded-full border checked:border-0 checked:bg-black focus:outline-none"
+          type="email"
+          name="email"
+          placeholder="Example@gmail.com"
+          rules="required|email"
         />
-        <icon-check class="pointer-events-none absolute mx-1 hidden peer-checked:block" />
-        <form-label for="terms" text="I agree to terms and privacy policy" />
+      </form-group>
+
+      <form-group>
+        <form-label for="password" text="Create a password" />
+        <form-input
+          type="password"
+          name="password"
+          placeholder="must be at least 3 characters"
+          rules="required|min:3"
+        />
+      </form-group>
+
+      <form-group>
+        <form-label for="password" text="Confirm password" />
+        <form-input
+          type="password"
+          name="password_confirmation"
+          placeholder="must match to password"
+          rules="required|confirmed:password"
+        />
+      </form-group>
+
+      <form-group>
+        <form-checkbox name="terms" text="I accept terms and privacy policy" rules="required" />
       </form-group>
     </div>
 
@@ -59,31 +60,31 @@
       action="Log in"
       class="hidden lg:block"
     />
-  </form>
+  </Form>
 </template>
 
 <script>
+import { Form } from 'vee-validate'
 import FormLink from '@/components/ui/form/FormLink.vue'
 import FormGroup from '@/components/ui/form/FormGroup.vue'
 import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormInput from '@/components/ui/form/FormInput.vue'
-import FormPasswordToggle from '@/components/ui/form/FormPasswordToggle.vue'
-import IconCheck from '@/components/icons/IconCheck.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
+import FormCheckbox from '@/components/ui/form/FormCheckbox.vue'
 
 export default {
   components: {
+    Form,
     FormLink,
     FormGroup,
     FormLabel,
     FormInput,
-    FormPasswordToggle,
-    IconCheck,
+    FormCheckbox,
     FormButton
   },
   methods: {
-    submit() {
-      console.log('submitted')
+    onSubmit(values) {
+      console.log(values)
     }
   }
 }

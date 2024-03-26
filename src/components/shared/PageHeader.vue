@@ -27,8 +27,11 @@
           </router-link>
         </button>
 
-        <button class="rounded bg-white shadow-cxs">
-          <router-link to="/login" class="group flex items-center justify-center gap-2 text-purple">
+        <button class="rounded bg-white shadow-cxs focus:outline-none">
+          <router-link
+            to="/login"
+            class="group flex items-center justify-center gap-2 text-purple focus:outline-none"
+          >
             <span>Log in</span>
             <span class="opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100">
               <icon-next-dark />

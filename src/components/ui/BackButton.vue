@@ -1,7 +1,7 @@
 <template>
   <button
     v-on:click="$router.go(-1)"
-    class="mx-0 my-10 flex w-max items-center justify-center gap-2 lg:mx-16"
+    class="mx-0 flex w-max items-center justify-center gap-2 lg:mx-16"
   >
     <span>
       <icon-back />
