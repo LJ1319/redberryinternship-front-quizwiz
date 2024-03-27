@@ -1,19 +1,19 @@
 <template>
   <button
-    class="group my-10 flex h-14 w-full items-center justify-center gap-2 rounded-[0.625rem] bg-black font-inter font-semibold text-white"
+    class="group mt-10 flex h-14 w-full items-center justify-center gap-2 rounded-[0.625rem] bg-black font-inter font-semibold text-white focus:outline-none focus:ring-2 focus:ring-indigo-200 lg:my-10"
   >
     <span> {{ text }}</span>
     <span class="opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100">
-      <icon-next-light />
+      <icon-next color="white" />
     </span>
   </button>
 </template>
 
 <script>
-import IconNextLight from '@/components/icons/IconNextLight.vue'
+import IconNext from '@/components/icons/IconNext.vue'
 
 export default {
-  components: { IconNextLight },
+  components: { IconNext },
   props: ['text']
 }
 </script>

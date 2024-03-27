@@ -57,6 +57,8 @@ import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormCheckbox from '@/components/ui/form/FormCheckbox.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 
+import { InitializeCSRFProtection, Login, RetrieveAuthUser } from '@/services/api/auth.js'
+
 export default {
   components: {
     Form,
@@ -69,8 +71,15 @@ export default {
     FormButton
   },
   methods: {
-    onSubmit(values) {
-      console.log(values)
+    async onSubmit(values) {
+      await InitializeCSRFProtection
+      await Login({
+        email: values.email,
+        password: values.password
+      })
+
+      const { data, status } = await RetrieveAuthUser()
+      console.log(data, status)
     }
   }
 }

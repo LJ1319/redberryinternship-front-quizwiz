@@ -72,6 +72,8 @@ import FormInput from '@/components/ui/form/FormInput.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 import FormCheckbox from '@/components/ui/form/FormCheckbox.vue'
 
+import { InitializeCSRFProtection, Signup } from '@/services/api/auth.js'
+
 export default {
   components: {
     Form,
@@ -83,8 +85,16 @@ export default {
     FormButton
   },
   methods: {
-    onSubmit(values) {
-      console.log(values)
+    async onSubmit(values) {
+      await InitializeCSRFProtection()
+
+      const { data, status } = await Signup({
+        username: values.username,
+        email: values.email,
+        password: values.password
+      })
+
+      console.log(data, status)
     }
   }
 }

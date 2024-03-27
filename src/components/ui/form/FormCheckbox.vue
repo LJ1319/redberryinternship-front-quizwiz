@@ -15,7 +15,7 @@
       :name="name"
       :id="name"
       :value="true"
-      class="peer relative h-5 w-5 appearance-none rounded-full border checked:border-0 checked:bg-black focus:outline-none"
+      class="peer relative h-5 w-5 appearance-none rounded-full border checked:border-0 checked:bg-black focus:outline-none focus:ring-1 focus:ring-indigo-200"
     />
 
     <icon-check class="pointer-events-none absolute mx-1 hidden peer-checked:block" />

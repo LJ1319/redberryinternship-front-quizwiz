@@ -34,7 +34,7 @@
           >
             <span>Log in</span>
             <span class="opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100">
-              <icon-next-dark />
+              <icon-next color="#4B69FD" />
             </span>
           </router-link>
         </button>
@@ -48,13 +48,13 @@
 <script>
 import IconMenu from '@/components/icons/IconMenu.vue'
 import MenuModal from '@/components/ui/MenuModal.vue'
-import IconNextDark from '@/components/icons/IconNextDark.vue'
+import IconNext from '@/components/icons/IconNext.vue'
 
 export default {
   components: {
     IconMenu,
     MenuModal,
-    IconNextDark
+    IconNext
   },
   data() {
     return {
