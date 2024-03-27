@@ -1,12 +1,5 @@
 <template>
-  <Field
-    as="div"
-    class="relative"
-    v-slot="{ field, errors }"
-    :name="name"
-    :rules="rules"
-    :validate-on-input="true"
-  >
+  <Field v-slot="{ field, errors }" :name="name" :rules="rules" :validate-on-input="true">
     <input
       v-bind="field"
       :type="isPassword ? 'password' : 'text'"
@@ -17,12 +10,12 @@
       :class="errors.length > 0 && 'border-[#FDA29B] focus:ring-0 focus:ring-opacity-0'"
     />
 
-    <span class="absolute right-0 top-0 mx-4 my-5" v-if="errors.length > 0">
+    <span class="absolute right-0 top-11 mx-4 my-5" v-if="errors.length > 0">
       <icon-error />
     </span>
 
     <span
-      class="absolute right-0 top-0 mx-4 my-5"
+      class="absolute right-0 top-11 mx-4 my-5"
       :class="errors.length > 0 ? 'right-6' : 'right-0'"
       v-if="type === 'password'"
     >

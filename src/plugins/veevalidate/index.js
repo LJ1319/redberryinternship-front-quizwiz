@@ -1,7 +1,7 @@
 import { defineRule } from 'vee-validate'
 import { emailRegex } from '@/config/regex.js'
 
-export default function defineGlobalValidators() {
+export default function veevalidate() {
   defineRule('required', (value) => {
     if (!value) {
       return 'This field is required'
