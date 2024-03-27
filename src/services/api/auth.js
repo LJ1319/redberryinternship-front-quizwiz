@@ -5,18 +5,11 @@ export const InitializeCSRFProtection = async () => {
 }
 
 export const Signup = async (credentials) => {
-  return await axios.post('/api/signup', {
-    username: credentials.username,
-    email: credentials.email,
-    password: credentials.password
-  })
+  return await axios.post('/api/signup', credentials)
 }
 
 export const Login = async (credentials) => {
-  return await axios.post('/api/login', {
-    email: credentials.email,
-    password: credentials.password
-  })
+  return await axios.post('/api/login', credentials)
 }
 
 export const RetrieveAuthUser = async () => {
