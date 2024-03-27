@@ -91,7 +91,9 @@ export default {
       const { data, status } = await Signup({
         username: values.username,
         email: values.email,
-        password: values.password
+        password: values.password,
+        password_confirmation: values.password_confirmation,
+        terms: values.terms
       })
 
       console.log(data, status)
