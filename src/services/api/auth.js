@@ -8,6 +8,10 @@ export const Signup = async (credentials) => {
   return await axios.post('/api/signup', credentials)
 }
 
+export const VerifyEmail = async (url) => {
+  return await axios.get(url)
+}
+
 export const Login = async (credentials) => {
   return await axios.post('/api/login', credentials)
 }
