@@ -5,7 +5,15 @@ export const InitializeCSRFProtection = async () => {
 }
 
 export const Signup = async (credentials) => {
+  await InitializeCSRFProtection()
+
   return await axios.post('/api/signup', credentials)
+}
+
+export const ResendVerification = async (credentials) => {
+  await InitializeCSRFProtection()
+
+  return await axios.post('api/email/verification-notification', credentials)
 }
 
 export const VerifyEmail = async (url) => {
@@ -13,6 +21,8 @@ export const VerifyEmail = async (url) => {
 }
 
 export const Login = async (credentials) => {
+  await InitializeCSRFProtection()
+
   return await axios.post('/api/login', credentials)
 }
 

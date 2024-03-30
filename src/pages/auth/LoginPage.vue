@@ -31,7 +31,6 @@ export default {
       const url = `${verifyUrl}&signature=${signature}`
 
       const { data } = await VerifyEmail(url)
-
       console.log(data)
     }
   }

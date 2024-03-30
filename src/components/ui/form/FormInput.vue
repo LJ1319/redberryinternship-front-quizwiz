@@ -3,11 +3,10 @@
     <input
       v-bind="field"
       :type="isPassword ? 'password' : 'text'"
-      :name="name"
       :id="name"
       :placeholder="placeholder"
       class="block h-14 w-full rounded-[0.625rem] border bg-white p-4 outline-none focus:ring-2 focus:ring-indigo-200"
-      :class="errors.length > 0 && 'border-[#FDA29B] focus:ring-0 focus:ring-opacity-0'"
+      :class="errors.length > 0 && 'border-red-300 focus:ring-0 focus:ring-opacity-0'"
     />
 
     <span class="absolute right-0 top-11 mx-4 my-5" v-if="errors.length > 0">
@@ -24,7 +23,7 @@
     </span>
   </Field>
 
-  <error-message as="p" :name="name" class="font-inter text-sm text-[#F04438]" />
+  <error-message as="p" :name="name" class="font-inter text-xs text-red-500" />
 </template>
 
 <script>
