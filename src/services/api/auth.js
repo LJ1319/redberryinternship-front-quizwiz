@@ -8,16 +8,20 @@ export const Signup = async (credentials) => {
   return await axios.post('/api/signup', credentials)
 }
 
-export const ResendVerification = async (credentials) => {
-  return await axios.post('api/email/verification-notification', credentials)
-}
-
 export const VerifyEmail = async (url) => {
   return await axios.get(url)
 }
 
+export const ResendVerification = async (credentials) => {
+  return await axios.post('api/email/verification-notification', credentials)
+}
+
 export const Login = async (credentials) => {
   return await axios.post('/api/login', credentials)
+}
+
+export const Reset = async (url, credentials) => {
+  return await axios.post(url, credentials)
 }
 
 export const RetrieveAuthUser = async () => {

@@ -36,11 +36,13 @@ export default {
     FormButton
   },
   methods: {
-    async onSubmit(values, { setErrors }) {
+    async onSubmit(values, { resetForm, setErrors }) {
       try {
         await ResendVerification({
           email: values.email
         })
+
+        resetForm()
       } catch (err) {
         setErrors({
           email: err.response.data.message
