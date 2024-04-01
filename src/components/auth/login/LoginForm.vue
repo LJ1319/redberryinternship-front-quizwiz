@@ -80,15 +80,12 @@ export default {
   methods: {
     async onSubmit(values, { setErrors }) {
       try {
-        const { data, status } = await Login({
+        await Login({
           email: values.email,
           password: values.password,
           remember: values.remember ?? false
         })
-
-        console.log(data, status)
       } catch (err) {
-        console.log(err.response.data, err.response.status)
         setErrors({
           email: err.response.data.message
         })

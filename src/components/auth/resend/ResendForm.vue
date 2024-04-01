@@ -38,12 +38,10 @@ export default {
   methods: {
     async onSubmit(values, { setErrors }) {
       try {
-        const { data, status } = await ResendVerification({
+        await ResendVerification({
           email: values.email
         })
-        console.log(data, status)
       } catch (err) {
-        console.log(err.response.data, err.response.status)
         setErrors({
           email: err.response.data.message
         })

@@ -87,7 +87,7 @@ export default {
   methods: {
     async onSubmit(values, { setErrors, resetForm }) {
       try {
-        const { data, status } = await Signup({
+        await Signup({
           username: values.username,
           email: values.email,
           password: values.password,
@@ -95,10 +95,8 @@ export default {
           terms: values.terms
         })
 
-        console.log(data, status)
         resetForm()
       } catch (err) {
-        console.log(err.response.data, err.response.status)
         setErrors(err.response.data.errors)
       }
     }
