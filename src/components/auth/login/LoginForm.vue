@@ -27,7 +27,7 @@
 
       <div class="flex justify-between">
         <form-group>
-          <form-checkbox name="remember" text="Remember for 30 days?" />
+          <form-checkbox name="remember" text="Remember me" />
         </form-group>
 
         <span class="font-inter text-sm text-gray-700">
@@ -44,6 +44,13 @@
       action="Sign up"
       class="hidden lg:block"
     />
+
+    <form-link
+      text="Need to verify email?"
+      to="/resend"
+      action="Resend verification"
+      class="hidden lg:block"
+    />
   </Form>
 </template>
 
@@ -57,7 +64,7 @@ import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormCheckbox from '@/components/ui/form/FormCheckbox.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 
-import { InitializeCSRFProtection, Login } from '@/services/api/auth.js'
+import { Login } from '@/services/api/auth.js'
 
 export default {
   components: {
@@ -71,16 +78,17 @@ export default {
     FormButton
   },
   methods: {
-    async onSubmit(values) {
-      await InitializeCSRFProtection()
-
+    async onSubmit(values, { setErrors }) {
       try {
         await Login({
           email: values.email,
-          password: values.password
+          password: values.password,
+          remember: values.remember ?? false
         })
       } catch (err) {
-        console.log(err.response.data)
+        setErrors({
+          email: err.response.data.message
+        })
       }
     }
   }
