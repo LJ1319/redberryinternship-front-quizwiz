@@ -53,7 +53,7 @@
     />
   </Form>
 
-  <page-toast :show="show" :status="status" :title="title" :text="text" />
+  <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
 </template>
 
 <script>
@@ -83,10 +83,15 @@ export default {
   },
   data() {
     return {
-      show: false,
-      status: '',
-      title: '',
-      text: ''
+      toast: {
+        show: false,
+        status: '',
+        title: '',
+        text: '',
+        hide() {
+          setTimeout(() => (this.show = false), 4000)
+        }
+      }
     }
   },
   methods: {
@@ -98,13 +103,16 @@ export default {
           remember: values.remember ?? false
         })
 
-        this.show = true
-        this.status = 'success'
-        this.title = 'Successful action'
-        this.text = data.message
+        this.toast = {
+          show: true,
+          status: 'success',
+          title: 'Successful action',
+          text: data.message,
+          hide: this.toast.hide
+        }
 
+        this.toast.hide()
         resetForm()
-        this.hide()
       } catch (err) {
         if (err.response.status === 422) {
           setErrors({
@@ -112,16 +120,16 @@ export default {
           })
         }
 
-        this.show = true
-        this.status = 'error'
-        this.title = 'Error occurred'
-        this.text = err.response.data.message
+        this.toast = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message,
+          hide: this.toast.hide
+        }
 
-        this.hide()
+        this.toast.hide()
       }
-    },
-    hide() {
-      setTimeout(() => (this.show = false), 4000)
     }
   }
 }

@@ -19,6 +19,13 @@ export default {
     MainContent,
     ResetForm
   },
+  data() {
+    return {
+      url: '',
+      token: '',
+      email: ''
+    }
+  },
   async mounted() {
     if (
       this.$route.query.resetUrl &&
@@ -32,15 +39,6 @@ export default {
 
       this.token = this.$route.query.token
       this.email = this.$route.query.email
-    } else {
-      this.$router.push({ name: 'forgot-password' })
-    }
-  },
-  data() {
-    return {
-      url: '',
-      token: '',
-      email: ''
     }
   }
 }

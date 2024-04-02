@@ -7,7 +7,7 @@
       <login-form />
     </main-content>
 
-    <page-toast :show="show" :status="status" :title="title" :text="text" />
+    <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
   </div>
 </template>
 
@@ -30,10 +30,15 @@ export default {
   },
   data() {
     return {
-      show: false,
-      status: '',
-      title: '',
-      text: ''
+      toast: {
+        show: false,
+        status: '',
+        title: '',
+        text: '',
+        hide() {
+          setTimeout(() => (this.show = false), 4000)
+        }
+      }
     }
   },
   async mounted() {
@@ -45,25 +50,26 @@ export default {
       try {
         const { data } = await VerifyEmail(url)
 
-        this.show = true
-        this.status = 'success'
-        this.title = 'Successful action'
-        this.text = data.message
+        this.toast = {
+          show: true,
+          status: 'success',
+          title: 'Successful action',
+          text: data.message,
+          hide: this.toast.hide
+        }
 
-        this.hide()
+        this.toast.hide()
       } catch (err) {
-        this.show = true
-        this.status = 'error'
-        this.title = 'Error occurred'
-        this.text = err.response.data.message
+        this.toast = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message,
+          hide: this.toast.hide
+        }
 
-        this.hide()
+        this.toast.hide()
       }
-    }
-  },
-  methods: {
-    hide() {
-      setTimeout(() => (this.show = false), 4000)
     }
   }
 }
