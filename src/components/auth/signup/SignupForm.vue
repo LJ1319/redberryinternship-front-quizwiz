@@ -117,14 +117,14 @@ export default {
       } catch (err) {
         if (err.response.status === 422) {
           setErrors(err.response.data.errors)
-
-          this.show = true
-          this.status = 'error'
-          this.title = 'Error occurred'
-          this.text = err.response.data.message
-
-          this.hide()
         }
+
+        this.show = true
+        this.status = 'error'
+        this.title = 'Error occurred'
+        this.text = err.response.data.message
+
+        this.hide()
       }
     },
     hide() {

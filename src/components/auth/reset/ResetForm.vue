@@ -94,14 +94,14 @@ export default {
           setErrors({
             new_password: err.response.data.message
           })
-
-          this.show = true
-          this.status = 'error'
-          this.title = 'Error Occurred'
-          this.text = err.response.data.message
-
-          this.hide()
         }
+
+        this.show = true
+        this.status = 'error'
+        this.title = 'Error Occurred'
+        this.text = err.response.data.message
+
+        this.hide()
       }
     },
     hide() {

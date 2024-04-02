@@ -26,9 +26,9 @@ import FormGroup from '@/components/ui/form/FormGroup.vue'
 import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormInput from '@/components/ui/form/FormInput.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
+import PageToast from '@/components/shared/PageToast.vue'
 
 import { ForgotPassword } from '@/services/api/auth.js'
-import PageToast from '@/components/shared/PageToast.vue'
 
 export default {
   components: {
@@ -66,14 +66,14 @@ export default {
           setErrors({
             email: err.response.data.email
           })
-
-          this.show = true
-          this.status = 'error'
-          this.title = 'Error Occurred'
-          this.text = err.response.data.email
-
-          this.hide()
         }
+
+        this.show = true
+        this.status = 'error'
+        this.title = 'Error Occurred'
+        this.text = err.response.data.email
+
+        this.hide()
       }
     },
     hide() {
