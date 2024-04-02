@@ -88,9 +88,11 @@ export default {
 
         resetForm()
       } catch (err) {
-        setErrors({
-          email: err.response.data.message
-        })
+        if (err.response.status === 422) {
+          setErrors({
+            email: err.response.data.message
+          })
+        }
       }
     }
   }

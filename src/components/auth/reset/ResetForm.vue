@@ -48,7 +48,7 @@ import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormInput from '@/components/ui/form/FormInput.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 
-import { Reset } from '@/services/api/auth.js'
+import { ResetPassword } from '@/services/api/auth.js'
 
 export default {
   components: {
@@ -63,7 +63,7 @@ export default {
   methods: {
     async onSubmit(values, { resetForm }) {
       try {
-        await Reset(this.url, {
+        await ResetPassword(this.url, {
           token: this.token,
           email: this.email,
           password: values.new_password,
@@ -72,7 +72,7 @@ export default {
 
         resetForm()
       } catch (err) {
-        console.log(err.response.data)
+        console.log(err.response)
       }
     }
   }

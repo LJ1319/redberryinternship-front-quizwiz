@@ -25,7 +25,7 @@ import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormInput from '@/components/ui/form/FormInput.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 
-import axios from '@/plugins/axios/index.js'
+import { ForgotPassword } from '@/services/api/auth.js'
 
 export default {
   components: {
@@ -38,15 +38,17 @@ export default {
   methods: {
     async onSubmit(values, { setErrors, resetForm }) {
       try {
-        await axios.post('api/forgot-password', {
+        await ForgotPassword({
           email: values.email
         })
 
         resetForm()
       } catch (err) {
-        setErrors({
-          email: err.response.data.email
-        })
+        if (err.response.status === 422) {
+          setErrors({
+            email: err.response.data.email
+          })
+        }
       }
     }
   }
