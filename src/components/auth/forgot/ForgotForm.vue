@@ -16,6 +16,8 @@
 
     <form-button text="Send" />
   </Form>
+
+  <page-toast :show="show" :status="status" :title="title" :text="text" />
 </template>
 
 <script>
@@ -26,6 +28,7 @@ import FormInput from '@/components/ui/form/FormInput.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 
 import { ForgotPassword } from '@/services/api/auth.js'
+import PageToast from '@/components/shared/PageToast.vue'
 
 export default {
   components: {
@@ -33,23 +36,48 @@ export default {
     FormGroup,
     FormLabel,
     FormInput,
-    FormButton
+    FormButton,
+    PageToast
+  },
+  data() {
+    return {
+      show: false,
+      status: '',
+      title: '',
+      text: ''
+    }
   },
   methods: {
     async onSubmit(values, { setErrors, resetForm }) {
       try {
-        await ForgotPassword({
+        const { data } = await ForgotPassword({
           email: values.email
         })
 
+        this.show = true
+        this.status = 'warning'
+        this.title = 'Action required'
+        this.text = data.status
+
         resetForm()
+        this.hide()
       } catch (err) {
         if (err.response.status === 422) {
           setErrors({
             email: err.response.data.email
           })
+
+          this.show = true
+          this.status = 'error'
+          this.title = 'Error Occurred'
+          this.text = err.response.data.email
+
+          this.hide()
         }
       }
+    },
+    hide() {
+      setTimeout(() => (this.show = false), 4000)
     }
   }
 }

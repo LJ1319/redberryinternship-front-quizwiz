@@ -16,6 +16,8 @@
 
     <form-button text="Resend" />
   </Form>
+
+  <page-toast :show="show" :status="status" :title="title" :text="text" />
 </template>
 
 <script>
@@ -24,6 +26,7 @@ import FormGroup from '@/components/ui/form/FormGroup.vue'
 import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormInput from '@/components/ui/form/FormInput.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
+import PageToast from '@/components/shared/PageToast.vue'
 
 import { ResendVerification } from '@/services/api/auth.js'
 
@@ -33,23 +36,48 @@ export default {
     FormGroup,
     FormLabel,
     FormInput,
-    FormButton
+    FormButton,
+    PageToast
+  },
+  data() {
+    return {
+      show: false,
+      status: '',
+      title: '',
+      text: ''
+    }
   },
   methods: {
     async onSubmit(values, { resetForm, setErrors }) {
       try {
-        await ResendVerification({
+        const { data } = await ResendVerification({
           email: values.email
         })
 
+        this.show = true
+        this.status = 'warning'
+        this.title = 'Action required'
+        this.text = data.message
+
         resetForm()
+        this.hide()
       } catch (err) {
         if (err.response.status === 422) {
           setErrors({
             email: err.response.data.message
           })
+
+          this.show = true
+          this.status = 'error'
+          this.title = 'Error Occurred'
+          this.text = err.response.data.message
+
+          this.hide()
         }
       }
+    },
+    hide() {
+      setTimeout(() => (this.show = false), 4000)
     }
   }
 }

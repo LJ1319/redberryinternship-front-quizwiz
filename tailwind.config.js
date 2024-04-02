@@ -43,7 +43,8 @@ export default {
         csm: '0px 1px 4px 0px rgba(0, 0, 0, 0.15)',
         cmd: '0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
         clg: '4px 4px 0px 0px rgba(0, 0, 0, 1)',
-        cxl: '0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)'
+        cxl: '0px 8px 10px 0px rgba(0, 0, 0, 0.2), 0px 6px 30px 0px rgba(0, 0, 0, 0.12), 0px 16px 24px 0px rgba(0, 0, 0, 0.14)',
+        c2xl: '0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)'
       }
     }
   }
