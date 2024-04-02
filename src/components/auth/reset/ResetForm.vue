@@ -32,7 +32,7 @@
     <form-button text="Reset password" />
 
     <form-link
-      text="Already have an account?"
+      text="Don't need to reset your password?"
       to="/login"
       action="Log in"
       class="hidden lg:block"
@@ -48,6 +48,8 @@ import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormInput from '@/components/ui/form/FormInput.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 
+import { ResetPassword } from '@/services/api/auth.js'
+
 export default {
   components: {
     Form,
@@ -57,9 +59,21 @@ export default {
     FormLabel,
     FormButton
   },
+  props: ['url', 'token', 'email'],
   methods: {
-    onSubmit(values) {
-      console.log(values)
+    async onSubmit(values, { resetForm }) {
+      try {
+        await ResetPassword(this.url, {
+          token: this.token,
+          email: this.email,
+          password: values.new_password,
+          password_confirmation: values.password_confirmation
+        })
+
+        resetForm()
+      } catch (err) {
+        console.log(err.response)
+      }
     }
   }
 }

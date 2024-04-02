@@ -25,12 +25,16 @@ export default {
     LoginForm
   },
   async mounted() {
-    if (this.$route.query.verifyUrl && this.$route.query.signature) {
-      const verifyUrl = this.$route.query.verifyUrl
+    if (this.$route.query.verificationUrl && this.$route.query.signature) {
+      const verificationUrl = this.$route.query.verificationUrl
       const signature = this.$route.query.signature
-      const url = `${verifyUrl}&signature=${signature}`
+      const url = `${verificationUrl}&signature=${signature}`
 
-      const { data } = await VerifyEmail(url)
+      try {
+        await VerifyEmail(url)
+      } catch (err) {
+        console.log(err.response)
+      }
     }
   }
 }

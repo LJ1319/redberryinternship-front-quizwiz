@@ -25,6 +25,8 @@ import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormInput from '@/components/ui/form/FormInput.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
 
+import { ForgotPassword } from '@/services/api/auth.js'
+
 export default {
   components: {
     Form,
@@ -34,8 +36,20 @@ export default {
     FormButton
   },
   methods: {
-    onSubmit(values) {
-      console.log(values)
+    async onSubmit(values, { setErrors, resetForm }) {
+      try {
+        await ForgotPassword({
+          email: values.email
+        })
+
+        resetForm()
+      } catch (err) {
+        if (err.response.status === 422) {
+          setErrors({
+            email: err.response.data.email
+          })
+        }
+      }
     }
   }
 }

@@ -3,7 +3,7 @@
     <page-cover style="background-image: url('src/assets/images/ForgotPassword.svg')" />
 
     <main-content>
-      <reset-form />
+      <reset-form :url="url" :token="token" :email="email" />
     </main-content>
   </div>
 </template>
@@ -18,6 +18,28 @@ export default {
     PageCover,
     MainContent,
     ResetForm
+  },
+  async mounted() {
+    if (
+      this.$route.query.resetUrl &&
+      this.$route.query.signature &&
+      this.$route.query.token &&
+      this.$route.query.email
+    ) {
+      const resetUrl = this.$route.query.resetUrl
+      const signature = this.$route.query.signature
+      this.url = `${resetUrl}&signature=${signature}`
+
+      this.token = this.$route.query.token
+      this.email = this.$route.query.email
+    }
+  },
+  data() {
+    return {
+      url: '',
+      token: '',
+      email: ''
+    }
   }
 }
 </script>
