@@ -14,7 +14,7 @@
       </form-group>
     </div>
 
-    <form-button text="Resend" />
+    <form-primary-button text="Resend" />
   </Form>
 
   <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
@@ -22,10 +22,10 @@
 
 <script>
 import { Form } from 'vee-validate'
-import FormGroup from '@/components/ui/form/FormGroup.vue'
-import FormLabel from '@/components/ui/form/FormLabel.vue'
-import FormInput from '@/components/ui/form/FormInput.vue'
-import FormButton from '@/components/ui/form/FormButton.vue'
+import FormGroup from '@/components/base/form/FormGroup.vue'
+import FormLabel from '@/components/base/form/FormLabel.vue'
+import FormInput from '@/components/base/form/FormInput.vue'
+import FormPrimaryButton from '@/components/base/form/FormPrimaryButton.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
 import { ResendVerification } from '@/services/api/auth.js'
@@ -36,7 +36,7 @@ export default {
     FormGroup,
     FormLabel,
     FormInput,
-    FormButton,
+    FormPrimaryButton,
     PageToast
   },
   data() {

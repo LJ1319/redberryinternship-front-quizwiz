@@ -11,8 +11,8 @@
 
 <script>
 import PageCover from '@/components/shared/PageCover.vue'
-import MainContent from '@/components/ui/MainContent.vue'
-import BackButton from '@/components/ui/BackButton.vue'
+import MainContent from '@/components/base/MainContent.vue'
+import BackButton from '@/components/base/BackButton.vue'
 import ForgotForm from '@/components/auth/forgot/ForgotForm.vue'
 
 export default {

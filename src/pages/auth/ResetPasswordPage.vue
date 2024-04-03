@@ -10,7 +10,7 @@
 
 <script>
 import PageCover from '@/components/shared/PageCover.vue'
-import MainContent from '@/components/ui/MainContent.vue'
+import MainContent from '@/components/base/MainContent.vue'
 import ResetForm from '@/components/auth/reset/ResetForm.vue'
 
 export default {

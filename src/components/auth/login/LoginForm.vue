@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <form-button text="Log in" />
+    <form-primary-button text="Log in" />
 
     <form-link
       text="Dont' have an account?"
@@ -59,15 +59,16 @@
 <script>
 import { Form } from 'vee-validate'
 import IconWavingHand from '@/components/icons/IconWavingHand.vue'
-import FormLink from '@/components/ui/form/FormLink.vue'
-import FormGroup from '@/components/ui/form/FormGroup.vue'
-import FormInput from '@/components/ui/form/FormInput.vue'
-import FormLabel from '@/components/ui/form/FormLabel.vue'
-import FormCheckbox from '@/components/ui/form/FormCheckbox.vue'
-import FormButton from '@/components/ui/form/FormButton.vue'
+import FormLink from '@/components/base/form/FormLink.vue'
+import FormGroup from '@/components/base/form/FormGroup.vue'
+import FormInput from '@/components/base/form/FormInput.vue'
+import FormLabel from '@/components/base/form/FormLabel.vue'
+import FormCheckbox from '@/components/base/form/FormCheckbox.vue'
+import FormPrimaryButton from '@/components/base/form/FormPrimaryButton.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
 import { Login } from '@/services/api/auth.js'
+import { setCookie } from '@/utils/helpers.js'
 
 export default {
   components: {
@@ -78,9 +79,10 @@ export default {
     FormLabel,
     FormInput,
     FormCheckbox,
-    FormButton,
+    FormPrimaryButton,
     PageToast
   },
+  inject: ['user'],
   data() {
     return {
       toast: {
@@ -102,6 +104,9 @@ export default {
           password: values.password,
           remember: values.remember ?? false
         })
+
+        this.user.isAuth = true
+        setCookie('user', JSON.stringify(this.user), 30)
 
         this.toast = {
           show: true,
