@@ -6,6 +6,8 @@
       <back-button />
       <login-form />
     </main-content>
+
+    <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
   </div>
 </template>
 
@@ -14,6 +16,7 @@ import PageCover from '@/components/shared/PageCover.vue'
 import MainContent from '@/components/ui/MainContent.vue'
 import BackButton from '@/components/ui/BackButton.vue'
 import LoginForm from '@/components/auth/login/LoginForm.vue'
+import PageToast from '@/components/shared/PageToast.vue'
 
 import { VerifyEmail } from '@/services/api/auth.js'
 
@@ -22,7 +25,21 @@ export default {
     PageCover,
     MainContent,
     BackButton,
-    LoginForm
+    LoginForm,
+    PageToast
+  },
+  data() {
+    return {
+      toast: {
+        show: false,
+        status: '',
+        title: '',
+        text: '',
+        hide() {
+          setTimeout(() => (this.show = false), 4000)
+        }
+      }
+    }
   },
   async mounted() {
     if (this.$route.query.verificationUrl && this.$route.query.signature) {
@@ -31,9 +48,27 @@ export default {
       const url = `${verificationUrl}&signature=${signature}`
 
       try {
-        await VerifyEmail(url)
+        const { data } = await VerifyEmail(url)
+
+        this.toast = {
+          show: true,
+          status: 'success',
+          title: 'Successful action',
+          text: data.message,
+          hide: this.toast.hide
+        }
+
+        this.toast.hide()
       } catch (err) {
-        console.log(err.response)
+        this.toast = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message,
+          hide: this.toast.hide
+        }
+
+        this.toast.hide()
       }
     }
   }

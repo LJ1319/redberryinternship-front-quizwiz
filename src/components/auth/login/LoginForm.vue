@@ -52,6 +52,8 @@
       class="hidden lg:block"
     />
   </Form>
+
+  <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
 </template>
 
 <script>
@@ -63,6 +65,7 @@ import FormInput from '@/components/ui/form/FormInput.vue'
 import FormLabel from '@/components/ui/form/FormLabel.vue'
 import FormCheckbox from '@/components/ui/form/FormCheckbox.vue'
 import FormButton from '@/components/ui/form/FormButton.vue'
+import PageToast from '@/components/shared/PageToast.vue'
 
 import { Login } from '@/services/api/auth.js'
 
@@ -75,17 +78,40 @@ export default {
     FormLabel,
     FormInput,
     FormCheckbox,
-    FormButton
+    FormButton,
+    PageToast
+  },
+  data() {
+    return {
+      toast: {
+        show: false,
+        status: '',
+        title: '',
+        text: '',
+        hide() {
+          setTimeout(() => (this.show = false), 4000)
+        }
+      }
+    }
   },
   methods: {
     async onSubmit(values, { resetForm, setErrors }) {
       try {
-        await Login({
+        const { data } = await Login({
           email: values.email,
           password: values.password,
           remember: values.remember ?? false
         })
 
+        this.toast = {
+          show: true,
+          status: 'success',
+          title: 'Successful action',
+          text: data.message,
+          hide: this.toast.hide
+        }
+
+        this.toast.hide()
         resetForm()
       } catch (err) {
         if (err.response.status === 422) {
@@ -93,6 +119,16 @@ export default {
             email: err.response.data.message
           })
         }
+
+        this.toast = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message,
+          hide: this.toast.hide
+        }
+
+        this.toast.hide()
       }
     }
   }
