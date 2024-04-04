@@ -112,16 +112,12 @@ export default {
     hide(e) {
       this.$emit('hide', e.target)
     },
-    async onSubmit(e) {
+    async onSubmit() {
       try {
         const { data } = await Logout()
 
         this.user.isAuth = false
         setCookie('user', JSON.stringify(this.user), 30)
-
-        console.log(e.target)
-
-        this.$emit.hide(e.target)
 
         this.toast = {
           show: true,
