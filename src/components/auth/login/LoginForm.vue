@@ -97,7 +97,7 @@ export default {
     }
   },
   methods: {
-    async onSubmit(values, { resetForm, setErrors }) {
+    async onSubmit(values, { setErrors }) {
       try {
         const { data } = await Login({
           email: values.email,
@@ -108,16 +108,14 @@ export default {
         this.user.isAuth = true
         setCookie('user', JSON.stringify(this.user), 30)
 
-        this.toast = {
+        const toast = {
           show: true,
           status: 'success',
           title: 'Successful action',
-          text: data.message,
-          hide: this.toast.hide
+          text: data.message
         }
 
-        this.toast.hide()
-        resetForm()
+        this.$router.push({ name: 'quiz-listing', state: { toast } })
       } catch (err) {
         if (err.response.status === 422) {
           setErrors({

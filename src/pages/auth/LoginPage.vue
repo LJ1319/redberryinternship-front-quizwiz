@@ -18,6 +18,7 @@ import BackButton from '@/components/base/BackButton.vue'
 import LoginForm from '@/components/auth/login/LoginForm.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
+import router from '@/router/index.js'
 import { VerifyEmail } from '@/services/api/auth.js'
 
 export default {
@@ -28,6 +29,7 @@ export default {
     LoginForm,
     PageToast
   },
+  inject: ['user'],
   data() {
     return {
       toast: {
@@ -40,6 +42,13 @@ export default {
         }
       }
     }
+  },
+  beforeRouteEnter: (to, from, next) => {
+    next((vm) => {
+      if (vm.user.isAuth) {
+        router.replace({ path: '/' })
+      }
+    })
   },
   async mounted() {
     if (this.$route.query.verificationUrl && this.$route.query.signature) {

@@ -15,12 +15,22 @@ import MainContent from '@/components/base/MainContent.vue'
 import BackButton from '@/components/base/BackButton.vue'
 import SignupForm from '@/components/auth/signup/SignupForm.vue'
 
+import router from '@/router/index.js'
+
 export default {
   components: {
     PageCover,
     MainContent,
     BackButton,
     SignupForm
+  },
+  inject: ['user'],
+  beforeRouteEnter: (to, from, next) => {
+    next((vm) => {
+      if (vm.user.isAuth) {
+        router.replace({ path: '/' })
+      }
+    })
   }
 }
 </script>

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import LandingPage from '@/pages/LandingPage.vue'
+import QuizListingPage from '@/pages/QuizListingPage.vue'
 import SignupPage from '@/pages/auth/SignupPage.vue'
 import ResendVerificationPage from '@/pages/auth/ResendVerificationPage.vue'
 import LoginPage from '@/pages/auth/LoginPage.vue'
@@ -21,6 +22,11 @@ const router = createRouter({
         header: PageHeader,
         footer: PageFooter
       }
+    },
+    {
+      path: '/quizzes',
+      name: 'quiz-listing',
+      component: QuizListingPage
     },
     {
       path: '/signup',
