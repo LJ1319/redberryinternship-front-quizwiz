@@ -13,21 +13,11 @@ import PageCover from '@/components/shared/PageCover.vue'
 import MainContent from '@/components/base/MainContent.vue'
 import ResetForm from '@/components/auth/reset/ResetForm.vue'
 
-import router from '@/router/index.js'
-
 export default {
   components: {
     PageCover,
     MainContent,
     ResetForm
-  },
-  inject: ['user'],
-  beforeRouteEnter: (to, from, next) => {
-    next((vm) => {
-      if (!vm.$route.query.resetUrl || vm.user.isAuth) {
-        router.replace({ path: '/' })
-      }
-    })
   },
   data() {
     return {

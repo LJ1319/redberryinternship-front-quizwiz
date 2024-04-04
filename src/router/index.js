@@ -11,6 +11,8 @@ import ResetPasswordPage from '@/pages/auth/ResetPasswordPage.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 import PageFooter from '@/components/shared/PageFooter.vue'
 
+import { getCookie } from '@/utils/helpers.js'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -31,29 +33,53 @@ const router = createRouter({
     {
       path: '/signup',
       name: 'signup',
-      component: SignupPage
+      component: SignupPage,
+      meta: {
+        forAuth: false
+      }
     },
     {
       path: '/resend',
       name: 'resend-verification',
-      component: ResendVerificationPage
+      component: ResendVerificationPage,
+      meta: {
+        forAuth: false
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginPage
+      component: LoginPage,
+      meta: {
+        forAuth: false
+      }
     },
     {
       path: '/forgot',
       name: 'forgot-password',
-      component: ForgotPasswordPage
+      component: ForgotPasswordPage,
+      meta: {
+        forAuth: false
+      }
     },
     {
       path: '/reset',
       name: 'reset-password',
-      component: ResetPasswordPage
+      component: ResetPasswordPage,
+      meta: {
+        forAuth: false
+      }
     }
   ]
+})
+
+router.beforeEach((to) => {
+  const user = getCookie('user')
+  const isAuth = user ? JSON.parse(user).isAuth : false
+
+  if (isAuth && !to.meta.forAuth && to.name !== 'landing') {
+    return { name: 'landing' }
+  }
 })
 
 export default router
