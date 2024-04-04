@@ -13,8 +13,8 @@
 
 <script>
 import PageCover from '@/components/shared/PageCover.vue'
-import MainContent from '@/components/ui/MainContent.vue'
-import BackButton from '@/components/ui/BackButton.vue'
+import MainContent from '@/components/base/MainContent.vue'
+import BackButton from '@/components/base/BackButton.vue'
 import LoginForm from '@/components/auth/login/LoginForm.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 

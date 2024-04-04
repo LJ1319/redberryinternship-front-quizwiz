@@ -20,6 +20,10 @@ export const Login = async (credentials) => {
   return await axios.post('/api/login', credentials)
 }
 
+export const Logout = async () => {
+  return await axios.post('/api/logout')
+}
+
 export const ForgotPassword = async (credentials) => {
   return await axios.post('/api/forgot-password', credentials)
 }

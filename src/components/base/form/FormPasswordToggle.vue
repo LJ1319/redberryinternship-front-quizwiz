@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import FormInput from '@/components/ui/form/FormInput.vue'
+import FormInput from '@/components/base/form/FormInput.vue'
 import IconShow from '@/components/icons/IconShow.vue'
 import IconHide from '@/components/icons/IconHide.vue'
 

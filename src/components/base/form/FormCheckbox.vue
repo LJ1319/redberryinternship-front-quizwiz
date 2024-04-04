@@ -28,7 +28,7 @@
 <script>
 import { Field, ErrorMessage } from 'vee-validate'
 import IconCheck from '@/components/icons/IconCheck.vue'
-import FormLabel from '@/components/ui/form/FormLabel.vue'
+import FormLabel from '@/components/base/form/FormLabel.vue'
 
 export default {
   components: {

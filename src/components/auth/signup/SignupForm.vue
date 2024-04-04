@@ -52,7 +52,7 @@
       </form-group>
     </div>
 
-    <form-button text="Sign up" />
+    <form-primary-button text="Sign up" />
 
     <form-link
       text="Already have an account?"
@@ -67,12 +67,12 @@
 
 <script>
 import { Form } from 'vee-validate'
-import FormLink from '@/components/ui/form/FormLink.vue'
-import FormGroup from '@/components/ui/form/FormGroup.vue'
-import FormLabel from '@/components/ui/form/FormLabel.vue'
-import FormInput from '@/components/ui/form/FormInput.vue'
-import FormButton from '@/components/ui/form/FormButton.vue'
-import FormCheckbox from '@/components/ui/form/FormCheckbox.vue'
+import FormLink from '@/components/base/form/FormLink.vue'
+import FormGroup from '@/components/base/form/FormGroup.vue'
+import FormLabel from '@/components/base/form/FormLabel.vue'
+import FormInput from '@/components/base/form/FormInput.vue'
+import FormPrimaryButton from '@/components/base/form/FormPrimaryButton.vue'
+import FormCheckbox from '@/components/base/form/FormCheckbox.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
 import { Signup } from '@/services/api/auth.js'
@@ -85,7 +85,7 @@ export default {
     FormLabel,
     FormInput,
     FormCheckbox,
-    FormButton,
+    FormPrimaryButton,
     PageToast
   },
   data() {

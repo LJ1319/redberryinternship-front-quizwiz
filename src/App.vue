@@ -9,3 +9,29 @@
     <router-view name="footer" />
   </div>
 </template>
+
+<script>
+import { computed } from 'vue'
+
+import { getCookie } from '@/utils/helpers.js'
+
+export default {
+  data() {
+    return {
+      user: {
+        isAuth: false
+      }
+    }
+  },
+  provide() {
+    return {
+      user: computed(() => this.user)
+    }
+  },
+  mounted() {
+    if (getCookie('user')) {
+      this.user.isAuth = JSON.parse(getCookie('user'))
+    }
+  }
+}
+</script>
