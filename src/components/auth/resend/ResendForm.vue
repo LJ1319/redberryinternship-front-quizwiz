@@ -28,6 +28,8 @@ import FormInput from '@/components/base/form/FormInput.vue'
 import FormPrimaryButton from '@/components/base/form/FormPrimaryButton.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
+import toast from '@/mixins/toast.js'
+
 import { ResendVerification } from '@/services/api/auth.js'
 
 export default {
@@ -39,19 +41,7 @@ export default {
     FormPrimaryButton,
     PageToast
   },
-  data() {
-    return {
-      toast: {
-        show: false,
-        status: '',
-        title: '',
-        text: '',
-        hide() {
-          setTimeout(() => (this.show = false), 4000)
-        }
-      }
-    }
-  },
+  mixins: [toast],
   methods: {
     async onSubmit(values, { resetForm, setErrors }) {
       try {
@@ -59,13 +49,13 @@ export default {
           email: values.email
         })
 
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'warning',
           title: 'Action required',
-          text: data.message,
-          hide: this.toast.hide
+          text: data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
         resetForm()
@@ -76,13 +66,13 @@ export default {
           })
         }
 
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'error',
           title: 'Error occurred',
-          text: err.response.data.message,
-          hide: this.toast.hide
+          text: err.response.data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
       }

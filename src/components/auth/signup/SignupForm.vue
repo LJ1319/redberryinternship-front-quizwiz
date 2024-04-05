@@ -75,6 +75,8 @@ import FormPrimaryButton from '@/components/base/form/FormPrimaryButton.vue'
 import FormCheckbox from '@/components/base/form/FormCheckbox.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
+import toast from '@/mixins/toast.js'
+
 import { Signup } from '@/services/api/auth.js'
 
 export default {
@@ -88,19 +90,7 @@ export default {
     FormPrimaryButton,
     PageToast
   },
-  data() {
-    return {
-      toast: {
-        show: false,
-        status: '',
-        title: '',
-        text: '',
-        hide() {
-          setTimeout(() => (this.show = false), 4000)
-        }
-      }
-    }
-  },
+  mixins: [toast],
   methods: {
     async onSubmit(values, { setErrors, resetForm }) {
       try {
@@ -112,13 +102,13 @@ export default {
           terms: values.terms
         })
 
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'warning',
           title: 'Action required',
-          text: data.message,
-          hide: this.toast.hide
+          text: data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
         resetForm()
@@ -127,13 +117,13 @@ export default {
           setErrors(err.response.data.errors)
         }
 
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'error',
           title: 'Error occurred',
-          text: err.response.data.message,
-          hide: this.toast.hide
+          text: err.response.data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
       }
