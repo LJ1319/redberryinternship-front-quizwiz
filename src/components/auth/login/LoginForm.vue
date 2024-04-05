@@ -89,7 +89,7 @@ export default {
   methods: {
     async onSubmit(values, { setErrors }) {
       try {
-        const { data } = await Login({
+        await Login({
           email: values.email,
           password: values.password,
           remember: values.remember ?? false
@@ -98,14 +98,7 @@ export default {
         this.user.isAuth = true
         setCookie('user', JSON.stringify(this.user), 30)
 
-        const toast = {
-          show: true,
-          status: 'success',
-          title: 'Successful action',
-          text: data.message
-        }
-
-        this.$router.push({ name: 'landing', state: { toast } })
+        this.$router.replace({ name: 'quiz-listing' })
       } catch (err) {
         if (err.response.status === 422) {
           setErrors({

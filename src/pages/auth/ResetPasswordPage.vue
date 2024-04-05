@@ -39,6 +39,8 @@ export default {
 
       this.token = this.$route.query.token
       this.email = this.$route.query.email
+
+      this.$router.replace({ query: undefined })
     }
   }
 }

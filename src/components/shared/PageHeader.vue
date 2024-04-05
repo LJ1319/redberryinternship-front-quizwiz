@@ -15,9 +15,7 @@
     </div>
 
     <div>
-      <button v-on:click="showMenu" class="lg:hidden">
-        <icon-menu />
-      </button>
+      <burger-menu v-on:click="showMenu" class="lg:hidden" />
 
       <div v-if="!user.isAuth" class="hidden space-x-5 font-raleway text-sm font-bold lg:block">
         <button
@@ -45,9 +43,7 @@
       </div>
 
       <div v-else class="relative hidden lg:flex">
-        <button v-on:click="showMenu">
-          <icon-user />
-        </button>
+        <user-info-button v-on:click="showMenu" />
       </div>
     </div>
 
@@ -56,17 +52,17 @@
 </template>
 
 <script>
-import IconMenu from '@/components/icons/IconMenu.vue'
-import MenuModal from '@/components/base/MenuModal.vue'
+import BurgerMenu from '@/components/base/BurgerMenu.vue'
 import IconNext from '@/components/icons/IconNext.vue'
-import IconUser from '@/components/icons/IconUser.vue'
+import UserInfoButton from '@/components/base/UserInfoButton.vue'
+import MenuModal from '@/components/base/MenuModal.vue'
 
 export default {
   components: {
-    IconMenu,
-    MenuModal,
+    BurgerMenu,
     IconNext,
-    IconUser
+    UserInfoButton,
+    MenuModal
   },
   inject: ['user'],
   data() {
