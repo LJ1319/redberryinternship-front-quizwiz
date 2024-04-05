@@ -37,11 +37,11 @@
           </div>
 
           <div class="hidden lg:block">
-            <logout-form>
+            <Form v-on:submit="onSubmit" class="mx-6 py-5 lg:mx-0 lg:py-0">
               <button>
                 <icon-logout />
               </button>
-            </logout-form>
+            </Form>
           </div>
         </div>
       </li>
@@ -62,35 +62,83 @@
     </div>
 
     <div v-else class="lg:hidden">
-      <logout-form>
+      <Form v-on:submit="onSubmit" class="mx-6 py-5 lg:mx-0 lg:py-0">
         <form-secondary-button class="bg-gray-150">
           <span class="font-raleway text-sm font-bold text-purple">Log out</span>
         </form-secondary-button>
-      </logout-form>
+      </Form>
     </div>
   </div>
+
+  <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
 </template>
 
 <script>
 import PageBackdrop from '@/components/shared/PageBackdrop.vue'
 import IconClose from '@/components/icons/IconClose.vue'
-import LogoutForm from '@/components/auth/logout/LogoutForm.vue'
 import IconLogout from '@/components/icons/IconLogout.vue'
 import FormSecondaryButton from '@/components/base/form/FormSecondaryButton.vue'
+import { Form } from 'vee-validate'
+import PageToast from '@/components/shared/PageToast.vue'
+
+import { Logout } from '@/services/api/auth.js'
+import { setCookie } from '@/utils/helpers.js'
 
 export default {
   components: {
     PageBackdrop,
     IconClose,
-    LogoutForm,
+    Form,
     IconLogout,
-    FormSecondaryButton
+    FormSecondaryButton,
+    PageToast
   },
   inject: ['user'],
   emits: ['hide'],
+  data() {
+    return {
+      toast: {
+        show: false,
+        status: '',
+        title: '',
+        text: '',
+        hide() {
+          setTimeout(() => (this.show = false), 4000)
+        }
+      }
+    }
+  },
   methods: {
     hide(e) {
       this.$emit('hide', e.target)
+    },
+    async onSubmit() {
+      try {
+        const { data } = await Logout()
+
+        this.user.isAuth = false
+        setCookie('user', JSON.stringify(this.user), 30)
+
+        this.toast = {
+          show: true,
+          status: 'success',
+          title: 'Successful action',
+          text: data.message,
+          hide: this.toast.hide
+        }
+
+        this.toast.hide()
+      } catch (err) {
+        this.toast = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message,
+          hide: this.toast.hide
+        }
+
+        this.toast.hide()
+      }
     }
   }
 }

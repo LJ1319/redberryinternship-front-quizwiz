@@ -30,7 +30,7 @@ export default {
   },
   mounted() {
     if (getCookie('user')) {
-      this.user.isAuth = JSON.parse(getCookie('user'))
+      this.user = JSON.parse(getCookie('user'))
     }
   }
 }

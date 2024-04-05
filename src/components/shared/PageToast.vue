@@ -10,7 +10,7 @@
             ? 'border-red-500'
             : ''
     "
-    class="absolute right-14 top-10 z-50 flex h-24 w-80 items-center gap-3 rounded-lg border-b-4 bg-gray-800 px-4 py-3 shadow-cxl"
+    class="absolute left-0 top-10 z-50 flex h-24 w-80 items-center gap-3 rounded-lg border-b-4 bg-gray-800 px-4 py-3 shadow-cxl lg:left-auto lg:right-14"
   >
     <div class="absolute -left-16 -top-16 h-52 w-52">
       <div

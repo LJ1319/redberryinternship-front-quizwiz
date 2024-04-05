@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import LandingPage from '@/pages/LandingPage.vue'
+import QuizListingPage from '@/pages/QuizListingPage.vue'
 import SignupPage from '@/pages/auth/SignupPage.vue'
 import ResendVerificationPage from '@/pages/auth/ResendVerificationPage.vue'
 import LoginPage from '@/pages/auth/LoginPage.vue'
@@ -9,6 +10,8 @@ import ResetPasswordPage from '@/pages/auth/ResetPasswordPage.vue'
 
 import PageHeader from '@/components/shared/PageHeader.vue'
 import PageFooter from '@/components/shared/PageFooter.vue'
+
+import { getCookie } from '@/utils/helpers.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,31 +26,60 @@ const router = createRouter({
       }
     },
     {
+      path: '/quizzes',
+      name: 'quiz-listing',
+      component: QuizListingPage
+    },
+    {
       path: '/signup',
       name: 'signup',
-      component: SignupPage
+      component: SignupPage,
+      meta: {
+        forAuth: false
+      }
     },
     {
       path: '/resend',
       name: 'resend-verification',
-      component: ResendVerificationPage
+      component: ResendVerificationPage,
+      meta: {
+        forAuth: false
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginPage
+      component: LoginPage,
+      meta: {
+        forAuth: false
+      }
     },
     {
       path: '/forgot',
       name: 'forgot-password',
-      component: ForgotPasswordPage
+      component: ForgotPasswordPage,
+      meta: {
+        forAuth: false
+      }
     },
     {
       path: '/reset',
       name: 'reset-password',
-      component: ResetPasswordPage
+      component: ResetPasswordPage,
+      meta: {
+        forAuth: false
+      }
     }
   ]
+})
+
+router.beforeEach((to) => {
+  const user = getCookie('user')
+  const isAuth = user ? JSON.parse(user).isAuth : false
+
+  if (isAuth && !to.meta.forAuth && to.name !== 'landing') {
+    return { name: 'landing' }
+  }
 })
 
 export default router
