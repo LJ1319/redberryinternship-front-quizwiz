@@ -18,6 +18,8 @@ import BackButton from '@/components/base/BackButton.vue'
 import LoginForm from '@/components/auth/login/LoginForm.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
+import toast from '@/mixins/toast.js'
+
 import { VerifyEmail } from '@/services/api/auth.js'
 
 export default {
@@ -28,21 +30,9 @@ export default {
     LoginForm,
     PageToast
   },
-  data() {
-    return {
-      toast: {
-        show: false,
-        status: '',
-        title: '',
-        text: '',
-        hide() {
-          setTimeout(() => (this.show = false), 4000)
-        }
-      }
-    }
-  },
+  mixins: [toast],
   async mounted() {
-    if (this.$route.query.verificationUrl && this.$route.query.signature) {
+    if (this.$route.query.verificationUrl) {
       const verificationUrl = this.$route.query.verificationUrl
       const signature = this.$route.query.signature
       const url = `${verificationUrl}&signature=${signature}`
@@ -50,23 +40,23 @@ export default {
       try {
         const { data } = await VerifyEmail(url)
 
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'success',
           title: 'Successful action',
-          text: data.message,
-          hide: this.toast.hide
+          text: data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
       } catch (err) {
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'error',
           title: 'Error occurred',
-          text: err.response.data.message,
-          hide: this.toast.hide
+          text: err.response.data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
       }

@@ -77,7 +77,9 @@ router.beforeEach((to) => {
   const user = getCookie('user')
   const isAuth = user ? JSON.parse(user).isAuth : false
 
-  if (isAuth && !to.meta.forAuth && to.name !== 'landing') {
+  const whiteList = ['quiz-listing']
+
+  if (isAuth && !to.meta.forAuth && to.name !== 'landing' && !whiteList.includes(to.name)) {
     return { name: 'landing' }
   }
 })

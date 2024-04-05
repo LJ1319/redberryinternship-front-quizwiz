@@ -10,6 +10,8 @@
 import { Form } from 'vee-validate'
 import PageToast from '@/components/shared/PageToast.vue'
 
+import toast from '@/mixins/toast.js'
+
 import { Logout } from '@/services/api/auth.js'
 import { setCookie } from '@/utils/helpers.js'
 
@@ -19,19 +21,7 @@ export default {
     PageToast
   },
   inject: ['user'],
-  data() {
-    return {
-      toast: {
-        show: false,
-        status: '',
-        title: '',
-        text: '',
-        hide() {
-          setTimeout(() => (this.show = false), 4000)
-        }
-      }
-    }
-  },
+  mixins: [toast],
   methods: {
     async onSubmit() {
       try {
@@ -40,23 +30,23 @@ export default {
         this.user.isAuth = false
         setCookie('user', JSON.stringify(this.user), 30)
 
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'success',
           title: 'Successful action',
-          text: data.message,
-          hide: this.toast.hide
+          text: data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
       } catch (err) {
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'error',
           title: 'Error occurred',
-          text: err.response.data.message,
-          hide: this.toast.hide
+          text: err.response.data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
       }

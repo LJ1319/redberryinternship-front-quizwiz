@@ -6,29 +6,14 @@
 
 <script>
 import PageToast from '@/components/shared/PageToast.vue'
+import toast from '@/mixins/toast.js'
 
 export default {
   components: { PageToast },
-  data() {
-    return {
-      toast: {
-        show: false,
-        status: '',
-        title: '',
-        text: '',
-        hide() {
-          setTimeout(() => (this.show = false), 4000)
-        }
-      }
-    }
-  },
+  mixins: [toast],
   mounted() {
     if (history.state.toast) {
-      this.toast = {
-        ...history.state.toast,
-        hide: this.toast.hide
-      }
-
+      this.setToastData(history.state.toast)
       this.toast.hide()
     }
   }

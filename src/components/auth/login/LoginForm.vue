@@ -67,6 +67,8 @@ import FormCheckbox from '@/components/base/form/FormCheckbox.vue'
 import FormPrimaryButton from '@/components/base/form/FormPrimaryButton.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
+import toast from '@/mixins/toast.js'
+
 import { Login } from '@/services/api/auth.js'
 import { setCookie } from '@/utils/helpers.js'
 
@@ -83,19 +85,7 @@ export default {
     PageToast
   },
   inject: ['user'],
-  data() {
-    return {
-      toast: {
-        show: false,
-        status: '',
-        title: '',
-        text: '',
-        hide() {
-          setTimeout(() => (this.show = false), 4000)
-        }
-      }
-    }
-  },
+  mixins: [toast],
   methods: {
     async onSubmit(values, { setErrors }) {
       try {
@@ -123,13 +113,13 @@ export default {
           })
         }
 
-        this.toast = {
+        const toastData = {
           show: true,
           status: 'error',
           title: 'Error occurred',
-          text: err.response.data.message,
-          hide: this.toast.hide
+          text: err.response.data.message
         }
+        this.setToastData(toastData)
 
         this.toast.hide()
       }
