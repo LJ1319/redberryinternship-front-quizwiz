@@ -15,3 +15,14 @@ export function getCookie(cName) {
   })
   return res
 }
+
+export function animateProgressBar(elem, delay) {
+  const end = Date.now() + delay
+  const frame = () => {
+    let timeleft = Math.max(0, end - Date.now())
+    elem.style.width = (100 * timeleft) / delay + '%'
+    if (timeleft === 0) return
+    requestAnimationFrame(frame)
+  }
+  requestAnimationFrame(frame)
+}

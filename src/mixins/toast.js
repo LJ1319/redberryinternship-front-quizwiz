@@ -7,7 +7,7 @@ export default {
         title: '',
         text: '',
         hide() {
-          setTimeout(() => (this.show = false), 2000)
+          setTimeout(() => (this.show = false), 3000)
         }
       }
     }
