@@ -105,7 +105,7 @@ export default {
           text: data.message
         }
 
-        this.$router.push({ name: 'quiz-listing', state: { toast } })
+        this.$router.push({ name: 'landing', state: { toast } })
       } catch (err) {
         if (err.response.status === 422) {
           setErrors({

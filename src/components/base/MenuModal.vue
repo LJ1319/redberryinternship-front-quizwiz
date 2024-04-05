@@ -5,9 +5,9 @@
     class="absolute left-0 top-0 z-50 min-h-80 w-80 bg-white shadow-csm lg:left-auto lg:right-24 lg:top-4 lg:min-h-40 lg:rounded-lg"
   >
     <header class="mx-6 flex h-[4.5rem] items-center justify-between border-b lg:hidden">
-      <div>
+      <router-link to="/">
         <img src="@/assets/logo.svg" alt="QuizWiz Logo" />
-      </div>
+      </router-link>
 
       <div class="lg:hidden">
         <button v-on:click="hide">
