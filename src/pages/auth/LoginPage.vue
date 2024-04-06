@@ -39,6 +39,7 @@ export default {
 
       try {
         const { data } = await VerifyEmail(url)
+        this.$router.replace({ query: undefined })
 
         const toastData = {
           show: true,
@@ -50,6 +51,8 @@ export default {
 
         this.toast.hide()
       } catch (err) {
+        this.$router.replace({ query: undefined })
+
         const toastData = {
           show: true,
           status: 'error',

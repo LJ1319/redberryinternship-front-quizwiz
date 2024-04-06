@@ -25,20 +25,12 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        const { data } = await Logout()
+        await Logout()
 
         this.user.isAuth = false
         setCookie('user', JSON.stringify(this.user), 30)
 
-        const toastData = {
-          show: true,
-          status: 'success',
-          title: 'Successful action',
-          text: data.message
-        }
-        this.setToastData(toastData)
-
-        this.toast.hide()
+        this.$router.replace({ name: 'landing' })
       } catch (err) {
         const toastData = {
           show: true,

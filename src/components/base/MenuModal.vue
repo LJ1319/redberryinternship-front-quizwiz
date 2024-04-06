@@ -9,11 +9,7 @@
         <img src="@/assets/logo.svg" alt="QuizWiz Logo" />
       </router-link>
 
-      <div class="lg:hidden">
-        <button v-on:click="hide">
-          <icon-close />
-        </button>
-      </div>
+      <close-button v-on:click="hide" class="lg:hidden" />
     </header>
 
     <menu class="mx-6">
@@ -37,11 +33,9 @@
           </div>
 
           <div class="hidden lg:block">
-            <Form v-on:submit="onSubmit" class="mx-6 py-5 lg:mx-0 lg:py-0">
-              <button>
-                <icon-logout />
-              </button>
-            </Form>
+            <logout-form>
+              <form-logout-button />
+            </logout-form>
           </div>
         </div>
       </li>
@@ -62,38 +56,31 @@
     </div>
 
     <div v-else class="lg:hidden">
-      <Form v-on:submit="onSubmit" class="mx-6 py-5 lg:mx-0 lg:py-0">
-        <form-secondary-button class="bg-gray-150">
-          <span class="font-raleway text-sm font-bold text-purple">Log out</span>
+      <logout-form>
+        <form-secondary-button class="bg-gray-150 font-raleway text-sm font-bold text-purple">
+          Log out
         </form-secondary-button>
-      </Form>
+      </logout-form>
     </div>
   </div>
-
-  <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
 </template>
 
 <script>
 import PageBackdrop from '@/components/shared/PageBackdrop.vue'
-import IconClose from '@/components/icons/IconClose.vue'
-import IconLogout from '@/components/icons/IconLogout.vue'
+import CloseButton from '@/components/base/CloseButton.vue'
+import LogoutForm from '@/components/auth/logout/LogoutForm.vue'
+import FormLogoutButton from '@/components/base/form/FormLogoutButton.vue'
 import FormSecondaryButton from '@/components/base/form/FormSecondaryButton.vue'
-import { Form } from 'vee-validate'
-import PageToast from '@/components/shared/PageToast.vue'
 
 import toast from '@/mixins/toast.js'
-
-import { Logout } from '@/services/api/auth.js'
-import { setCookie } from '@/utils/helpers.js'
 
 export default {
   components: {
     PageBackdrop,
-    IconClose,
-    Form,
-    IconLogout,
-    FormSecondaryButton,
-    PageToast
+    CloseButton,
+    LogoutForm,
+    FormLogoutButton,
+    FormSecondaryButton
   },
   inject: ['user'],
   mixins: [toast],
@@ -101,34 +88,6 @@ export default {
   methods: {
     hide(e) {
       this.$emit('hide', e.target)
-    },
-    async onSubmit() {
-      try {
-        const { data } = await Logout()
-
-        this.user.isAuth = false
-        setCookie('user', JSON.stringify(this.user), 30)
-
-        const toastData = {
-          show: true,
-          status: 'success',
-          title: 'Successful action',
-          text: data.message
-        }
-        this.setToastData(toastData)
-
-        this.toast.hide()
-      } catch (err) {
-        const toastData = {
-          show: true,
-          status: 'error',
-          title: 'Error occurred',
-          text: err.response.data.message
-        }
-        this.setToastData(toastData)
-
-        this.toast.hide()
-      }
     }
   }
 }
