@@ -2,10 +2,10 @@
   <div class="justify-between lg:flex">
     <page-cover style="background-image: url('src/assets/images/LoginCover.svg')" />
 
-    <main-content>
+    <split-content>
       <back-button />
       <login-form />
-    </main-content>
+    </split-content>
 
     <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
   </div>
@@ -13,8 +13,8 @@
 
 <script>
 import PageCover from '@/components/shared/PageCover.vue'
-import MainContent from '@/components/base/MainContent.vue'
-import BackButton from '@/components/base/BackButton.vue'
+import SplitContent from '@/components/base/SplitContent.vue'
+import BackButton from '@/components/base/buttons/BackButton.vue'
 import LoginForm from '@/components/auth/login/LoginForm.vue'
 import PageToast from '@/components/shared/PageToast.vue'
 
@@ -25,7 +25,7 @@ import { VerifyEmail } from '@/services/api/auth.js'
 export default {
   components: {
     PageCover,
-    MainContent,
+    SplitContent,
     BackButton,
     LoginForm,
     PageToast

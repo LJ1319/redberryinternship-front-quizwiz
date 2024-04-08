@@ -1,5 +1,5 @@
 <template>
-  <Form v-on:submit="onSubmit" class="mx-6 py-5 lg:mx-0 lg:py-0">
+  <Form v-on:submit="onSubmit" class="py-5 lg:py-0">
     <slot />
   </Form>
 
@@ -30,7 +30,7 @@ export default {
         this.user.isAuth = false
         setCookie('user', JSON.stringify(this.user), 30)
 
-        this.$router.replace({ name: 'landing' })
+        this.$router.push({ name: 'landing' })
       } catch (err) {
         const toastData = {
           show: true,

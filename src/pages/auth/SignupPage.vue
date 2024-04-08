@@ -2,23 +2,23 @@
   <div class="justify-between lg:flex">
     <page-cover style="background-image: url('src/assets/images/SignupCover.svg')" />
 
-    <main-content>
+    <split-content>
       <back-button />
       <signup-form />
-    </main-content>
+    </split-content>
   </div>
 </template>
 
 <script>
 import PageCover from '@/components/shared/PageCover.vue'
-import MainContent from '@/components/base/MainContent.vue'
-import BackButton from '@/components/base/BackButton.vue'
+import SplitContent from '@/components/base/SplitContent.vue'
+import BackButton from '@/components/base/buttons/BackButton.vue'
 import SignupForm from '@/components/auth/signup/SignupForm.vue'
 
 export default {
   components: {
     PageCover,
-    MainContent,
+    SplitContent,
     BackButton,
     SignupForm
   }

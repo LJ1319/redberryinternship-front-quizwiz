@@ -1,0 +1,109 @@
+<template>
+  <div
+    class="fixed left-0 top-0 z-50 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-12 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
+  >
+    <div
+      class="flex justify-between border-b border-gray-300 bg-zinc-50 px-4 py-6 text-sm font-semibold text-gray-500 lg:hidden lg:rounded-xl"
+    >
+      <button class="">Reset</button>
+      <span class="">FILTERS</span>
+      <close-button v-on:click="close" class="h-6 w-6" />
+    </div>
+
+    <div
+      class="hidden w-full items-center justify-between gap-4 rounded-xl bg-gray-150/70 p-4 lg:flex"
+    >
+      <div
+        class="hidden h-10 w-20 shrink-0 items-center justify-center gap-2 rounded-clg bg-black focus:outline-none lg:flex"
+      >
+        <icon-settings color="white" />
+        <span class="font-inter text-sm text-white">Filter</span>
+      </div>
+
+      <div
+        class="h-10 w-full border-b border-gray-300 px-4 py-6 lg:rounded-3xl lg:border lg:border-gray-500/40 lg:px-6 lg:py-2"
+      >
+        <search-form-group />
+      </div>
+
+      <actions-container class="hidden shrink-0 lg:flex" />
+      <close-button v-on:click="close" class="h-4 w-4" width="10" height="10" />
+    </div>
+
+    <div class="hidden justify-between gap-2.5 lg:flex">
+      <quiz-filters />
+      <quiz-sorts />
+    </div>
+
+    <div class="flex items-center justify-center py-5 lg:hidden">
+      <div
+        v-on:click="toggleSelected"
+        class="flex h-12 w-96 rounded-3xl bg-gray-300/30 text-sm font-semibold text-gray-500/50"
+      >
+        <button
+          :class="filterIsSelected && 'rounded-3xl bg-white text-purple ring-1 ring-gray-300'"
+          class="w-full focus:outline-none"
+        >
+          Filter
+        </button>
+        <button
+          :class="sortingIsSelected && 'rounded-3xl bg-white text-purple ring-1 ring-gray-300'"
+          class="w-full focus:outline-none"
+        >
+          Sorting
+        </button>
+      </div>
+    </div>
+
+    <div v-if="filterIsSelected" class="px-4 lg:hidden">
+      <quiz-filters />
+    </div>
+
+    <div v-if="sortingIsSelected" class="px-7 py-4 lg:hidden">
+      <quiz-sorts />
+    </div>
+
+    <actions-container class="lg:hidden" />
+  </div>
+</template>
+
+<script>
+import CloseButton from '@/components/base/buttons/CloseButton.vue'
+import IconSettings from '@/components/icons/IconSettings.vue'
+import SearchFormGroup from '@/components/quizzes/SearchFormGroup.vue'
+import ActionsContainer from '@/components/quizzes/ActionsContainer.vue'
+import QuizFilters from '@/components/quizzes/QuizFilters.vue'
+import QuizSorts from '@/components/quizzes/QuizSorts.vue'
+
+import { removeBodyScroll } from '@/utils/helpers.js'
+
+export default {
+  components: {
+    CloseButton,
+    IconSettings,
+    SearchFormGroup,
+    ActionsContainer,
+    QuizFilters,
+    QuizSorts
+  },
+  data() {
+    return {
+      filterIsSelected: true,
+      sortingIsSelected: false
+    }
+  },
+  emits: ['close'],
+  mounted() {
+    removeBodyScroll(true)
+  },
+  methods: {
+    close() {
+      this.$emit('close')
+    },
+    toggleSelected() {
+      this.filterIsSelected = !this.filterIsSelected
+      this.sortingIsSelected = !this.sortingIsSelected
+    }
+  }
+}
+</script>

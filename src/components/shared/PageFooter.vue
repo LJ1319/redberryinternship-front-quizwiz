@@ -1,7 +1,7 @@
 <template>
-  <footer>
+  <footer class="border-t border-gray-300">
     <div class="w-full px-10 py-6 font-inter lg:flex lg:gap-32 lg:px-24 lg:py-12">
-      <div class="border-b pb-6 lg:border-0">
+      <div class="border-b border-gray-300/40 pb-6 lg:border-0">
         <img src="@/assets/logo.svg" alt="QuizWiz Logo" />
       </div>
 
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="border-t">
+    <div class="border-t border-gray-300/40">
       <p
         class="px-10 py-6 font-raleway text-xs font-medium text-gray-600 lg:flex lg:justify-end lg:px-24"
       >

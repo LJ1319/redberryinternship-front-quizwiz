@@ -1,19 +1,36 @@
 <template>
-  <h1>QuizListingPage</h1>
+  <main-content>
+    <div class="relative mt-6 flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
+      <quiz-categories />
 
-  <logout-form>
-    <form-logout-button />
-  </logout-form>
+      <filter-toggle-button v-on:click="toggleFilter" />
+      <filter-modal v-if="filterIsOpen" v-on:close="toggleFilter" />
+    </div>
+  </main-content>
 </template>
 
 <script>
-import LogoutForm from '@/components/auth/logout/LogoutForm.vue'
-import FormLogoutButton from '@/components/base/form/FormLogoutButton.vue'
+import MainContent from '@/components/base/MainContent.vue'
+import QuizCategories from '@/components/quizzes/QuizCategories.vue'
+import FilterToggleButton from '@/components/quizzes/FilterToggleButton.vue'
+import FilterModal from '@/components/quizzes/FilterModal.vue'
 
 export default {
   components: {
-    FormLogoutButton,
-    LogoutForm
+    MainContent,
+    QuizCategories,
+    FilterToggleButton,
+    FilterModal
+  },
+  data() {
+    return {
+      filterIsOpen: false
+    }
+  },
+  methods: {
+    toggleFilter() {
+      this.filterIsOpen = !this.filterIsOpen
+    }
   }
 }
 </script>
