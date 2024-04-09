@@ -5,7 +5,7 @@
     ref="container"
     class="flex h-12 w-full items-center gap-5 overflow-x-scroll scroll-smooth border-b border-gray-300/40 no-scrollbar"
   >
-    <quiz-category v-for="index in 50" :key="index" name="All Quizzes" type="scroll" />
+    <quiz-category v-for="index in 50" :key="index" name="All Quizzes" type="scrollable" />
   </div>
 
   <scroll-button direction="right" v-on:scroll="scroll('right')" />

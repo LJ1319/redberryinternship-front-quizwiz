@@ -1,15 +1,7 @@
 <template>
   <button
     v-on:click="toggleSelected"
-    :class="
-      isSelected && type === 'scroll'
-        ? 'border-b-2 border-black pt-0.5 text-black'
-        : type === 'scroll'
-          ? 'text-gray-500'
-          : isSelected && type !== 'scroll'
-            ? 'rounded-3xl bg-black text-white'
-            : 'text-gray-600'
-    "
+    :class="classObject"
     class="min-h-full min-w-max font-inter text-sm font-semibold"
   >
     {{ name }}
@@ -21,7 +13,18 @@ export default {
   props: ['name', 'type'],
   data() {
     return {
-      isSelected: false
+      isSelected: false,
+      isScrollable: this.type === 'scrollable'
+    }
+  },
+  computed: {
+    classObject() {
+      return {
+        'text-gray-500': this.isScrollable,
+        'text-gray-600': !this.isScrollable,
+        'border-b-2 border-black pt-0.5 text-black': this.isSelected && this.isScrollable,
+        'rounded-3xl bg-black text-white': this.isSelected && !this.isScrollable
+      }
     }
   },
   methods: {

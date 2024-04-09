@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed left-0 top-0 z-50 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-12 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
+    class="fixed left-0 top-0 z-10 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-12 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
   >
     <div
       class="flex justify-between border-b border-gray-300 bg-zinc-50 px-4 py-6 text-sm font-semibold text-gray-500 lg:hidden lg:rounded-xl"
