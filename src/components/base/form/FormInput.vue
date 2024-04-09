@@ -5,7 +5,7 @@
       :type="isPassword ? 'password' : 'text'"
       :id="name"
       :placeholder="placeholder"
-      class="block h-14 w-full rounded-[0.625rem] border bg-white p-4 outline-none focus:ring-2 focus:ring-indigo-200"
+      class="block h-14 w-full rounded-clg border bg-white p-4 outline-none focus:ring-2 focus:ring-indigo-200"
       :class="errors.length > 0 && 'border-red-300 focus:ring-0 focus:ring-opacity-0'"
     />
 
