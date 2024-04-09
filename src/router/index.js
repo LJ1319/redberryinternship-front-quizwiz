@@ -27,8 +27,15 @@ const router = createRouter({
     },
     {
       path: '/quizzes',
-      name: 'quiz-listing',
-      component: QuizListingPage
+      name: 'quizzes',
+      components: {
+        default: QuizListingPage,
+        header: PageHeader,
+        footer: PageFooter
+      },
+      meta: {
+        needsSearch: true
+      }
     },
     {
       path: '/signup',
@@ -77,7 +84,7 @@ router.beforeEach((to) => {
   const user = getCookie('user')
   const isAuth = user ? JSON.parse(user).isAuth : false
 
-  const whiteList = ['quiz-listing']
+  const whiteList = ['quizzes']
 
   if (isAuth && !to.meta.forAuth && to.name !== 'landing' && !whiteList.includes(to.name)) {
     return { name: 'landing' }

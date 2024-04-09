@@ -2,21 +2,21 @@
   <div class="justify-between lg:flex">
     <page-cover style="background-image: url('src/assets/images/ForgotPassword.svg')" />
 
-    <main-content>
+    <split-content>
       <reset-form :url="url" :token="token" :email="email" />
-    </main-content>
+    </split-content>
   </div>
 </template>
 
 <script>
 import PageCover from '@/components/shared/PageCover.vue'
-import MainContent from '@/components/base/MainContent.vue'
+import SplitContent from '@/components/base/SplitContent.vue'
 import ResetForm from '@/components/auth/reset/ResetForm.vue'
 
 export default {
   components: {
     PageCover,
-    MainContent,
+    SplitContent,
     ResetForm
   },
   data() {

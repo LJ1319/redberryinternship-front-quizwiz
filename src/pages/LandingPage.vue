@@ -27,8 +27,8 @@
       <p class="w-full font-raleway font-black text-white lg:w-max">
         <span class="text-8xl">200+</span> <br />
         <span class="flex items-baseline justify-between">
-          <span class="text-5xl underline lg:no-underline">Quiz games</span>
-          <icon-link-arrow class="lg:hidden" />
+          <span class="text-5xl hover:underline">Quiz games</span>
+          <icon-arrow-link class="lg:hidden" />
         </span>
       </p>
     </div>
@@ -37,8 +37,8 @@
       <p class="w-full font-raleway font-black text-white lg:w-max">
         <span class="text-8xl">25+</span> <br />
         <span class="flex items-baseline justify-between">
-          <span class="w-min text-5xl underline lg:w-max lg:no-underline">Different genres</span>
-          <icon-link-arrow class="lg:hidden" />
+          <span class="w-min text-5xl hover:underline lg:w-max">Different genres</span>
+          <icon-arrow-link class="lg:hidden" />
         </span>
       </p>
     </div>
@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import IconLinkArrow from '@/components/icons/IconLinkArrow.vue'
+import IconArrowLink from '@/components/icons/IconArrowLink.vue'
 
 export default {
   components: {
-    IconLinkArrow
+    IconArrowLink
   }
 }
 </script>

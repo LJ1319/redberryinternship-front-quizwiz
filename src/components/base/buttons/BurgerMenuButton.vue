@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <button>
-      <icon-menu />
-    </button>
-  </div>
+  <button class="flex items-center">
+    <icon-menu />
+  </button>
 </template>
 
 <script>

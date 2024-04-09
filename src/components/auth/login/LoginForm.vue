@@ -98,7 +98,7 @@ export default {
         this.user.isAuth = true
         setCookie('user', JSON.stringify(this.user), 30)
 
-        this.$router.replace({ name: 'quiz-listing' })
+        this.$router.replace({ name: 'quizzes' })
       } catch (err) {
         if (err.response.status === 422) {
           setErrors({

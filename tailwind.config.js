@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const plugin = require('tailwindcss/plugin')
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -38,6 +39,9 @@ export default {
           DEFAULT: '#4B69FD'
         }
       },
+      borderRadius: {
+        clg: '0.625rem'
+      },
       boxShadow: {
         cxs: '0px 0px 0px 0px rgba(0, 0, 0, 1)',
         csm: '0px 1px 4px 0px rgba(0, 0, 0, 0.15)',
@@ -47,5 +51,18 @@ export default {
         c2xl: '0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)'
       }
     }
-  }
+  },
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none'
+          }
+        }
+      })
+    })
+  ]
 }

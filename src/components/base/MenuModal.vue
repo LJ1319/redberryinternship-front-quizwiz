@@ -1,25 +1,25 @@
 <template>
-  <page-backdrop v-on:click="hide" />
+  <page-backdrop v-on:click="close" />
 
   <div
-    class="absolute left-0 top-0 z-50 min-h-80 w-80 bg-white shadow-csm lg:left-auto lg:right-24 lg:top-4 lg:min-h-40 lg:rounded-lg"
+    class="absolute left-0 top-0 z-50 min-h-80 w-80 bg-white px-6 shadow-csm lg:left-auto lg:right-24 lg:top-3.5 lg:min-h-40 lg:rounded-lg"
   >
-    <header class="mx-6 flex h-[4.5rem] items-center justify-between border-b lg:hidden">
+    <header class="flex h-[4.5rem] items-center justify-between border-b border-gray-300 lg:hidden">
       <router-link to="/">
         <img src="@/assets/logo.svg" alt="QuizWiz Logo" />
       </router-link>
 
-      <close-button v-on:click="hide" class="lg:hidden" />
+      <close-button v-on:click="close" class="lg:hidden" />
     </header>
 
-    <menu class="mx-6">
-      <li class="border-b py-5 lg:hidden">
+    <menu class="">
+      <li class="border-b border-gray-300/40 py-5 lg:hidden">
         <router-link to="/quizzes" class="font-inter text-lg font-semibold">Quizzes</router-link>
       </li>
 
       <li
         v-if="user.isAuth"
-        class="flex items-center gap-3 border-b py-5 font-inter lg:flex-col lg:items-start lg:border-0"
+        class="flex items-center gap-3 border-b border-gray-300/40 py-5 font-inter lg:flex-col lg:items-start lg:border-0"
       >
         <div
           style="background-image: url('/src/assets/images/UserAvatar.jpeg')"
@@ -41,7 +41,7 @@
       </li>
     </menu>
 
-    <div v-if="!user.isAuth" class="mx-6 space-y-5 py-5 font-raleway text-sm font-bold">
+    <div v-if="!user.isAuth" class="space-y-5 py-5 font-raleway text-sm font-bold">
       <form-secondary-button class="bg-black">
         <router-link to="/signup" class="inline-block w-full leading-12 text-white">
           Sign up
@@ -67,7 +67,7 @@
 
 <script>
 import PageBackdrop from '@/components/shared/PageBackdrop.vue'
-import CloseButton from '@/components/base/CloseButton.vue'
+import CloseButton from '@/components/base/buttons/CloseButton.vue'
 import LogoutForm from '@/components/auth/logout/LogoutForm.vue'
 import FormLogoutButton from '@/components/base/form/FormLogoutButton.vue'
 import FormSecondaryButton from '@/components/base/form/FormSecondaryButton.vue'
@@ -84,10 +84,13 @@ export default {
   },
   inject: ['user'],
   mixins: [toast],
-  emits: ['hide'],
+  emits: ['close'],
+  updated() {
+    this.$emit('close')
+  },
   methods: {
-    hide(e) {
-      this.$emit('hide', e.target)
+    close() {
+      this.$emit('close')
     }
   }
 }
