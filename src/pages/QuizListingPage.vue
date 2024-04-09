@@ -11,9 +11,9 @@
 
 <script>
 import MainContent from '@/components/base/MainContent.vue'
-import QuizCategories from '@/components/quizzes/QuizCategories.vue'
-import FilterToggleButton from '@/components/quizzes/FilterToggleButton.vue'
-import FilterModal from '@/components/quizzes/FilterModal.vue'
+import QuizCategories from '@/components/quizzes/scroll/CategoriesContainer.vue'
+import FilterToggleButton from '@/components/quizzes/filtering-sorting/FilterToggleButton.vue'
+import FilterModal from '@/components/quizzes/filtering-sorting/FilterModal.vue'
 
 export default {
   components: {

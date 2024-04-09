@@ -54,15 +54,7 @@
 
     <div
       ref="progressBar"
-      :class="
-        status === 'success'
-          ? 'bg-emerald-500'
-          : status === 'warning'
-            ? 'bg-yellow-400'
-            : status === 'error'
-              ? 'bg-red-500'
-              : ''
-      "
+      :class="classObject"
       class="absolute bottom-0 h-1.5 w-full rounded-b-lg"
     ></div>
   </div>
@@ -82,6 +74,15 @@ export default {
     IconToastError
   },
   props: ['show', 'status', 'title', 'text'],
+  computed: {
+    classObject() {
+      return {
+        'bg-emerald-500': this.status === 'success',
+        'bg-yellow-400': this.status === 'warning',
+        'bg-red-500': this.status === 'error'
+      }
+    }
+  },
   mounted() {
     const interval = setInterval(() => {
       if (this.$refs.progressBar) {

@@ -1,12 +1,12 @@
 <template>
   <div
-    class="fixed left-0 top-0 z-50 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-12 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
+    class="fixed left-0 top-0 z-10 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-12 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
   >
     <div
       class="flex justify-between border-b border-gray-300 bg-zinc-50 px-4 py-6 text-sm font-semibold text-gray-500 lg:hidden lg:rounded-xl"
     >
-      <button class="">Reset</button>
-      <span class="">FILTERS</span>
+      <button>Reset</button>
+      <span>FILTERS</span>
       <close-button v-on:click="close" class="h-6 w-6" />
     </div>
 
@@ -17,7 +17,7 @@
         class="hidden h-10 w-20 shrink-0 items-center justify-center gap-2 rounded-clg bg-black focus:outline-none lg:flex"
       >
         <icon-settings color="white" />
-        <span class="font-inter text-sm text-white">Filter</span>
+        <span class="text-sm text-white">Filter</span>
       </div>
 
       <div
@@ -70,10 +70,10 @@
 <script>
 import CloseButton from '@/components/base/buttons/CloseButton.vue'
 import IconSettings from '@/components/icons/IconSettings.vue'
-import SearchFormGroup from '@/components/quizzes/SearchFormGroup.vue'
-import ActionsContainer from '@/components/quizzes/ActionsContainer.vue'
-import QuizFilters from '@/components/quizzes/QuizFilters.vue'
-import QuizSorts from '@/components/quizzes/QuizSorts.vue'
+import SearchFormGroup from '@/components/base/search-form/SearchFormGroup.vue'
+import ActionsContainer from '@/components/quizzes/filtering-sorting/ActionsContainer.vue'
+import QuizFilters from '@/components/quizzes/filtering-sorting/QuizFilters.vue'
+import QuizSorts from '@/components/quizzes/filtering-sorting/QuizSorts.vue'
 
 import { removeBodyScroll } from '@/utils/helpers.js'
 
@@ -95,6 +95,9 @@ export default {
   emits: ['close'],
   mounted() {
     removeBodyScroll(true)
+  },
+  beforeUnmount() {
+    removeBodyScroll(false)
   },
   methods: {
     close() {

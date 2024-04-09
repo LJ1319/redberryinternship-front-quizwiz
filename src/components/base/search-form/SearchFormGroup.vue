@@ -8,7 +8,7 @@
       name="search"
       id="search"
       placeholder="Search"
-      class="text-inter h-full w-full bg-inherit text-sm focus:outline-none"
+      class="h-full w-full bg-gray-50 font-inter text-sm focus:outline-none"
     />
   </div>
 </template>

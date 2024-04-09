@@ -60,7 +60,7 @@
 
 <script>
 import SearchFormToggle from '@/components/base/search-form/SearchFormToggle.vue'
-import SearchForm from '@/components/quizzes/SearchForm.vue'
+import SearchForm from '@/components/base/search-form/SearchForm.vue'
 import UserInfoButton from '@/components/base/buttons/UserInfoButton.vue'
 import BurgerMenuButton from '@/components/base/buttons/BurgerMenuButton.vue'
 import IconNext from '@/components/icons/IconNext.vue'
