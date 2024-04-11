@@ -1,11 +1,11 @@
 <template>
-  <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1.49994 3.5L4.99994 7L10.4999 1.5" :stroke="color ?? 'white'" stroke-width="1.5" />
+  <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M9 1L3.5 6.5L1 4"
+      stroke-width="1.6666"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
   </svg>
 </template>
-
-<script>
-export default {
-  props: ['color']
-}
-</script>
+<script setup lang="ts"></script>

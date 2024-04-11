@@ -21,15 +21,19 @@
         v-if="user.isAuth"
         class="flex items-center gap-3 border-b border-gray-300/40 py-5 font-inter lg:flex-col lg:items-start lg:border-0"
       >
-        <div
-          style="background-image: url('/src/assets/images/UserAvatar.jpeg')"
-          class="h-16 w-16 rounded-full bg-cover bg-center bg-no-repeat shadow-csm"
-        ></div>
+        <img
+          v-if="user.avatar"
+          :src="`${storageUrl}/${user.avatar}`"
+          alt="User Avatar"
+          class="h-16 w-16 rounded-full shadow-csm"
+        />
+
+        <icon-user v-if="!user.avatar" class="h-16 w-16" />
 
         <div class="lg:flex lg:w-full lg:justify-between">
           <div>
-            <p class="font-semibold text-gray-900">Oliver Rhye</p>
-            <p class="text-xs text-gray-600">oliverrhye@gmail.com</p>
+            <p class="font-semibold text-gray-900">{{ user.username }}</p>
+            <p class="text-xs text-gray-600">{{ user.email }}</p>
           </div>
 
           <div class="hidden lg:block">
@@ -73,9 +77,11 @@ import FormLogoutButton from '@/components/base/form/FormLogoutButton.vue'
 import FormSecondaryButton from '@/components/base/form/FormSecondaryButton.vue'
 
 import toast from '@/mixins/toast.js'
+import IconUser from '@/components/icons/IconUser.vue'
 
 export default {
   components: {
+    IconUser,
     PageBackdrop,
     CloseButton,
     LogoutForm,
@@ -85,6 +91,11 @@ export default {
   inject: ['user'],
   mixins: [toast],
   emits: ['close'],
+  data() {
+    return {
+      storageUrl: `${import.meta.env.VITE_API_URL}/storage`
+    }
+  },
   updated() {
     this.$emit('close')
   },

@@ -6,9 +6,9 @@
       <back-button />
       <login-form />
     </split-content>
-
-    <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
   </div>
+
+  <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
 </template>
 
 <script>
@@ -31,12 +31,17 @@ export default {
     PageToast
   },
   mixins: [toast],
-  async mounted() {
+  mounted() {
     if (this.$route.query.verificationUrl) {
       const verificationUrl = this.$route.query.verificationUrl
       const signature = this.$route.query.signature
       const url = `${verificationUrl}&signature=${signature}`
 
+      this.verifyEmail(url)
+    }
+  },
+  methods: {
+    async verifyEmail(url) {
       try {
         const { data } = await VerifyEmail(url)
         this.$router.replace({ query: undefined })

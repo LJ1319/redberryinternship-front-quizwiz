@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full w-full items-center gap-2">
+  <div class="flex items-center gap-2">
     <search-form-button />
 
     <input
@@ -8,7 +8,7 @@
       name="search"
       id="search"
       placeholder="Search"
-      class="h-full w-full bg-gray-50 font-inter text-sm focus:outline-none"
+      class="h-full w-full bg-inherit font-inter text-sm focus:outline-none"
     />
   </div>
 </template>

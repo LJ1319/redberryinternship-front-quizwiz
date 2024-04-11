@@ -1,16 +1,16 @@
 <template>
-  <div class="lg:min-w-2/3 lg:flex-1 lg:rounded-xl lg:border lg:p-4">
+  <div class="lg:min-w-2/3 px-4 lg:flex-1 lg:rounded-xl lg:border lg:p-4">
     <div class="flex flex-col gap-10 border-b py-6 text-sm font-semibold lg:gap-4 lg:pt-0">
       <span class="hidden text-purple lg:block">Filter by</span>
 
       <div class="flex items-center gap-4">
         <label for="quizzes">My Quizzes</label>
-        <filter-checkbox />
+        <filter-checkbox name="quizzes" />
       </div>
 
       <div class="flex items-center gap-4">
         <label for="completed">Not completed</label>
-        <filter-checkbox />
+        <filter-checkbox name="completed" />
       </div>
     </div>
 
