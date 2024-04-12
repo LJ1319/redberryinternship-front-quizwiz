@@ -26,7 +26,7 @@ export default {
       email: ''
     }
   },
-  async mounted() {
+  mounted() {
     if (
       this.$route.query.resetUrl &&
       this.$route.query.signature &&

@@ -1,5 +1,5 @@
 <template>
-  <div
+  <form
     class="fixed left-0 top-0 z-10 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-12 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
   >
     <div
@@ -10,9 +10,7 @@
       <close-button v-on:click="close" class="h-6 w-6" />
     </div>
 
-    <div
-      class="hidden w-full items-center justify-between gap-4 rounded-xl bg-gray-150/70 p-4 lg:flex"
-    >
+    <div class="items-center justify-between gap-4 bg-gray-150/70 lg:flex lg:rounded-xl lg:p-4">
       <div
         class="hidden h-10 w-20 shrink-0 items-center justify-center gap-2 rounded-clg bg-black focus:outline-none lg:flex"
       >
@@ -21,18 +19,13 @@
       </div>
 
       <div
-        class="h-10 w-full border-b border-gray-300 px-4 py-6 lg:rounded-3xl lg:border lg:border-gray-500/40 lg:px-6 lg:py-2"
+        class="w-full border-b border-gray-300 bg-white px-4 py-6 lg:rounded-3xl lg:border lg:border-gray-500/40 lg:px-6 lg:py-2"
       >
         <search-form-group />
       </div>
 
       <actions-container class="hidden shrink-0 lg:flex" />
-      <close-button v-on:click="close" class="h-4 w-4" width="10" height="10" />
-    </div>
-
-    <div class="hidden justify-between gap-2.5 lg:flex">
-      <quiz-filters />
-      <quiz-sorts />
+      <close-button v-on:click="close" width="10" height="10" class="hidden h-4 w-4 lg:block" />
     </div>
 
     <div class="flex items-center justify-center py-5 lg:hidden">
@@ -41,12 +34,15 @@
         class="flex h-12 w-96 rounded-3xl bg-gray-300/30 text-sm font-semibold text-gray-500/50"
       >
         <button
+          type="button"
           :class="filterIsSelected && 'rounded-3xl bg-white text-purple ring-1 ring-gray-300'"
           class="w-full focus:outline-none"
         >
           Filter
         </button>
+
         <button
+          type="button"
           :class="sortingIsSelected && 'rounded-3xl bg-white text-purple ring-1 ring-gray-300'"
           class="w-full focus:outline-none"
         >
@@ -55,16 +51,13 @@
       </div>
     </div>
 
-    <div v-if="filterIsSelected" class="px-4 lg:hidden">
-      <quiz-filters />
-    </div>
-
-    <div v-if="sortingIsSelected" class="px-7 py-4 lg:hidden">
-      <quiz-sorts />
+    <div class="justify-between gap-2.5 lg:flex">
+      <quiz-filters v-show="filterIsShown || filterIsSelected" />
+      <quiz-sorts v-show="sortIngIsShown || sortingIsSelected" />
     </div>
 
     <actions-container class="lg:hidden" />
-  </div>
+  </form>
 </template>
 
 <script>
@@ -88,6 +81,8 @@ export default {
   },
   data() {
     return {
+      filterIsShown: true,
+      sortIngIsShown: true,
       filterIsSelected: true,
       sortingIsSelected: false
     }
@@ -104,6 +99,9 @@ export default {
       this.$emit('close')
     },
     toggleSelected() {
+      this.filterIsShown = !this.filterIsShown
+      this.sortIngIsShown = !this.sortIngIsShown
+
       this.filterIsSelected = !this.filterIsSelected
       this.sortingIsSelected = !this.sortingIsSelected
     }

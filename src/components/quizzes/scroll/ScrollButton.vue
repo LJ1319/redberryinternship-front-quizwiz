@@ -1,7 +1,7 @@
 <template>
   <button
     v-on:click="scroll"
-    class="right-0 top-0 hidden h-10 w-10 shrink-0 items-center justify-center rounded-full hover:bg-black/10 lg:flex"
+    class="right-0 top-0 hidden h-10 w-10 shrink-0 items-center justify-center rounded-full hover:bg-black/10 focus:bg-black/10 focus:outline-none lg:flex"
   >
     <icon-left v-if="direction === 'left'" />
     <icon-right v-if="direction === 'right'" />

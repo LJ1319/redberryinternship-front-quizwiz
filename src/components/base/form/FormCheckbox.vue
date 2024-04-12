@@ -15,10 +15,12 @@
       :name="name"
       :id="name"
       :value="true"
-      class="peer h-5 w-5 appearance-none rounded-full border checked:border-0 checked:bg-black focus:outline-none focus:ring-1 focus:ring-indigo-200"
+      class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border checked:border-0 checked:bg-black focus:outline-none focus:ring-1 focus:ring-indigo-200"
     />
 
-    <icon-check class="pointer-events-none absolute mx-1 hidden peer-checked:block" />
+    <icon-check
+      class="pointer-events-none absolute left-[5px] hidden stroke-white peer-checked:block"
+    />
     <form-label :for="name" :text="text" />
   </Field>
 

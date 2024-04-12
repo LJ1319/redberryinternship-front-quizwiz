@@ -83,10 +83,10 @@ export default {
       }
     }
   },
-  mounted() {
+  updated() {
     const interval = setInterval(() => {
       if (this.$refs.progressBar) {
-        animateProgressBar(this.$refs.progressBar, 3000)
+        animateProgressBar(this.$refs.progressBar, 2000)
 
         clearInterval(interval)
       }

@@ -60,9 +60,9 @@
       action="Log in"
       class="hidden lg:block"
     />
-
-    <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
   </Form>
+
+  <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-6 font-inter text-sm font-semibold text-gray-600 lg:w-1/3 lg:gap-8 lg:rounded-xl lg:border lg:p-4"
+    class="flex flex-col gap-8 px-6 py-4 font-inter text-sm font-semibold text-gray-600 lg:w-1/3 lg:rounded-xl lg:border lg:p-4"
   >
     <span class="hidden text-purple lg:block">Sort by</span>
 
