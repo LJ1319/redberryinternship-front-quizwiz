@@ -1,4 +1,6 @@
 import axios from 'axios'
+import router from '@/router/index.js'
+
 import { InitializeCSRFProtection } from '@/services/api/auth.js'
 import { setCookie } from '@/utils/helpers.js'
 
@@ -33,7 +35,7 @@ instance.interceptors.response.use(
       setCookie('user', JSON.stringify({ isAuth: false }), 30)
 
       setTimeout(() => {
-        window.location.replace('/login')
+        router.replace({ name: 'login' })
       }, 2000)
     }
 

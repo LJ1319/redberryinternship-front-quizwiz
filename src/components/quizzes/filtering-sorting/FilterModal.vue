@@ -52,8 +52,8 @@
     </div>
 
     <div class="justify-between gap-2.5 lg:flex">
-      <quiz-filters v-show="both || filterIsSelected" />
-      <quiz-sorts v-show="both || sortingIsSelected" />
+      <quiz-filters v-show="filterIsShown || filterIsSelected" />
+      <quiz-sorts v-show="sortIngIsShown || sortingIsSelected" />
     </div>
 
     <actions-container class="lg:hidden" />
@@ -81,7 +81,8 @@ export default {
   },
   data() {
     return {
-      both: true,
+      filterIsShown: true,
+      sortIngIsShown: true,
       filterIsSelected: true,
       sortingIsSelected: false
     }
@@ -98,7 +99,9 @@ export default {
       this.$emit('close')
     },
     toggleSelected() {
-      this.both = false
+      this.filterIsShown = !this.filterIsShown
+      this.sortIngIsShown = !this.sortIngIsShown
+
       this.filterIsSelected = !this.filterIsSelected
       this.sortingIsSelected = !this.sortingIsSelected
     }
