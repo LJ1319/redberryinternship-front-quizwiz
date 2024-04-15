@@ -2,8 +2,8 @@
   <button
     type="button"
     v-on:click="toggleIsSelected"
-    :class="isSelected && 'rounded-md bg-gray-300 p-1'"
-    class="flex w-max items-center gap-4"
+    :class="isSelected && 'bg-gray-300'"
+    class="flex w-max items-center gap-4 rounded-md p-1 hover:bg-gray-300"
   >
     <span class="flex w-4 items-center justify-center">
       <slot />

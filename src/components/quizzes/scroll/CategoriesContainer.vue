@@ -5,7 +5,14 @@
     ref="container"
     class="flex h-12 w-full items-center gap-5 overflow-x-scroll scroll-smooth border-b border-gray-300/40 no-scrollbar"
   >
-    <quiz-category v-for="index in 50" :key="index" name="All Quizzes" type="scrollable" />
+    <quiz-category name="All Quizzes" type="scrollable" />
+
+    <quiz-category
+      v-for="category in categories"
+      :key="category.id"
+      :name="category.name"
+      type="scrollable"
+    />
   </div>
 
   <scroll-button direction="right" v-on:scroll="scroll('right')" />
@@ -22,6 +29,7 @@ export default {
     ScrollButton,
     QuizCategory
   },
+  inject: ['categories'],
   data() {
     return {
       categoryIsSelected: false,

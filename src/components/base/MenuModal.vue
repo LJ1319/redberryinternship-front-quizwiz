@@ -2,7 +2,7 @@
   <page-backdrop v-on:click="close" />
 
   <div
-    class="absolute left-0 top-0 z-50 min-h-80 w-80 bg-white px-6 shadow-csm lg:left-auto lg:right-24 lg:top-3.5 lg:min-h-40 lg:rounded-lg"
+    class="absolute left-0 top-0 z-50 min-h-80 w-80 bg-white px-6 shadow-cmd lg:left-auto lg:right-24 lg:top-3.5 lg:min-h-40 lg:rounded-lg"
   >
     <header class="flex h-[4.5rem] items-center justify-between border-b border-gray-300 lg:hidden">
       <router-link to="/">
@@ -25,7 +25,7 @@
           v-if="user.avatar"
           :src="`${storageUrl}/${user.avatar}`"
           alt="User Avatar"
-          class="h-16 w-16 rounded-full shadow-csm"
+          class="h-16 w-16 rounded-full shadow-cmd"
         />
 
         <icon-user v-if="!user.avatar" class="h-16 w-16" />

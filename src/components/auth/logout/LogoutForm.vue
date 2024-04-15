@@ -13,7 +13,6 @@ import PageToast from '@/components/shared/PageToast.vue'
 import toast from '@/mixins/toast.js'
 
 import { Logout } from '@/services/api/auth.js'
-import { setCookie } from '@/utils/helpers.js'
 
 export default {
   components: {
@@ -28,7 +27,6 @@ export default {
         await Logout()
 
         this.user.isAuth = false
-        setCookie('user', JSON.stringify(this.user), 30)
 
         this.$router.push({ name: 'landing' })
       } catch (err) {
