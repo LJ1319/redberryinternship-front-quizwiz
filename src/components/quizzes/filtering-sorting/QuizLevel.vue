@@ -2,8 +2,8 @@
   <button
     type="button"
     v-on:click="toggleSelected"
-    :class="isSelected ? 'bg-purple text-white' : 'bg-[#F0F9FF] text-[#026AA2]'"
-    class="flex h-10 min-w-max items-center justify-center rounded-2xl px-5 py-2.5 font-inter focus:outline-none lg:h-7 lg:px-3"
+    :style="[baseStyles, isSelected && selectedStyles]"
+    class="flex h-10 min-w-max items-center justify-center rounded-2xl px-5 font-inter focus:outline-none lg:h-7 lg:px-3"
   >
     {{ name }}
   </button>
@@ -11,10 +11,18 @@
 
 <script>
 export default {
-  props: ['name'],
+  props: ['name', 'bg_color', 'color'],
   data() {
     return {
-      isSelected: false
+      isSelected: false,
+      baseStyles: {
+        backgroundColor: this.bg_color,
+        color: this.color
+      },
+      selectedStyles: {
+        backgroundColor: this.color,
+        color: 'white'
+      }
     }
   },
   methods: {

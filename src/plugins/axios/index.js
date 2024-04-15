@@ -34,9 +34,7 @@ instance.interceptors.response.use(
     if (error.response.status === 401) {
       setCookie('user', JSON.stringify({ isAuth: false }), 30)
 
-      setTimeout(() => {
-        router.replace({ name: 'login' })
-      }, 2000)
+      setTimeout(() => router.replace({ name: 'login' }), 2000)
     }
 
     return Promise.reject(error)

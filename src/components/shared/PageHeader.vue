@@ -28,9 +28,12 @@
         <burger-menu-button v-on:click="openMenu" class="lg:hidden" />
       </div>
 
-      <div v-if="!user.isAuth" class="hidden gap-5 font-raleway text-sm font-bold lg:flex">
+      <div
+        v-if="!user.isAuth"
+        class="hidden items-center gap-5 font-raleway text-sm font-bold lg:flex"
+      >
         <button
-          class="h-max w-24 rounded bg-black shadow-cxs transition hover:-translate-x-1 hover:-translate-y-1 hover:border hover:border-black hover:bg-white hover:shadow-clg focus:outline-none"
+          class="h-max w-24 rounded bg-black shadow-cxs transition hover:-translate-x-1 hover:-translate-y-1 hover:border hover:border-black hover:bg-white hover:shadow-cxl focus:outline-none"
         >
           <router-link
             to="/signup"
@@ -40,7 +43,7 @@
           </router-link>
         </button>
 
-        <button class="rounded bg-white shadow-cxs focus:outline-none">
+        <button class="h-max rounded bg-white shadow-cxs focus:outline-none">
           <router-link
             to="/login"
             class="group flex items-center justify-center gap-2 text-purple focus:outline-none"

@@ -34,3 +34,22 @@ export function animateProgressBar(elem, delay) {
   }
   requestAnimationFrame(frame)
 }
+
+export function formatDate(publishDate) {
+  const options = {
+    weekday: undefined,
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  }
+
+  return new Date(publishDate).toLocaleDateString('en-us', options)
+}
+
+export function formatTime(hms) {
+  const hours = new Date('1970-01-01T' + hms).getHours()
+  const minutes = new Date('1970-01-01T' + hms).getMinutes()
+  const seconds = new Date('1970-01-01T' + hms).getSeconds()
+
+  return Math.ceil(hours * 60 + minutes + seconds / 60)
+}

@@ -94,6 +94,8 @@ export default {
 
         this.toast.hide()
         resetForm()
+
+        setTimeout(() => this.$router.replace({ name: 'login' }), 2000)
       } catch (err) {
         if (err.response.status === 422) {
           setErrors({

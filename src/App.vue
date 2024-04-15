@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import PageToast from '@/components/shared/PageToast.vue'
 
 import toast from '@/mixins/toast.js'
+import { computed } from 'vue'
 
-import { getCookie } from '@/utils/helpers.js'
+import { getCookie, setCookie } from '@/utils/helpers.js'
 import { RetrieveAuthUser } from '@/services/api/auth.js'
-import PageToast from '@/components/shared/PageToast.vue'
 
 export default {
   components: { PageToast },
@@ -39,7 +39,11 @@ export default {
   watch: {
     'user.isAuth'(val) {
       if (val) {
+        setCookie('user', JSON.stringify(this.user), 30)
         this.retrieveUser()
+      } else {
+        this.user = { isAuth: false }
+        setCookie('user', JSON.stringify(this.user), 30)
       }
     }
   },

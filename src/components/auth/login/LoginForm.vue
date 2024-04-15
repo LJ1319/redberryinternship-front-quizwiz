@@ -70,7 +70,6 @@ import PageToast from '@/components/shared/PageToast.vue'
 import toast from '@/mixins/toast.js'
 
 import { Login } from '@/services/api/auth.js'
-import { setCookie } from '@/utils/helpers.js'
 
 export default {
   components: {
@@ -96,7 +95,6 @@ export default {
         })
 
         this.user.isAuth = true
-        setCookie('user', JSON.stringify(this.user), 30)
 
         this.$router.replace({ name: 'quizzes' })
       } catch (err) {
