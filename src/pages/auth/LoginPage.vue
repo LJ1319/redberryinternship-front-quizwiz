@@ -30,8 +30,11 @@ export default {
     LoginForm,
     PageToast
   },
+  inject: ['user'],
   mixins: [toast],
   mounted() {
+    this.user.isAuth = false
+
     if (this.$route.query.verificationUrl) {
       const verificationUrl = this.$route.query.verificationUrl
       const signature = this.$route.query.signature

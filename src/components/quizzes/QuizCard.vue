@@ -1,5 +1,8 @@
 <template>
-  <div class="flex h-max flex-col gap-8 p-6 shadow-c2xl">
+  <router-link
+    class="group flex h-max flex-col gap-8 p-6 shadow-c2xl hover:rounded-xl hover:ring-1 hover:ring-black focus:rounded-xl focus:outline-none focus:ring-1 focus:ring-black"
+    :to="`quizzes/${quiz.id}`"
+  >
     <img :src="`${storageUrl}/${quiz.image}`" alt="Quiz Image" />
 
     <div class="capitalize">
@@ -19,7 +22,12 @@
         </div>
       </div>
 
-      <p class="mb-5 text-2xl font-semibold text-gray-900">{{ quiz.name }}</p>
+      <p class="mb-5 flex items-center justify-between">
+        <span class="text-2xl font-semibold text-gray-900">
+          {{ quiz.name }}
+        </span>
+        <icon-arrow-link class="hidden h-3 stroke-black group-hover:block group-focus:block" />
+      </p>
 
       <div class="flex flex-wrap gap-4 text-sm">
         <div v-if="getQuizUserData(quiz)" class="flex items-center justify-center gap-3">
@@ -87,9 +95,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
+
 <script>
+import IconArrowLink from '@/components/icons/IconArrowLink.vue'
 import IconCompletion from '@/components/icons/IconCompletion.vue'
 import IconBulb from '@/components/icons/IconBulb.vue'
 import IconLevel from '@/components/icons/IconLevel.vue'
@@ -99,6 +109,7 @@ import { formatDate, formatTime } from '@/utils/helpers.js'
 
 export default {
   components: {
+    IconArrowLink,
     IconCompletion,
     IconBulb,
     IconLevel,

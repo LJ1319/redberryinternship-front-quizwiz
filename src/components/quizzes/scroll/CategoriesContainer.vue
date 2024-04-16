@@ -32,7 +32,6 @@ export default {
   inject: ['categories'],
   data() {
     return {
-      categoryIsSelected: false,
       filterIsOpen: false
     }
   },
