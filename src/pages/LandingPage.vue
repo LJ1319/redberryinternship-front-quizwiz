@@ -23,34 +23,67 @@
       </p>
     </div>
 
-    <div class="flex h-64 items-center bg-orange px-12 lg:px-24">
-      <p class="w-full font-raleway font-black text-white lg:w-max">
-        <span class="text-8xl">200+</span> <br />
-        <span class="flex items-baseline justify-between">
-          <span class="text-5xl hover:underline">Quiz games</span>
-          <icon-arrow-link class="lg:hidden" />
-        </span>
-      </p>
+    <div class="flex h-72 items-center bg-orange px-12 lg:h-64 lg:px-24">
+      <info-link :number="quizCount" text="Quiz games" />
     </div>
 
-    <div class="flex h-60 items-center bg-purple px-12 lg:px-24">
-      <p class="w-full font-raleway font-black text-white lg:w-max">
-        <span class="text-8xl">25+</span> <br />
-        <span class="flex items-baseline justify-between">
-          <span class="w-min text-5xl hover:underline lg:w-max">Different genres</span>
-          <icon-arrow-link class="lg:hidden" />
-        </span>
-      </p>
+    <div class="flex h-72 items-center bg-purple px-12 lg:h-60 lg:px-24">
+      <info-link :number="genreCount" text="Different genres" />
     </div>
   </div>
 </template>
 
 <script>
-import IconArrowLink from '@/components/icons/IconArrowLink.vue'
+import InfoLink from '@/components/landing/InfoLink.vue'
+import { GetCategories, GetQuizzes } from '@/services/api/resources.js'
 
 export default {
   components: {
-    IconArrowLink
+    InfoLink
+  },
+  data() {
+    return {
+      quizCount: 0,
+      genreCount: 0
+    }
+  },
+  mounted() {
+    this.getQuizzes()
+    this.getCategories()
+  },
+  methods: {
+    async getQuizzes() {
+      try {
+        const { data } = await GetQuizzes(this.currentPage)
+        this.quizCount = data.total ?? 200
+      } catch (err) {
+        const toastData = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message
+        }
+        this.setToastData(toastData)
+
+        this.toast.hide()
+      }
+    },
+    async getCategories() {
+      try {
+        const { data } = await GetCategories()
+        this.genreCount = data.length ?? 25
+      } catch (err) {
+        const toastData = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message
+        }
+        this.setToastData(toastData)
+
+        this.toast.hide()
+      }
+    }
   }
 }
 </script>
