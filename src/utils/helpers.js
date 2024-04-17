@@ -17,7 +17,7 @@ export function getCookie(cName) {
 }
 
 export function removeBodyScroll(modalIsOpen) {
-  if (modalIsOpen) {
+  if (modalIsOpen && window.innerWidth < 1440) {
     document.body.classList.add('overflow-hidden')
   } else {
     document.body.classList.remove('overflow-hidden')
