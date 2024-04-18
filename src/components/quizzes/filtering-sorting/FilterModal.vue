@@ -1,6 +1,6 @@
 <template>
   <form
-    class="fixed left-0 top-0 z-10 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-14 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
+    class="fixed left-0 top-0 z-50 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-14 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
   >
     <div
       class="flex justify-between border-b border-gray-300 bg-zinc-50 px-4 py-6 text-sm font-semibold text-gray-500 lg:hidden lg:rounded-xl"
@@ -21,7 +21,7 @@
       <div
         class="w-full border-b border-gray-300 bg-white px-4 py-6 lg:rounded-3xl lg:border lg:border-gray-500/40 lg:px-6 lg:py-2"
       >
-        <search-form-group />
+        <!--        <search-bar />-->
       </div>
 
       <actions-container class="hidden shrink-0 lg:flex" />
@@ -63,7 +63,7 @@
 <script>
 import CloseButton from '@/components/base/buttons/CloseButton.vue'
 import IconSettings from '@/components/icons/IconSettings.vue'
-import SearchFormGroup from '@/components/base/search-form/SearchFormGroup.vue'
+import SearchBar from '@/components/base/search/SearchBar.vue'
 import ActionsContainer from '@/components/quizzes/filtering-sorting/ActionsContainer.vue'
 import QuizFilters from '@/components/quizzes/filtering-sorting/QuizFilters.vue'
 import QuizSorts from '@/components/quizzes/filtering-sorting/QuizSorts.vue'
@@ -74,7 +74,7 @@ export default {
   components: {
     CloseButton,
     IconSettings,
-    SearchFormGroup,
+    SearchBar,
     ActionsContainer,
     QuizFilters,
     QuizSorts

@@ -54,7 +54,7 @@ export default {
   methods: {
     async getQuizzes() {
       try {
-        const { data } = await GetQuizzes(this.currentPage)
+        const { data } = await GetQuizzes({ page: this.currentPage })
         this.quizCount = data.total ?? 200
       } catch (err) {
         const toastData = {

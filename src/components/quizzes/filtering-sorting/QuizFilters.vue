@@ -38,6 +38,7 @@
         <quiz-category
           v-for="category in categories"
           :key="category.id"
+          :id="category.id"
           :name="category.name"
           class="flex h-9 items-center justify-center px-3 py-2"
         />

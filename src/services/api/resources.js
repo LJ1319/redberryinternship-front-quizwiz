@@ -8,10 +8,11 @@ export const GetLevels = async () => {
   return axios.get('/api/levels')
 }
 
-export const GetQuizzes = async (currentPage = 1) => {
+export const GetQuizzes = async (params) => {
   return axios.get(`/api/quizzes`, {
     params: {
-      page: currentPage
+      page: params.page,
+      ...params
     }
   })
 }

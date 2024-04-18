@@ -33,6 +33,13 @@
         <span>Load more</span>
       </button>
     </div>
+
+    <p
+      v-if="quizzes.length === 0 && !isLoading"
+      class="text-center font-raleway text-3xl font-bold text-purple"
+    >
+      No quizzes to show. Search for other ones.
+    </p>
   </main-content>
 
   <page-toast :show="toast.show" :status="toast.status" :title="toast.title" :text="toast.text" />
@@ -82,7 +89,25 @@ export default {
       levels: computed(() => this.levels)
     }
   },
+  watch: {
+    canLoadMore(val) {
+      if (!val) {
+        this.currentPage = 1
+      }
+    },
+    '$route.query'(val) {
+      if (val) {
+        this.getQuizzes()
+      }
+    }
+  },
   mounted() {
+    const categories = this.$route.query.categories
+
+    if (categories && !Array.isArray(categories)) {
+      this.$route.query.categories = Object.values(this.$route.query.categories)
+    }
+
     this.getCategories()
     this.getLevels()
     this.getQuizzes()
@@ -112,10 +137,16 @@ export default {
       try {
         this.isLoading = true
 
-        const { data } = await GetQuizzes(this.currentPage)
+        const params = {
+          page: this.currentPage,
+          ...this.$route.query
+        }
+
+        const { data } = await GetQuizzes(params)
         this.quizzes = [...data.data]
 
         this.isLoading = false
+
         this.canLoadMore = this.currentPage < data.last_page
       } catch (err) {
         const toastData = {
@@ -131,14 +162,20 @@ export default {
     },
     async loadMore() {
       try {
+        this.currentPage += 1
         this.isLoading = true
 
-        this.currentPage += 1
-        const { data } = await GetQuizzes(this.currentPage)
+        const params = {
+          page: this.currentPage,
+          ...this.$route.query
+        }
+
+        const { data } = await GetQuizzes(params)
         this.quizzes.push(...data.data)
 
-        this.isLoading = false
         this.canLoadMore = this.currentPage < data.last_page
+
+        this.isLoading = false
       } catch (err) {
         const toastData = {
           show: true,
@@ -151,7 +188,6 @@ export default {
         this.toast.hide()
       }
     },
-
     toggleFilter() {
       this.filterIsOpen = !this.filterIsOpen
     }

@@ -1,8 +1,8 @@
 <template>
-  <button>
+  <div>
     <icon-search />
     <slot />
-  </button>
+  </div>
 </template>
 
 <script>

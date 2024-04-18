@@ -11,11 +11,12 @@
 
 <script>
 export default {
-  props: ['name', 'type'],
+  props: ['id', 'name', 'type'],
+  emits: ['add'],
   data() {
     return {
       isScrollable: this.type === 'scrollable',
-      isSelected: false
+      isSelected: this.isAllSelected
     }
   },
   computed: {
@@ -28,9 +29,25 @@ export default {
       }
     }
   },
+  mounted() {
+    const categories = this.$route.query.categories
+
+    if (categories) {
+      this.isSelected = categories.includes(this.id.toString())
+    }
+  },
+  watch: {
+    '$route.query.categories'(val) {
+      if (!val || !val.includes(this.id.toString())) {
+        this.isSelected = false
+      }
+    }
+  },
   methods: {
     toggleSelected() {
       this.isSelected = !this.isSelected
+
+      this.$emit('add', this.id.toString())
     }
   }
 }

@@ -2,7 +2,7 @@
   <header
     id="main-header"
     ref="header"
-    class="relative flex h-[4.5rem] items-center justify-between border-b border-gray-300 px-4 lg:px-24"
+    class="sticky top-0 z-50 flex h-[4.5rem] w-full items-center justify-between border-b border-gray-300 bg-white px-4 lg:px-24"
   >
     <div class="items-center justify-center gap-16 lg:flex">
       <router-link to="/">
@@ -12,7 +12,7 @@
       <router-link
         to="/quizzes"
         class="hidden font-inter font-semibold text-gray-600 lg:inline"
-        activeClass="before:inline-block before:w-[0.625rem] before:h-[0.625rem] before:rounded-full before:bg-purple before:mr-2"
+        active-class="before:inline-block before:w-[0.625rem] before:h-[0.625rem] before:rounded-full before:bg-purple before:mr-2"
       >
         Quizzes
       </router-link>
@@ -20,10 +20,18 @@
 
     <div class="flex items-center gap-5">
       <div class="flex items-center gap-4 lg:gap-8">
-        <search-form-toggle v-if="renderSearch && !searchFormIsOpen" v-on:click="openSearchForm" />
-        <search-form v-if="searchFormIsOpen" v-on:close="closeSearchForm" />
+        <search-toggle
+          v-if="renderSearch && !searchIsOpen"
+          v-on:click="openSearch"
+          class="cursor-pointer"
+        />
+        <search-bar v-if="renderSearch && searchIsOpen" v-on:close="closeSearch" />
 
-        <user-info-button v-if="user.isAuth" v-on:click="openMenu" class="hidden h-8 lg:block" />
+        <user-info-button
+          v-if="user.isAuth"
+          v-on:click="openMenu"
+          class="z-50 hidden h-8 lg:block"
+        />
 
         <burger-menu-button v-on:click="openMenu" class="lg:hidden" />
       </div>
@@ -62,8 +70,8 @@
 </template>
 
 <script>
-import SearchFormToggle from '@/components/base/search-form/SearchFormToggle.vue'
-import SearchForm from '@/components/base/search-form/SearchForm.vue'
+import SearchToggle from '@/components/base/search/SearchToggle.vue'
+import SearchBar from '@/components/base/search/SearchBar.vue'
 import UserInfoButton from '@/components/base/buttons/UserInfoButton.vue'
 import BurgerMenuButton from '@/components/base/buttons/BurgerMenuButton.vue'
 import IconNext from '@/components/icons/IconNext.vue'
@@ -73,8 +81,8 @@ import { removeBodyScroll } from '@/utils/helpers.js'
 
 export default {
   components: {
-    SearchFormToggle,
-    SearchForm,
+    SearchToggle,
+    SearchBar,
     UserInfoButton,
     BurgerMenuButton,
     IconNext,
@@ -84,7 +92,7 @@ export default {
   data() {
     return {
       renderSearch: false,
-      searchFormIsOpen: false,
+      searchIsOpen: false,
       menuIsOpen: false
     }
   },
@@ -100,7 +108,7 @@ export default {
     this.renderSearch = this.$route.meta.needsSearch
   },
   updated() {
-    removeBodyScroll(this.searchFormIsOpen || this.menuIsOpen)
+    removeBodyScroll(this.menuIsOpen)
   },
   beforeUnmount() {
     window.removeEventListener('click', this.clickAway)
@@ -117,11 +125,11 @@ export default {
     closeMenu() {
       this.menuIsOpen = false
     },
-    openSearchForm() {
-      this.searchFormIsOpen = true
+    openSearch() {
+      this.searchIsOpen = true
     },
-    closeSearchForm() {
-      this.searchFormIsOpen = false
+    closeSearch() {
+      this.searchIsOpen = false
     }
   }
 }
