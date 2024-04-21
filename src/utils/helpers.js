@@ -53,3 +53,15 @@ export function formatTime(hms) {
 
   return Math.ceil(hours * 60 + minutes + seconds / 60)
 }
+
+export function diffArrays(arr1, arr2) {
+  if (!arr1 || !arr2) return
+
+  return arr1.sort().join(',') !== arr2.sort().join(',')
+}
+
+export function isObjEmpty(obj) {
+  if (!obj) return
+
+  return JSON.stringify(obj) === '{}'
+}

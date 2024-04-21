@@ -1,10 +1,13 @@
 <template>
   <main-content>
-    <div class="relative my-6 flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
-      <quiz-categories />
+    <div
+      ref="filters"
+      class="relative my-6 flex flex-col justify-between gap-5 lg:flex-row lg:items-center"
+    >
+      <categories-container v-on:count="changeCount" />
 
-      <filter-toggle-button v-on:click="toggleFilter" />
-      <filter-modal v-if="filterIsOpen" v-on:close="toggleFilter" />
+      <filter-toggle-button v-on:click.stop="toggleFilter" :count="filtersCount" />
+      <filter-modal v-if="filterIsOpen" v-on:close="closeFilter" v-on:count="changeCount" />
     </div>
 
     <div v-if="quizzes.length === 0 && isLoading" class="flex items-center justify-center">
@@ -47,7 +50,7 @@
 
 <script>
 import MainContent from '@/components/base/MainContent.vue'
-import QuizCategories from '@/components/quizzes/scroll/CategoriesContainer.vue'
+import CategoriesContainer from '@/components/quizzes/scroll/CategoriesContainer.vue'
 import FilterToggleButton from '@/components/quizzes/filtering-sorting/FilterToggleButton.vue'
 import FilterModal from '@/components/quizzes/filtering-sorting/FilterModal.vue'
 import IconSpinner from '@/components/icons/IconSpinner.vue'
@@ -59,11 +62,12 @@ import { computed } from 'vue'
 import toast from '@/mixins/toast.js'
 
 import { GetCategories, GetLevels, GetQuizzes } from '@/services/api/resources.js'
+import { isObjEmpty } from '@/utils/helpers.js'
 
 export default {
   components: {
     MainContent,
-    QuizCategories,
+    CategoriesContainer,
     FilterToggleButton,
     FilterModal,
     IconSpinner,
@@ -78,9 +82,13 @@ export default {
       levels: [],
       quizzes: [],
       currentPage: 1,
+      qLevels: [],
+      qCategories: [],
       canLoadMore: true,
       isLoading: false,
-      filterIsOpen: false
+      filterIsOpen: false,
+      oldCount: 0,
+      filtersCount: 0
     }
   },
   provide() {
@@ -89,30 +97,83 @@ export default {
       levels: computed(() => this.levels)
     }
   },
-  watch: {
-    canLoadMore(val) {
-      if (!val) {
-        this.currentPage = 1
-      }
-    },
-    '$route.query'(val) {
-      if (val) {
-        this.getQuizzes()
-      }
-    }
-  },
   mounted() {
-    const categories = this.$route.query.categories
-
-    if (categories && !Array.isArray(categories)) {
-      this.$route.query.categories = Object.values(this.$route.query.categories)
-    }
+    this.filtersCount = this.$route.query.count ? Number(this.$route.query.count) : 0
 
     this.getCategories()
     this.getLevels()
     this.getQuizzes()
   },
+  watch: {
+    '$route.query'(val) {
+      if (val) {
+        this.getQuizzes()
+
+        this.$router.replace({ query: { ...val, count: this.filtersCount } })
+
+        if (isObjEmpty(val)) {
+          this.filtersCount = 0
+        }
+      } else {
+        this.filtersCount = 0
+      }
+    },
+    '$route.query.filter'(newVal, oldVal) {
+      if (newVal && !oldVal) {
+        this.filtersCount++
+      }
+
+      if (newVal === undefined) {
+        this.filtersCount--
+      }
+
+      if (this.filtersCount < 0) {
+        this.filtersCount = 0
+      }
+    },
+    '$route.query.sort'(newVal, oldVal) {
+      if (newVal && !oldVal) {
+        this.filtersCount++
+      }
+
+      if (newVal === undefined) {
+        this.filtersCount--
+      }
+
+      if (this.filtersCount < 0) {
+        this.filtersCount = 0
+      }
+    },
+    canLoadMore(val) {
+      if (!val) {
+        this.currentPage = 1
+      }
+    }
+  },
   methods: {
+    checkData() {
+      const levels = this.$route.query.levels
+      if (levels) {
+        if (!Array.isArray(levels)) {
+          this.qLevels.push(levels)
+        } else {
+          this.qLevels = [...levels]
+        }
+      } else {
+        this.qLevels = []
+      }
+
+      const categories = this.$route.query.categories
+      if (categories) {
+        if (!Array.isArray(categories)) {
+          this.qCategories.push(categories)
+        } else {
+          this.qCategories = [...categories]
+        }
+      } else {
+        this.qCategories = []
+      }
+    },
     async getCategories() {
       try {
         const { data } = await GetCategories()
@@ -135,11 +196,15 @@ export default {
     },
     async getQuizzes() {
       try {
+        this.checkData()
+
         this.isLoading = true
 
         const params = {
           page: this.currentPage,
-          ...this.$route.query
+          ...this.$route.query,
+          levels: this.qLevels,
+          categories: this.qCategories
         }
 
         const { data } = await GetQuizzes(params)
@@ -190,6 +255,12 @@ export default {
     },
     toggleFilter() {
       this.filterIsOpen = !this.filterIsOpen
+    },
+    closeFilter() {
+      this.filterIsOpen = false
+    },
+    changeCount(value) {
+      this.filtersCount += value
     }
   }
 }

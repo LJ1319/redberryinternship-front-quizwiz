@@ -11,7 +11,8 @@
 
 <script>
 export default {
-  props: ['name', 'bg_color', 'color'],
+  inject: ['changeLevels', 'filterLevels'],
+  props: ['id', 'name', 'bg_color', 'color'],
   data() {
     return {
       isSelected: false,
@@ -25,9 +26,29 @@ export default {
       }
     }
   },
+  mounted() {
+    this.checkData()
+  },
+  watch: {
+    '$route.query.levels'(val) {
+      this.isSelected = !(!val || !val.includes(this.id.toString()))
+    },
+    filterLevels(val) {
+      this.isSelected = val.includes(this.id.toString())
+    }
+  },
   methods: {
     toggleSelected() {
       this.isSelected = !this.isSelected
+
+      this.changeLevels(this.id.toString())
+    },
+    checkData() {
+      const levels = this.$route.query.levels
+
+      if (levels) {
+        this.isSelected = levels.includes(this.id.toString())
+      }
     }
   }
 }

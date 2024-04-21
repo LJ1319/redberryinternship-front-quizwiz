@@ -2,6 +2,7 @@
   <page-backdrop v-on:click="close" />
 
   <div
+    ref="menu"
     class="absolute left-0 top-0 z-50 min-h-80 w-80 bg-white px-6 shadow-cmd lg:left-auto lg:right-24 lg:top-3.5 lg:min-h-40 lg:rounded-lg"
   >
     <header class="flex h-[4.5rem] items-center justify-between border-b border-gray-300 lg:hidden">
@@ -96,10 +97,23 @@ export default {
       storageUrl: `${import.meta.env.VITE_API_URL}/storage`
     }
   },
+  mounted() {
+    window.addEventListener('click', this.handleClickOutside)
+
+    this.searchIsShown = this.$route.meta.needsSearch
+  },
   updated() {
     this.$emit('close')
   },
+  beforeUnmount() {
+    window.removeEventListener('click', this.handleClickOutside)
+  },
   methods: {
+    handleClickOutside(e) {
+      if (!this.$refs.menu.contains(e.target)) {
+        this.close()
+      }
+    },
     close() {
       this.$emit('close')
     }

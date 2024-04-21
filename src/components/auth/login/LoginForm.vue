@@ -10,12 +10,12 @@
     </div>
 
     <div class="space-y-6">
-      <form-group classes="space-y-1.5">
+      <form-group>
         <form-label for="email" text="Email address" />
         <form-input type="email" name="email" placeholder="Your email" rules="required|email" />
       </form-group>
 
-      <form-group classes="space-y-1.5">
+      <form-group>
         <form-label for="password" text="Password" />
         <form-input
           type="password"
@@ -25,10 +25,8 @@
         />
       </form-group>
 
-      <div class="flex justify-between">
-        <form-group>
-          <form-checkbox name="remember" text="Remember me" />
-        </form-group>
+      <div class="flex items-center justify-between">
+        <form-checkbox name="remember" text="Remember me" />
 
         <span class="font-inter text-sm text-gray-700">
           <router-link to="/forgot">Forgot password?</router-link>

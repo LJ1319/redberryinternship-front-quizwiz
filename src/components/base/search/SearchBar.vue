@@ -4,10 +4,10 @@
   >
     <div class="mx-auto flex h-11 w-96 justify-between rounded-clg border bg-gray-50 pl-4 lg:w-80">
       <div class="flex items-center gap-2">
-        <search-group />
+        <icon-search class="shrink-0" />
 
         <input
-          ref="input"
+          ref="searchInput"
           v-model="searchText"
           v-on:input="handleInput"
           v-on:blur="close"
@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import SearchGroup from '@/components/base/search/SearchGroup.vue'
 import CloseButton from '@/components/base/buttons/CloseButton.vue'
+import IconSearch from '@/components/icons/IconSearch.vue'
 
 export default {
   components: {
-    SearchGroup,
+    IconSearch,
     CloseButton
   },
   emits: ['close'],
@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.input.focus()
+    this.$refs.searchInput.focus()
   },
   methods: {
     close() {

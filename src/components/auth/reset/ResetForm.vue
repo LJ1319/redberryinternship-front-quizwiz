@@ -8,7 +8,7 @@
     </div>
 
     <div class="space-y-6">
-      <form-group classes="space-y-1.5">
+      <form-group>
         <form-label for="new_password" text="New password" />
         <form-input
           type="password"
@@ -18,7 +18,7 @@
         />
       </form-group>
 
-      <form-group classes="space-y-1.5">
+      <form-group>
         <form-label for="password_confirmation" text="Confirm password" />
         <form-input
           type="password"

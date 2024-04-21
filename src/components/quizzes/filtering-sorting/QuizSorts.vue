@@ -4,23 +4,28 @@
   >
     <span class="hidden text-purple lg:block">Sort by</span>
 
-    <sort-action name="A-Z">
+    <sort-action text="A-Z" value="a-z" order_column="name" order_direction="asc">
       <icon-arrow-up />
     </sort-action>
 
-    <sort-action name="Z-A">
+    <sort-action text="Z-A" value="z-a" order_column="name" order_direction="desc">
       <icon-arrow-down />
     </sort-action>
 
-    <sort-action name="Most popular">
+    <sort-action
+      text="Most popular"
+      value="popular"
+      order_column="users_count"
+      order_direction="desc"
+    >
       <icon-diamond />
     </sort-action>
 
-    <sort-action name="Newest">
+    <sort-action text="Newest" value="newest" order_column="created_at" order_direction="desc">
       <icon-newest />
     </sort-action>
 
-    <sort-action name="Oldest">
+    <sort-action text="Oldest" value="oldest" order_column="created_at" order_direction="asc">
       <icon-oldest />
     </sort-action>
   </div>

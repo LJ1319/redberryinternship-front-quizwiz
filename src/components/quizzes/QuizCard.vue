@@ -1,5 +1,6 @@
 <template>
-  <div
+  <router-link
+    :to="`/quizzes/${quiz.id}`"
     class="group flex h-max flex-col gap-8 p-6 shadow-c2xl hover:rounded-xl hover:ring-1 hover:ring-black focus:rounded-xl focus:outline-none focus:ring-1 focus:ring-black"
   >
     <img :src="`${storageUrl}/${quiz.image}`" alt="Quiz Image" />
@@ -94,7 +95,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
