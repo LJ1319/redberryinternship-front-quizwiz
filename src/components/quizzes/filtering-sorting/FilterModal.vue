@@ -115,38 +115,51 @@ export default {
       searchText: '',
       filteredLevels: this.levels,
       filteredCategories: this.categories,
-      filter: undefined,
-      sort: undefined,
-      orderColumn: undefined,
-      orderDirection: undefined,
-      filterLevels: [],
-      filterCategories: [],
-      oldFilter: undefined,
-      oldSort: undefined,
-      oldOrderColumn: undefined,
-      oldOrderDirection: undefined,
-      oldLevels: [],
-      oldCategories: [],
+      filter: {
+        oldValue: undefined,
+        newValue: undefined
+      },
+      sort: {
+        old: {
+          value: undefined,
+          orderColumn: undefined,
+          orderDirection: undefined
+        },
+        new: {
+          value: undefined,
+          orderColumn: undefined,
+          orderDirection: undefined
+        }
+      },
+      filterLevels: {
+        oldValues: [],
+        newValues: []
+      },
+      filterCategories: {
+        oldValues: [],
+        newValues: []
+      },
       count: 0
     }
   },
   computed: {
     hasNewFilters() {
       return (
-        this.oldFilter !== this.filter ||
-        this.oldSort !== this.sort ||
-        diffArrays(this.oldLevels, this.filterLevels) ||
-        diffArrays(this.oldCategories, this.filterCategories) ||
-        diffArrays(this.filterCategories, this.$route.query.categories)
+        this.filter.oldValue !== this.filter.newValue ||
+        this.sort.old.value !== this.sort.new.value ||
+        diffArrays(this.filterLevels.oldValues, this.filterLevels.newValues) ||
+        diffArrays(this.filterCategories.oldValues, this.filterCategories.newValues) ||
+        diffArrays(this.filterLevels.newValues, this.$route.query.levels) ||
+        diffArrays(this.filterCategories.newValues, this.$route.query.categories)
       )
     }
   },
   provide() {
     return {
-      fFilter: computed(() => this.filter),
-      fSort: computed(() => this.sort),
-      filterLevels: computed(() => this.filterLevels),
-      filterCategories: computed(() => this.filterCategories),
+      fFilter: computed(() => this.filter.newValue),
+      fSort: computed(() => this.sort.new.value),
+      filterLevels: computed(() => this.filterLevels.newValues),
+      filterCategories: computed(() => this.filterCategories.newValues),
       changeFilter: this.changeFilter,
       changeLevels: this.changeLevels,
       changeCategories: this.changeCategories,
@@ -188,34 +201,36 @@ export default {
       this.sortingIsSelected = !this.sortingIsSelected
     },
     checkData() {
-      this.filter = this.$route.query?.filter
+      this.filter.newValue = this.$route.query?.filter
 
       const filterLevels = this.$route.query.levels
       if (filterLevels) {
         if (!Array.isArray(filterLevels)) {
-          this.filterLevels.push(filterLevels)
+          this.filterLevels.newValues.push(filterLevels)
         } else {
-          this.filterLevels = [...filterLevels]
+          this.filterLevels.newValues = [...filterLevels]
         }
       } else {
-        this.filterLevels = []
+        this.filterLevels.newValues = []
       }
 
       const filterCategories = this.$route.query.categories
       if (filterCategories) {
         if (!Array.isArray(filterCategories)) {
-          this.filterCategories.push(filterCategories)
+          this.filterCategories.newValues.push(filterCategories)
         } else {
-          this.filterCategories = [...filterCategories]
+          this.filterCategories.newValues = [...filterCategories]
         }
       } else {
-        this.filterCategories = []
+        this.filterCategories.newValues = []
       }
 
-      this.sort = this.$route.query?.sort
-      this.oldSort = this.sort
-      this.orderColumn = this.$route.query?.order_column
-      this.orderDirection = this.$route.query?.order_direction
+      this.sort.new.value = this.$route.query?.sort
+      this.sort.old.value = this.sort.new.value
+      this.sort.new.orderColumn = this.$route.query?.order_column
+      this.sort.old.orderColumn = this.sort.new.orderColumn
+      this.sort.new.orderDirection = this.$route.query?.order_direction
+      this.sort.old.orderDirection = this.sort.new.orderDirection
 
       this.revert()
     },
@@ -231,55 +246,55 @@ export default {
       )
     },
     changeFilter(value) {
-      this.filter = value
+      this.filter.newValue = value
     },
     changeLevels(id) {
-      if (!this.filterLevels.includes(id)) {
-        this.filterLevels.push(id)
+      if (!this.filterLevels.newValues.includes(id)) {
+        this.filterLevels.newValues.push(id)
 
         this.count++
       } else {
-        const el = this.filterLevels.indexOf(id)
-        this.filterLevels.splice(el, 1)
+        const el = this.filterLevels.newValues.indexOf(id)
+        this.filterLevels.newValues.splice(el, 1)
 
         this.count--
       }
     },
     changeCategories(id) {
-      if (!this.filterCategories.includes(id)) {
-        this.filterCategories.push(id)
+      if (!this.filterCategories.newValues.includes(id)) {
+        this.filterCategories.newValues.push(id)
 
         this.count++
       } else {
-        const el = this.filterCategories.indexOf(id)
-        this.filterCategories.splice(el, 1)
+        const el = this.filterCategories.newValues.indexOf(id)
+        this.filterCategories.newValues.splice(el, 1)
 
         this.count--
       }
     },
     changeSort(values) {
-      this.sort = values.sort
-      this.orderColumn = values.orderColumn
-      this.orderDirection = values.orderDirection
+      this.sort.new.value = values.sort
+      this.sort.new.orderColumn = values.orderColumn
+      this.sort.new.orderDirection = values.orderDirection
     },
     revert() {
-      this.oldFilter = this.filter
-      this.oldSort = this.sort
-      this.oldOrderColumn = this.orderColumn
-      this.oldOrderDirection = this.orderDirection
-      this.oldLevels = [...this.filterLevels]
-      this.oldCategories = [...this.filterCategories]
+      this.filter.oldValue = this.filter.newValue
+      this.sort.old.value = this.sort.new.value
+      this.sort.old.orderColumn = this.sort.new.orderColumn
+      this.sort.old.orderDirection = this.sort.new.orderDirection
+      this.filterLevels.oldValues = [...this.filterLevels.newValues]
+      this.filterCategories.oldValues = [...this.filterCategories.newValues]
     },
     confirm() {
       this.$router.replace({
         query: {
           ...this.$route.query,
-          filter: this.filter,
-          sort: this.sort,
-          order_column: this.orderColumn,
-          order_direction: this.orderDirection,
-          levels: this.filterLevels,
-          categories: this.filterCategories
+          filter: this.filter.newValue,
+          sort: this.sort.new.value,
+          order_column: this.sort.new.orderColumn,
+          order_direction: this.sort.new.orderDirection,
+          levels: this.filterLevels.newValues,
+          categories: this.filterCategories.newValues
         }
       })
 
@@ -288,12 +303,12 @@ export default {
       this.$emit('close')
     },
     reset() {
-      this.filter = this.oldFilter
-      this.sort = this.oldSort
-      this.orderColumn = this.oldOrderColumn
-      this.orderDirection = this.oldOrderDirection
-      this.filterLevels = [...this.oldLevels]
-      this.filterCategories = [...this.oldCategories]
+      this.filter.newValue = this.filter.oldValue
+      this.sort.new.value = this.sort.old.value
+      this.sort.new.orderColumn = this.sort.old.orderColumn
+      this.sort.new.orderDirection = this.sort.old.orderDirection
+      this.filterLevels.newValues = [...this.filterLevels.oldValues]
+      this.filterCategories.newValues = [...this.filterCategories.oldValues]
       this.hasNewFilters = false
     }
   }
