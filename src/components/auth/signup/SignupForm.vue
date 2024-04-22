@@ -47,9 +47,7 @@
         />
       </form-group>
 
-      <form-group>
-        <form-checkbox name="terms" text="I accept terms and privacy policy" rules="required" />
-      </form-group>
+      <form-checkbox name="terms" text="I accept terms and privacy policy" rules="required" />
     </div>
 
     <form-primary-button text="Sign up" />

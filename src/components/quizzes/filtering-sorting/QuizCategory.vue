@@ -11,8 +11,9 @@
 
 <script>
 export default {
+  inject: ['changeCategories', 'filterCategories'],
   props: ['id', 'name', 'type'],
-  emits: ['add'],
+  emits: ['change'],
   data() {
     return {
       isScrollable: this.type === 'scrollable',
@@ -30,24 +31,32 @@ export default {
     }
   },
   mounted() {
-    const categories = this.$route.query.categories
-
-    if (categories) {
-      this.isSelected = categories.includes(this.id.toString())
-    }
+    this.checkData()
   },
   watch: {
     '$route.query.categories'(val) {
-      if (!val || !val.includes(this.id.toString())) {
-        this.isSelected = false
-      }
+      this.isSelected = !(!val || !val.includes(this.id.toString()))
+    },
+    filterCategories(val) {
+      this.isSelected = val.includes(this.id.toString())
     }
   },
   methods: {
     toggleSelected() {
       this.isSelected = !this.isSelected
 
-      this.$emit('add', this.id.toString())
+      if (this.isScrollable) {
+        this.$emit('change', this.id.toString())
+      } else {
+        this.changeCategories(this.id.toString())
+      }
+    },
+    checkData() {
+      const categories = this.$route.query.categories
+
+      if (categories) {
+        this.isSelected = categories.includes(this.id.toString())
+      }
     }
   }
 }

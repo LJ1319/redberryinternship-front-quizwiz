@@ -1,7 +1,5 @@
 <template>
   <header
-    id="main-header"
-    ref="header"
     class="sticky top-0 z-50 flex h-[4.5rem] w-full items-center justify-between border-b border-gray-300 bg-white px-4 lg:px-24"
   >
     <div class="items-center justify-center gap-16 lg:flex">
@@ -21,19 +19,19 @@
     <div class="flex items-center gap-5">
       <div class="flex items-center gap-4 lg:gap-8">
         <search-toggle
-          v-if="renderSearch && !searchIsOpen"
+          v-if="searchIsShown && !searchIsOpen"
           v-on:click="openSearch"
           class="cursor-pointer"
         />
-        <search-bar v-if="renderSearch && searchIsOpen" v-on:close="closeSearch" />
+        <search-bar v-if="searchIsShown && searchIsOpen" v-on:close="closeSearch" />
 
         <user-info-button
           v-if="user.isAuth"
-          v-on:click="openMenu"
-          class="z-50 hidden h-8 lg:block"
+          v-on:click.stop="openMenu"
+          class="hidden h-8 lg:block"
         />
 
-        <burger-menu-button v-on:click="openMenu" class="lg:hidden" />
+        <burger-menu-button v-on:click.stop="openMenu" class="lg:hidden" />
       </div>
 
       <div
@@ -91,34 +89,23 @@ export default {
   inject: ['user'],
   data() {
     return {
-      renderSearch: false,
+      searchIsShown: false,
       searchIsOpen: false,
       menuIsOpen: false
     }
   },
   watch: {
-    $route() {
-      this.renderSearch = this.$route.meta.needsSearch
-      this.menuIsOpen = false
+    $route(val) {
+      this.searchIsShown = val.meta.needsSearch
     }
   },
   mounted() {
-    window.addEventListener('click', this.clickAway)
-
-    this.renderSearch = this.$route.meta.needsSearch
+    this.searchIsShown = this.$route.meta.needsSearch
   },
   updated() {
     removeBodyScroll(this.menuIsOpen)
   },
-  beforeUnmount() {
-    window.removeEventListener('click', this.clickAway)
-  },
   methods: {
-    clickAway(e) {
-      if (!this.$refs.header.contains(e.target) || e.target.id === 'main-header') {
-        this.menuIsOpen = false
-      }
-    },
     openMenu() {
       this.menuIsOpen = true
     },
