@@ -15,8 +15,8 @@
     </div>
 
     <div
-      class="mb-12 flex w-full flex-col items-center gap-8 font-inter lg:my-12"
       v-if="quizzes.length > 0"
+      class="mb-12 flex w-full flex-col items-center gap-8 font-inter lg:my-12"
     >
       <quiz-grid :quizzes="quizzes" />
 
@@ -41,7 +41,7 @@
       v-if="quizzes.length === 0 && !isLoading"
       class="text-center font-raleway text-3xl font-bold text-purple"
     >
-      No quizzes to show. Search for other ones.
+      No quizzes to show.
     </p>
   </main-content>
 

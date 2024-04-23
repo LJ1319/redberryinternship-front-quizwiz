@@ -45,9 +45,6 @@ const router = createRouter({
         default: QuizDetail,
         header: PageHeader,
         footer: PageFooter
-      },
-      meta: {
-        needsSearch: true
       }
     },
     {

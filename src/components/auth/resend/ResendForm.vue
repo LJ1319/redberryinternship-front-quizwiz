@@ -7,12 +7,10 @@
       </p>
     </div>
 
-    <div class="space-y-6">
-      <form-group>
-        <form-label for="email" text="Email address" />
-        <form-input type="email" name="email" placeholder="Your email" rules="required|email" />
-      </form-group>
-    </div>
+    <form-group>
+      <form-label for="email" text="Email address" />
+      <form-input type="email" name="email" placeholder="Your email" rules="required|email" />
+    </form-group>
 
     <form-primary-button text="Resend" />
   </Form>
