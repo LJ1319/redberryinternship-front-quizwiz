@@ -132,7 +132,7 @@ import IconTime from '@/components/icons/IconTime.vue'
 import QuizCard from '@/components/quizzes/QuizCard.vue'
 
 import toast from '@/mixins/toast.js'
-import { GetQuiz } from '@/services/api/resources.js'
+import { GetQuiz, GetSimilarQuizzes } from '@/services/api/resources.js'
 import { formatTime } from '../utils/helpers.js'
 
 export default {
@@ -161,12 +161,16 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.id
+
     this.getQuiz()
+    this.getSimilarQuizzes()
   },
   watch: {
     '$route.params.id'() {
       this.id = this.$route.params.id
+
       this.getQuiz()
+      this.getSimilarQuizzes()
     }
   },
   methods: {
@@ -176,9 +180,7 @@ export default {
         this.isLoading = true
 
         const { data } = await GetQuiz(this.id)
-        this.quiz = data.quiz
-        this.similarQuizzes = [...data.similarQuizzes.data]
-
+        this.quiz = data
         this.points = this.quiz.questions.reduce((acc, curr) => acc + curr.points, 0)
 
         const played = this.quiz.users.some((user) => user.id === this.user.id)
@@ -188,6 +190,27 @@ export default {
 
         this.isLoading = false
       } catch (err) {
+        const toastData = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message
+        }
+        this.setToastData(toastData)
+
+        this.toast.hide()
+      }
+    },
+    async getSimilarQuizzes() {
+      try {
+        this.isLoading = true
+
+        const { data } = await GetSimilarQuizzes(this.id)
+        this.similarQuizzes = data
+
+        this.isLoading = false
+      } catch (err) {
+        console.log(err)
         const toastData = {
           show: true,
           status: 'error',
