@@ -16,3 +16,7 @@ export const GetQuizzes = async (params) => {
     }
   })
 }
+
+export const GetQuiz = async (id) => {
+  return axios.get(`/api/quizzes/${id}`)
+}

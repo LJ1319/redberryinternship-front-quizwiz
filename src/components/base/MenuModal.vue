@@ -108,6 +108,13 @@ export default {
   beforeUnmount() {
     window.removeEventListener('click', this.handleClickOutside)
   },
+  watch: {
+    $route(val) {
+      if (val) {
+        this.close()
+      }
+    }
+  },
   methods: {
     handleClickOutside(e) {
       if (!this.$refs.menu.contains(e.target)) {

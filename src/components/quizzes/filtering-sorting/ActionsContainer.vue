@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed bottom-0 left-0 flex h-24 w-full items-center gap-2.5 bg-white px-4 py-5 text-sm shadow-c2xl lg:static lg:h-10 lg:w-max lg:gap-4 lg:bg-gray-150/70 lg:p-0 lg:shadow-none"
+    class="fixed bottom-0 left-0 flex h-24 w-full items-center gap-2.5 bg-white px-4 py-5 text-sm shadow-c3xl lg:static lg:h-10 lg:w-max lg:gap-4 lg:bg-gray-150/70 lg:p-0 lg:shadow-none"
   >
     <button
       v-on:click="confirm"

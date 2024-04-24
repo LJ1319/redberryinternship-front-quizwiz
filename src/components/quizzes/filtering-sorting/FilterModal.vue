@@ -1,7 +1,7 @@
 <template>
   <div
     ref="filter"
-    class="fixed left-0 top-0 z-40 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-14 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
+    class="fixed left-0 top-0 z-50 h-screen w-full bg-white font-inter lg:absolute lg:left-auto lg:right-0 lg:top-14 lg:z-40 lg:h-max lg:w-10/12 lg:rounded-xl lg:border lg:border-black lg:p-4"
   >
     <div
       class="flex justify-between border-b border-gray-300 bg-zinc-50 px-4 py-6 text-sm font-semibold text-gray-500 lg:hidden lg:rounded-xl"
@@ -38,7 +38,7 @@
         v-show="hasNewFilters"
         v-on:confirm="confirm"
         v-on:reset="reset"
-        class="hidden shrink-0 lg:flex"
+        class="shrink-0"
       />
       <close-button v-on:click="close" width="10" height="10" class="hidden h-4 w-4 lg:block" />
     </div>
@@ -74,13 +74,6 @@
       />
       <quiz-sorts v-show="sortIngIsShown || sortingIsSelected" />
     </div>
-
-    <actions-container
-      v-show="hasNewFilters"
-      v-on:confirm="confirm"
-      v-on:reset="reset"
-      class="lg:hidden"
-    />
   </div>
 </template>
 
