@@ -9,15 +9,14 @@
       Confirm
     </button>
 
-    <button
-      class="h-full w-1/3 rounded-clg border font-semibold text-gray-600 focus:outline-none lg:hidden"
-    >
-      Cancel
-    </button>
-
     <div class="hidden h-3 w-[1px] bg-black/40 lg:block"></div>
-    <button v-on:click="reset" class="hidden text-gray-500 focus:outline-none lg:block">
-      Reset all filters
+
+    <button
+      v-on:click="reset"
+      class="h-full w-1/3 rounded-clg border text-gray-600 focus:outline-none lg:w-max lg:rounded-none lg:border-0"
+    >
+      <span class="font-semibold text-gray-500 lg:hidden">Cancel</span>
+      <span class="hidden text-gray-600 lg:block">Reset all filters</span>
     </button>
   </div>
 </template>

@@ -30,7 +30,7 @@
       </p>
 
       <div class="flex flex-wrap gap-4 text-sm">
-        <div v-if="getQuizUserData(quiz)" class="flex items-center justify-center gap-3">
+        <div v-if="completed" class="flex items-center justify-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100">
             <icon-completion />
           </div>
@@ -38,7 +38,7 @@
           <div>
             <p class="font-semibold text-gray-900">Completed</p>
             <p class="text-gray-600">
-              {{ formatDate(getQuizUserData(quiz).completion) }}
+              {{ this.completion }}
             </p>
           </div>
         </div>
@@ -56,15 +56,13 @@
 
         <div>
           <p class="font-semibold text-gray-900">Total Time</p>
-          <p v-if="getQuizUserData(quiz)" class="text-gray-600">
-            {{ formatTime(getQuizUserData(quiz).time) }} Minutes
-          </p>
+          <p v-if="completed" class="text-gray-600">{{ time }} Minutes</p>
           <p v-else class="text-gray-600/30">N/A</p>
         </div>
 
         <div>
           <p class="font-semibold text-gray-900">Total Users</p>
-          <p class="text-gray-600">{{ quiz.users.length }}</p>
+          <p class="text-gray-600">{{ users }}</p>
         </div>
 
         <div class="flex items-center justify-center gap-3">
@@ -81,7 +79,7 @@
           </div>
         </div>
 
-        <div v-if="getQuizUserData(quiz)" class="flex items-center justify-center gap-3">
+        <div v-if="completed" class="flex items-center justify-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-full bg-pink-100">
             <icon-score />
           </div>
@@ -89,7 +87,7 @@
           <div>
             <p class="font-semibold text-gray-900">Points</p>
             <p class="text-gray-600">
-              {{ `${getQuizUserData(quiz).score}/${getQuizUserData(quiz).points}` }}
+              {{ `${score}/${points}` }}
             </p>
           </div>
         </div>
@@ -105,6 +103,7 @@ import IconBulb from '@/components/icons/IconBulb.vue'
 import IconLevel from '@/components/icons/IconLevel.vue'
 import IconScore from '@/components/icons/IconScore.vue'
 
+import { GetQuizGuests } from '@/services/api/resources.js'
 import { formatDate, formatTime } from '@/utils/helpers.js'
 
 export default {
@@ -119,25 +118,34 @@ export default {
   props: ['quiz'],
   data() {
     return {
-      storageUrl: `${import.meta.env.VITE_API_URL}/storage`
+      storageUrl: `${import.meta.env.VITE_API_URL}/storage`,
+      completed: false,
+      completion: undefined,
+      time: undefined,
+      users: 0,
+      score: 0,
+      points: 0
     }
   },
+  mounted() {
+    this.formatQuizUserData()
+  },
   methods: {
-    formatTime,
-    formatDate,
-    getQuizUserData(quiz) {
-      const id = quiz.users.findIndex((user) => user.id === this.user.id)
+    async formatQuizUserData() {
+      const { data } = await GetQuizGuests(this.quiz.id)
+      this.users = this.quiz.users_count + data[0].guest_count
 
-      if (id === -1) {
+      const userId = this.quiz.users.findIndex((user) => user.id === this.user.id)
+
+      if (userId === -1) {
         return null
       }
 
-      const completion = quiz.users[id].pivot.completed_at
-      const time = quiz.users[id].pivot.time
-      const score = quiz.users[id].pivot.score
-      const points = quiz.questions.reduce((acc, curr) => acc + curr.points, 0)
-
-      return { completion, time, score, points }
+      this.completed = true
+      this.completion = formatDate(this.quiz.users[userId].pivot.completed_at)
+      this.time = formatTime(this.quiz.users[userId].pivot.time)
+      this.score = this.quiz.users[userId].pivot.score
+      this.points = this.quiz.questions.reduce((acc, curr) => acc + curr.points, 0)
     }
   }
 }
