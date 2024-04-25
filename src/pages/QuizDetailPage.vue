@@ -66,7 +66,7 @@
                 class="flex gap-2 border-b border-gray-300 py-3 lg:border-b-0 lg:border-r lg:px-3 lg:py-0"
               >
                 <icon-rocket class="h-5 w-5" />
-                <span>{{ quiz.users_count }} Plays</span>
+                <span>{{ plays }} Plays</span>
               </div>
 
               <div class="flex gap-2 py-3 lg:py-0 lg:pl-3">
@@ -75,12 +75,13 @@
               </div>
             </div>
 
-            <button
+            <router-link
+              :to="`/quizzes/${id}/play`"
               v-if="canPlay"
-              class="order-last mt-10 h-14 w-full rounded-clg bg-purple font-inter text-lg font-semibold text-white lg:h-12 lg:w-80 lg:text-base"
+              class="order-last mt-10 flex h-14 w-full items-center justify-center rounded-clg bg-purple font-inter text-lg font-semibold text-white lg:h-12 lg:w-80 lg:text-base"
             >
               Start Quiz
-            </button>
+            </router-link>
           </div>
 
           <div class="hidden w-2/5 shrink-0 lg:block">
@@ -92,7 +93,7 @@
           </div>
         </div>
 
-        <div class="mb-16 border-t border-gray-300 py-8 font-inter lg:border-t-0">
+        <div class="border-t border-gray-300 py-8 font-inter lg:border-t-0">
           <span class="text-lg font-bold">Instructions</span>
           <p class="mt-3">{{ quiz.instructions }}</p>
         </div>
@@ -130,9 +131,9 @@ import IconRocket from '@/components/icons/IconRocket.vue'
 import IconTime from '@/components/icons/IconTime.vue'
 
 import QuizCard from '@/components/quizzes/QuizCard.vue'
-
 import toast from '@/mixins/toast.js'
-import { GetQuiz, GetSimilarQuizzes } from '@/services/api/resources.js'
+
+import { GetQuiz, GetQuizGuests, GetSimilarQuizzes } from '@/services/api/resources.js'
 import { formatTime } from '../utils/helpers.js'
 
 export default {
@@ -154,6 +155,7 @@ export default {
       quiz: {},
       similarQuizzes: [],
       points: 0,
+      plays: 0,
       storageUrl: `${import.meta.env.VITE_API_URL}/storage`,
       canPlay: true,
       isLoading: false
@@ -163,6 +165,7 @@ export default {
     this.id = this.$route.params.id
 
     this.getQuiz()
+    this.getQuizGuests()
     this.getSimilarQuizzes()
   },
   watch: {
@@ -170,6 +173,7 @@ export default {
       this.id = this.$route.params.id
 
       this.getQuiz()
+      this.getQuizGuests()
       this.getSimilarQuizzes()
     }
   },
@@ -201,6 +205,26 @@ export default {
         this.toast.hide()
       }
     },
+    async getQuizGuests() {
+      try {
+        this.isLoading = true
+
+        const { data } = await GetQuizGuests(this.id)
+        this.plays = this.quiz.users_count + data[0].guest_count
+
+        this.isLoading = false
+      } catch (err) {
+        const toastData = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message
+        }
+        this.setToastData(toastData)
+
+        this.toast.hide()
+      }
+    },
     async getSimilarQuizzes() {
       try {
         this.isLoading = true
@@ -210,7 +234,6 @@ export default {
 
         this.isLoading = false
       } catch (err) {
-        console.log(err)
         const toastData = {
           show: true,
           status: 'error',

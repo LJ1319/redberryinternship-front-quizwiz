@@ -24,3 +24,7 @@ export const GetQuiz = async (id) => {
 export const GetSimilarQuizzes = async (id) => {
   return axios.get(`/api/quizzes/${id}/similar`)
 }
+
+export const GetQuizGuests = async (id) => {
+  return axios.get(`/api/quizzes/${id}/guests`)
+}

@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import LandingPage from '@/pages/LandingPage.vue'
 import QuizListingPage from '@/pages/QuizListingPage.vue'
-import QuizDetail from '@/pages/QuizDetail.vue'
+import QuizDetailPage from '@/pages/QuizDetailPage.vue'
+import QuizPlayPage from '@/pages/QuizPlayPage.vue'
 import SignupPage from '@/pages/auth/SignupPage.vue'
 import ResendVerificationPage from '@/pages/auth/ResendVerificationPage.vue'
 import LoginPage from '@/pages/auth/LoginPage.vue'
@@ -42,9 +43,16 @@ const router = createRouter({
       path: '/quizzes/:id',
       name: 'quiz-detail',
       components: {
-        default: QuizDetail,
+        default: QuizDetailPage,
         header: PageHeader,
         footer: PageFooter
+      }
+    },
+    {
+      path: '/quizzes/:id/play',
+      name: 'quiz-play',
+      components: {
+        default: QuizPlayPage
       }
     },
     {
@@ -94,9 +102,11 @@ router.beforeEach((to) => {
   const user = getCookie('user')
   const isAuth = user ? JSON.parse(user).isAuth : false
 
-  const whiteList = ['quizzes', 'quiz-detail']
+  const whiteList = ['quizzes', 'quiz-detail', 'quiz-play']
+  const isRestricted =
+    to.name !== 'landing' && !to.meta.forAuth && isAuth && !whiteList.includes(to.name)
 
-  if (isAuth && !to.meta.forAuth && to.name !== 'landing' && !whiteList.includes(to.name)) {
+  if (isRestricted) {
     return { name: 'landing' }
   }
 })
