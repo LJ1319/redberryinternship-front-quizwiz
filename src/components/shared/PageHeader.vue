@@ -39,7 +39,7 @@
         class="hidden items-center gap-5 font-raleway text-sm font-bold lg:flex"
       >
         <button
-          class="h-max w-24 rounded bg-black shadow-cxs transition hover:-translate-x-1 hover:-translate-y-1 hover:border hover:border-black hover:bg-white hover:shadow-cxl focus:outline-none"
+          class="h-max w-24 rounded bg-black shadow-cxs transition hover:-translate-x-1 hover:-translate-y-1 hover:border hover:border-black hover:bg-white hover:shadow-c2xl focus:outline-none"
         >
           <router-link
             to="/signup"

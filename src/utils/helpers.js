@@ -16,8 +16,8 @@ export function getCookie(cName) {
   return res
 }
 
-export function removeBodyScroll(modalIsOpen) {
-  if (modalIsOpen && window.innerWidth < 1440) {
+export function removeBodyScroll(modalIsOpen, width = 1440) {
+  if (modalIsOpen && window.innerWidth < width) {
     document.body.classList.add('overflow-hidden')
   } else {
     document.body.classList.remove('overflow-hidden')
@@ -46,18 +46,13 @@ export function formatDate(publishDate) {
   return new Date(publishDate).toLocaleDateString('en-us', options)
 }
 
-export function formatTime(hms) {
-  const hours = new Date('1970-01-01T' + hms).getHours()
-  const minutes = new Date('1970-01-01T' + hms).getMinutes()
-  const seconds = new Date('1970-01-01T' + hms).getSeconds()
-
-  return Math.ceil(hours * 60 + minutes + seconds / 60)
-}
-
 export function diffArrays(arr1, arr2) {
   if (!arr1 || !arr2) return
 
-  return arr1.sort().join(',') !== arr2.sort().join(',')
+  const lArr1 = [...arr1]
+  const lArr2 = [...arr2]
+
+  return lArr1.sort().join(',') !== lArr2.sort().join(',')
 }
 
 export function isObjEmpty(obj) {

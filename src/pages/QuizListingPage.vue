@@ -14,10 +14,7 @@
       <icon-spinner class="animate-spin" />
     </div>
 
-    <div
-      v-if="quizzes.length > 0"
-      class="mb-12 flex w-full flex-col items-center gap-8 font-inter lg:my-12"
-    >
+    <div v-else class="mb-12 flex w-full flex-col items-center gap-8 font-inter lg:my-12">
       <quiz-grid :quizzes="quizzes" />
 
       <button
@@ -87,7 +84,6 @@ export default {
       canLoadMore: true,
       isLoading: false,
       filterIsOpen: false,
-      oldCount: 0,
       filtersCount: 0
     }
   },
@@ -130,6 +126,8 @@ export default {
       if (this.filtersCount < 0) {
         this.filtersCount = 0
       }
+
+      this.$router.replace({ query: { ...this.$route.query, count: this.filtersCount } })
     },
     '$route.query.sort'(newVal, oldVal) {
       if (newVal && !oldVal) {
@@ -143,6 +141,8 @@ export default {
       if (this.filtersCount < 0) {
         this.filtersCount = 0
       }
+
+      this.$router.replace({ query: { ...this.$route.query, count: this.filtersCount } })
     },
     canLoadMore(val) {
       if (!val) {
@@ -212,7 +212,7 @@ export default {
 
         this.isLoading = false
 
-        this.canLoadMore = this.currentPage < data.last_page
+        this.canLoadMore = this.currentPage < data.meta.last_page
       } catch (err) {
         const toastData = {
           show: true,
@@ -238,7 +238,7 @@ export default {
         const { data } = await GetQuizzes(params)
         this.quizzes.push(...data.data)
 
-        this.canLoadMore = this.currentPage < data.last_page
+        this.canLoadMore = this.currentPage < data.meta.last_page
 
         this.isLoading = false
       } catch (err) {

@@ -3,8 +3,8 @@
     <span class="relative flex items-center justify-center">
       <Field
         v-slot="{ field }"
-        :name="name"
         type="checkbox"
+        :name="name"
         :value="true"
         :unchecked-value="false"
         :rules="rules"
