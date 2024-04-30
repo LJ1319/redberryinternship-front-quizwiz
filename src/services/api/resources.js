@@ -1,7 +1,11 @@
 import axios from '@/plugins/axios/index.js'
 
+export const GetSettings = async () => {
+  return axios.get('/api/settings')
+}
+
 export const GetCategories = async () => {
-  return axios.get(`/api/categories`)
+  return axios.get('/api/categories')
 }
 
 export const GetLevels = async () => {
@@ -9,7 +13,7 @@ export const GetLevels = async () => {
 }
 
 export const GetQuizzes = async (params) => {
-  return axios.get(`/api/quizzes`, {
+  return axios.get('/api/quizzes', {
     params: {
       page: params.page,
       ...params

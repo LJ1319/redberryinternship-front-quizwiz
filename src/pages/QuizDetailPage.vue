@@ -31,7 +31,7 @@
               </div>
             </div>
 
-            <h1 class="order-2 font-raleway text-[2.5rem] font-bold text-gray-900 lg:order-1">
+            <h1 class="text-c4xl order-2 font-raleway font-bold text-gray-900 lg:order-1">
               {{ quiz.name }}
             </h1>
 
@@ -173,14 +173,12 @@ export default {
     this.id = this.$route.params.id
 
     this.getQuiz()
-    this.getSimilarQuizzes()
   },
   watch: {
     '$route.params.id'() {
       this.id = this.$route.params.id
 
       this.getQuiz()
-      this.getSimilarQuizzes()
     }
   },
   methods: {
@@ -189,6 +187,8 @@ export default {
         this.isLoading = true
 
         const { data } = await GetQuiz(this.id)
+        await this.getSimilarQuizzes()
+
         this.quiz = data
         this.points = this.quiz.questions.reduce((acc, curr) => acc + curr.points, 0)
         this.canPlay = !this.quiz.users.some((user) => user.id === this.user.id)
@@ -208,12 +208,8 @@ export default {
     },
     async getSimilarQuizzes() {
       try {
-        this.isLoading = true
-
         const { data } = await GetSimilarQuizzes(this.id)
         this.similarQuizzes = data
-
-        this.isLoading = false
       } catch (err) {
         const toastData = {
           show: true,
