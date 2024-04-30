@@ -46,32 +46,42 @@
             </div>
 
             <div
-              class="order-last mt-4 flex flex-col font-inter text-sm font-semibold text-gray-500 lg:flex-row"
+              class="order-last mt-4 flex flex-col gap-0 font-inter text-sm font-semibold text-gray-500 lg:flex-row lg:gap-3"
             >
-              <div
-                class="flex gap-2 border-b border-gray-300 py-3 lg:border-b-0 lg:border-r lg:py-0 lg:pr-3"
-              >
-                <icon-hashtag class="h-5 w-5" />
-                <span>{{ quiz.questions_count }} Questions</span>
+              <div class="flex items-center gap-2 border-b border-gray-300 py-3 lg:border-0 lg:p-0">
+                <div class="flex gap-2">
+                  <icon-hashtag class="h-5 w-5" />
+                  <span>{{ quiz.questions_count }} Questions</span>
+                </div>
+
+                <div class="hidden h-4 w-px bg-gray-300 lg:block"></div>
               </div>
 
-              <div
-                class="flex gap-2 border-b border-gray-300 py-3 lg:border-b-0 lg:border-r lg:px-3 lg:py-0"
-              >
-                <icon-diploma class="h-5 w-5" />
-                <span>{{ points }} Points</span>
+              <div class="flex items-center gap-2 border-b border-gray-300 py-3 lg:border-0 lg:p-0">
+                <div class="flex gap-2">
+                  <icon-diploma class="h-5 w-5" />
+                  <span>{{ points }} Points</span>
+                </div>
+
+                <div class="hidden h-4 w-px bg-gray-300 lg:block"></div>
               </div>
 
-              <div
-                class="flex gap-2 border-b border-gray-300 py-3 lg:border-b-0 lg:border-r lg:px-3 lg:py-0"
-              >
-                <icon-rocket class="h-5 w-5" />
-                <span>{{ plays }} Plays</span>
+              <div class="flex items-center gap-2 border-b border-gray-300 py-3 lg:border-0 lg:p-0">
+                <div class="flex gap-2">
+                  <icon-rocket class="h-5 w-5" />
+                  <span>{{ quiz.total_users }} Plays</span>
+                </div>
+
+                <div class="hidden h-4 w-px bg-gray-300 lg:block"></div>
               </div>
 
-              <div class="flex gap-2 py-3 lg:py-0 lg:pl-3">
-                <icon-time class="h-5 w-5" />
-                <span class="lowercase">{{ formatTime(quiz.duration) }} m</span>
+              <div class="flex items-center gap-2 py-3 lg:border-0 lg:p-0">
+                <div class="flex gap-2">
+                  <icon-time class="h-5 w-5" />
+                  <span class="lowercase">{{ quiz.duration }} m</span>
+                </div>
+
+                <div class="hidden h-4 w-px bg-gray-300 lg:block"></div>
               </div>
             </div>
 
@@ -133,8 +143,7 @@ import IconTime from '@/components/icons/IconTime.vue'
 import QuizCard from '@/components/quizzes/QuizCard.vue'
 import toast from '@/mixins/toast.js'
 
-import { GetQuiz, GetQuizGuests, GetSimilarQuizzes } from '@/services/api/resources.js'
-import { formatTime } from '../utils/helpers.js'
+import { GetQuiz, GetSimilarQuizzes } from '@/services/api/resources.js'
 
 export default {
   components: {
@@ -153,11 +162,10 @@ export default {
     return {
       id: null,
       quiz: {},
-      similarQuizzes: [],
       points: 0,
-      plays: 0,
       storageUrl: `${import.meta.env.VITE_API_URL}/storage`,
       canPlay: true,
+      similarQuizzes: [],
       isLoading: false
     }
   },
@@ -165,7 +173,6 @@ export default {
     this.id = this.$route.params.id
 
     this.getQuiz()
-    this.getQuizGuests()
     this.getSimilarQuizzes()
   },
   watch: {
@@ -173,12 +180,10 @@ export default {
       this.id = this.$route.params.id
 
       this.getQuiz()
-      this.getQuizGuests()
       this.getSimilarQuizzes()
     }
   },
   methods: {
-    formatTime,
     async getQuiz() {
       try {
         this.isLoading = true
@@ -186,31 +191,7 @@ export default {
         const { data } = await GetQuiz(this.id)
         this.quiz = data
         this.points = this.quiz.questions.reduce((acc, curr) => acc + curr.points, 0)
-
-        const played = this.quiz.users.some((user) => user.id === this.user.id)
-        if (this.user.isAuth && played) {
-          this.canPlay = false
-        }
-
-        this.isLoading = false
-      } catch (err) {
-        const toastData = {
-          show: true,
-          status: 'error',
-          title: 'Error occurred',
-          text: err.response.data.message
-        }
-        this.setToastData(toastData)
-
-        this.toast.hide()
-      }
-    },
-    async getQuizGuests() {
-      try {
-        this.isLoading = true
-
-        const { data } = await GetQuizGuests(this.id)
-        this.plays = this.quiz.users_count + data[0].guest_count
+        this.canPlay = !this.quiz.users.some((user) => user.id === this.user.id)
 
         this.isLoading = false
       } catch (err) {

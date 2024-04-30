@@ -25,6 +25,9 @@ export const GetSimilarQuizzes = async (id) => {
   return axios.get(`/api/quizzes/${id}/similar`)
 }
 
-export const GetQuizGuests = async (id) => {
-  return axios.get(`/api/quizzes/${id}/guests`)
+export const SubmitQuiz = async (id, data) => {
+  return axios.post(`/api/quizzes/${id}/submit`, {
+    checkedAnswers: data.checkedAnswers,
+    time: data.time
+  })
 }

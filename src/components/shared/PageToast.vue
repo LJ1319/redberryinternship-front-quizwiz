@@ -2,7 +2,7 @@
   <teleport to="body">
     <div
       v-if="show"
-      class="fixed left-0 top-6 z-50 flex h-24 w-80 items-center rounded-lg bg-gray-800 shadow-c3xl lg:left-auto lg:right-24 lg:top-10"
+      class="fixed left-0 top-6 z-50 flex h-24 w-80 items-center rounded-lg bg-gray-800 shadow-c5xl lg:left-auto lg:right-24 lg:top-10"
     >
       <div class="flex items-center gap-3 px-4 py-3">
         <div class="absolute -left-16 -top-16 h-52 w-52">

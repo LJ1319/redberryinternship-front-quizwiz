@@ -37,6 +37,9 @@ export default {
         },
         purple: {
           DEFAULT: '#4B69FD'
+        },
+        pink: {
+          DEFAULT: '#E72A8B'
         }
       },
       borderRadius: {
@@ -46,11 +49,13 @@ export default {
         cxs: '0px 0px 0px 0px rgba(0, 0, 0, 1)',
         csm: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
         cmd: '0px 1px 4px 0px rgba(0, 0, 0, 0.15)',
-        clg: '0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
-        cxl: '4px 4px 0px 0px rgba(0, 0, 0, 1)',
-        c2xl: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)',
-        c3xl: '0px 8px 10px 0px rgba(0, 0, 0, 0.2), 0px 6px 30px 0px rgba(0, 0, 0, 0.12), 0px 16px 24px 0px rgba(0, 0, 0, 0.14)',
-        c4xl: '0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)'
+        clg: '0px 2px 14px 0px rgba(0, 0, 0, 0.15)',
+        cxl: '0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
+        c2xl: '4px 4px 0px 0px rgba(0, 0, 0, 1)',
+        c3xl: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)',
+        c4xl: '0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -4px rgba(16, 24, 40, 0.08)',
+        c5xl: '0px 8px 10px 0px rgba(0, 0, 0, 0.2), 0px 6px 30px 0px rgba(0, 0, 0, 0.12), 0px 16px 24px 0px rgba(0, 0, 0, 0.14)',
+        c6xl: '0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)'
       }
     }
   },

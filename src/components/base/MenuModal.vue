@@ -1,5 +1,5 @@
 <template>
-  <page-backdrop v-on:click="close" />
+  <page-backdrop v-on:click="close" class="lg:hidden" />
 
   <div
     ref="menu"

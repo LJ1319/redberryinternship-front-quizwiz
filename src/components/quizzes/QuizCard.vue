@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="`/quizzes/${quiz.id}`"
-    class="group flex h-max flex-col gap-8 p-6 shadow-c2xl hover:rounded-xl hover:ring-1 hover:ring-black focus:rounded-xl focus:outline-none focus:ring-1 focus:ring-black"
+    class="group flex h-max flex-col gap-8 p-6 shadow-c3xl hover:rounded-xl hover:ring-1 hover:ring-black focus:rounded-xl focus:outline-none focus:ring-1 focus:ring-black"
   >
     <img :src="`${storageUrl}/${quiz.image}`" alt="Quiz Image" />
 
@@ -38,7 +38,7 @@
           <div>
             <p class="font-semibold text-gray-900">Completed</p>
             <p class="text-gray-600">
-              {{ this.completion }}
+              {{ completion }}
             </p>
           </div>
         </div>
@@ -62,7 +62,7 @@
 
         <div>
           <p class="font-semibold text-gray-900">Total Users</p>
-          <p class="text-gray-600">{{ users }}</p>
+          <p class="text-gray-600">{{ quiz.total_users }}</p>
         </div>
 
         <div class="flex items-center justify-center gap-3">
@@ -103,8 +103,9 @@ import IconBulb from '@/components/icons/IconBulb.vue'
 import IconLevel from '@/components/icons/IconLevel.vue'
 import IconScore from '@/components/icons/IconScore.vue'
 
-import { GetQuizGuests } from '@/services/api/resources.js'
-import { formatDate, formatTime } from '@/utils/helpers.js'
+import toast from '@/mixins/toast.js'
+
+import { formatDate } from '@/utils/helpers.js'
 
 export default {
   components: {
@@ -115,6 +116,7 @@ export default {
     IconScore
   },
   inject: ['user'],
+  mixins: [toast],
   props: ['quiz'],
   data() {
     return {
@@ -122,9 +124,9 @@ export default {
       completed: false,
       completion: undefined,
       time: undefined,
-      users: 0,
       score: 0,
-      points: 0
+      points: 0,
+      isLoading: false
     }
   },
   mounted() {
@@ -132,20 +134,34 @@ export default {
   },
   methods: {
     async formatQuizUserData() {
-      const { data } = await GetQuizGuests(this.quiz.id)
-      this.users = this.quiz.users_count + data[0].guest_count
+      try {
+        this.isLoading = true
 
-      const userId = this.quiz.users.findIndex((user) => user.id === this.user.id)
+        const userId = this.quiz.users.findIndex((user) => user.id === this.user.id)
 
-      if (userId === -1) {
-        return null
+        if (userId === -1) {
+          this.isLoading = false
+          return null
+        }
+
+        this.completed = true
+        this.completion = formatDate(this.quiz.users[userId].pivot.created_at)
+        this.time = Math.ceil(this.quiz.users[userId].pivot.time / 60)
+        this.score = this.quiz.users[userId].pivot.score
+        this.points = this.quiz.questions.reduce((acc, curr) => acc + curr.points, 0)
+
+        this.isLoading = false
+      } catch (err) {
+        const toastData = {
+          show: true,
+          status: 'error',
+          title: 'Error occurred',
+          text: err.response.data.message
+        }
+        this.setToastData(toastData)
+
+        this.toast.hide()
       }
-
-      this.completed = true
-      this.completion = formatDate(this.quiz.users[userId].pivot.completed_at)
-      this.time = formatTime(this.quiz.users[userId].pivot.time)
-      this.score = this.quiz.users[userId].pivot.score
-      this.points = this.quiz.questions.reduce((acc, curr) => acc + curr.points, 0)
     }
   }
 }
