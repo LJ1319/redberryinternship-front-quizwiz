@@ -14,6 +14,9 @@ export default {
         inter: ['Inter', ...defaultTheme.fontFamily.sans],
         raleway: ['Raleway', ...defaultTheme.fontFamily.sans]
       },
+      fontSize: {
+        c4xl: '2.5rem'
+      },
       lineHeight: {
         12: '3rem'
       },

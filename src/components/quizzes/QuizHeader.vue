@@ -6,7 +6,7 @@
       class="flex w-full items-center justify-between gap-8 border-b border-gray-300 pb-5 lg:border-0 lg:p-0"
     >
       <h1
-        class="hidden text-center font-raleway text-[2.5rem] font-bold capitalize lg:block lg:text-start"
+        class="hidden text-center font-raleway text-c4xl font-bold capitalize lg:block lg:text-start"
       >
         {{ quiz.name }}
       </h1>

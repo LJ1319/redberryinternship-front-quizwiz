@@ -9,6 +9,7 @@ import ResendVerificationPage from '@/pages/auth/ResendVerificationPage.vue'
 import LoginPage from '@/pages/auth/LoginPage.vue'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage.vue'
 import ResetPasswordPage from '@/pages/auth/ResetPasswordPage.vue'
+import ErrorPage from '@/pages/ErrorPage.vue'
 
 import PageHeader from '@/components/shared/PageHeader.vue'
 import PageFooter from '@/components/shared/PageFooter.vue'
@@ -17,6 +18,9 @@ import { getCookie } from '@/utils/helpers.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    return { top: 0 }
+  },
   routes: [
     {
       path: '/',
@@ -94,6 +98,15 @@ const router = createRouter({
       meta: {
         forAuth: false
       }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'error',
+      components: {
+        default: ErrorPage,
+        header: PageHeader,
+        footer: PageFooter
+      }
     }
   ]
 })
@@ -102,7 +115,7 @@ router.beforeEach((to) => {
   const user = getCookie('user')
   const isAuth = user ? JSON.parse(user).isAuth : false
 
-  const whiteList = ['quizzes', 'quiz-detail', 'quiz-play']
+  const whiteList = ['quizzes', 'quiz-detail', 'quiz-play', 'error']
   const isRestricted =
     to.name !== 'landing' && !to.meta.forAuth && isAuth && !whiteList.includes(to.name)
 

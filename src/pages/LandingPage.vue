@@ -35,6 +35,7 @@
 
 <script>
 import InfoLink from '@/components/landing/InfoLink.vue'
+
 import { GetCategories, GetQuizzes } from '@/services/api/resources.js'
 
 export default {
@@ -55,7 +56,7 @@ export default {
     async getQuizzes() {
       try {
         const { data } = await GetQuizzes({ page: this.currentPage })
-        this.quizCount = data.total ?? 200
+        this.quizCount = data.meta.total ?? 200
       } catch (err) {
         const toastData = {
           show: true,
