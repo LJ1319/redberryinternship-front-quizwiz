@@ -2,7 +2,7 @@
 
 ---
 
-QuizWiz is a platform, where we have access to vast number of quizzes of different genres. This app uses QuizWiz Api which you can se at https://github.com/RedberryInternship/api-quizwiz-luka-jikia.git
+QuizWiz is a platform, where we have access to vast number of quizzes of different genres. This app uses [QuizWiz API](https://github.com/RedberryInternship/api-quizwiz-luka-jikia.git).
 
 ---
 
