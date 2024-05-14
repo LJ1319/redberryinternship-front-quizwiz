@@ -68,7 +68,7 @@
         <div class="flex items-center justify-center gap-3">
           <div
             class="flex h-10 w-10 items-center justify-center rounded-full"
-            :style="{ background: quiz.level.bg_color }"
+            :style="{ backgroundColor: quiz.level.bg_color }"
           >
             <icon-level class="stroke-violet-500" :style="{ stroke: quiz.level.color }" />
           </div>

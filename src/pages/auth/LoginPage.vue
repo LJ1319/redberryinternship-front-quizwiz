@@ -1,6 +1,6 @@
 <template>
   <div class="justify-between lg:flex">
-    <page-cover style="background-image: url('src/assets/images/LoginCover.svg')" />
+    <page-cover src="src/assets/images/LoginCover.svg" />
 
     <split-content>
       <back-button />
