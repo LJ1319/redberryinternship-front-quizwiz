@@ -1,7 +1,7 @@
 <template>
   <div class="relative overflow-hidden lg:h-screen">
     <div class="p-12 lg:px-24 lg:pb-28 lg:pt-0">
-      <img src="../assets/images/HeroTitle.svg" alt="QuizWiz Logo" class="lg:h-64" />
+      <img src="@/assets/images/HeroTitle.svg" alt="QuizWiz Logo" class="lg:h-64" />
       <h1 class="w-max font-raleway text-xl font-semibold text-zinc-500 lg:text-3xl">
         Play with us, Explore with us
       </h1>

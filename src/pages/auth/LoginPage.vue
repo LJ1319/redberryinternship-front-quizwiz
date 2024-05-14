@@ -1,6 +1,10 @@
 <template>
   <div class="justify-between lg:flex">
-    <page-cover src="src/assets/images/LoginCover.svg" />
+    <div class="hidden h-screen w-1/2 lg:block">
+      <img src="@/assets/images/LoginCover.svg" alt="" class="h-full w-full" />
+
+      <page-logo />
+    </div>
 
     <split-content>
       <back-button />
@@ -12,7 +16,7 @@
 </template>
 
 <script>
-import PageCover from '@/components/shared/PageCover.vue'
+import PageLogo from '@/components/shared/PageLogo.vue'
 import SplitContent from '@/components/base/SplitContent.vue'
 import BackButton from '@/components/base/buttons/BackButton.vue'
 import LoginForm from '@/components/auth/login/LoginForm.vue'
@@ -24,7 +28,7 @@ import { VerifyEmail } from '@/services/api/auth.js'
 
 export default {
   components: {
-    PageCover,
+    PageLogo,
     SplitContent,
     BackButton,
     LoginForm,
